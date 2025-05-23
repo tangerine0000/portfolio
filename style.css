@@ -1,140 +1,444 @@
+/* Modern CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+/* Custom Properties */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --text-color: #1f2937;
+    --light-text: #6b7280;
+    --background: #ffffff;
+    --section-bg: #f3f4f6;
+    --transition: all 0.3s ease;
+    --accent-color: #2563eb;
+    --accent-hover: #1e40af;
+    --border-color: #e5e7eb;
+    --card-bg: #ffffff;
+    --bg-color: #ffffff;
+}
+
 body {
-    margin: 0;
-    font-family: 'Arial';
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
+    color: var(--text-color);
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Header Styles */
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+    background-color: var(--background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5rem;
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
     display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-nav ul li {
-    margin: 0 15px;
+    gap: 2rem;
+    list-style: none;
 }
 
 nav ul li a {
-    color: #fff;
+    color: var(--text-color);
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: var(--transition);
 }
 
 nav ul li a:hover {
-    color: #00bcd4;
+    color: var(--primary-color);
+    background-color: var(--section-bg);
+}
+
+/* Main Content */
+main {
+    margin-top: 5rem;
+    padding: 2rem;
+    flex: 1 0 auto;
 }
 
 section {
-    padding: 40px 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background-color: var(--background);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 section h2 {
-    color: #007bff;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2rem;
+    position: relative;
 }
 
+section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+/* Project Items */
 .project-item {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    background-color: var(--section-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: var(--transition);
 }
 
-.project-item:last-child {
-    border-bottom: none;
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .project-item h3 {
-    color: #333;
+    color: var(--primary-color);
     font-size: 1.5rem;
-    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.project-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-item p {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.project-item strong {
+    color: var(--primary-color);
 }
 
 .project-item a {
-    color: #007bff; /* Blue links for projects */
+    display: inline-block;
+    color: var(--primary-color);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 0.5rem;
+    margin-right: 0.5rem;
+    transition: var(--transition);
 }
 
 .project-item a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Contact Section */
+#contact {
+    text-align: center;
+}
+
+#contact p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+#contact a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+#contact a:hover {
+    color: var(--secondary-color);
     text-decoration: underline;
 }
 
-/* Footer Styles */
+/* Footer */
 footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: #fff;
-    margin-top: 40px;
+    background-color: var(--section-bg);
+    padding: 2rem;
+    margin-top: auto;
+    color: var(--light-text);
+    width: 100%;
 }
 
-/* --- Responsive Adjustments --- */
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
-/* For screens smaller than 768px (e.g., tablets and phones) */
-@media screen and (max-width: 768px) {
-    header h1 {
-        font-size: 2rem; /* Make header title a bit smaller */
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
     }
 
     nav ul {
-        flex-direction: column; /* Stack navigation links vertically */
-        align-items: center; /* Center them horizontally */
-    }
-
-    nav ul li {
-        margin: 10px 0; /* Add vertical space between stacked links */
+        gap: 1rem;
     }
 
     section {
-        margin: 20px 10px; /* Reduce horizontal margin on smaller screens */
-        padding: 30px 15px; /* Adjust padding */
+        padding: 2rem 1rem;
     }
 
-    section h2 {
-        font-size: 1.7rem; /* Smaller section headings */
+    .project-item {
+        padding: 1.5rem;
     }
 }
 
-/* For even smaller screens, like typical smartphones (e.g., less than 480px) */
-@media screen and (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    section {
-        margin: 15px 5px;
-        padding: 25px 10px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    section h2 {
-        font-size: 1.5rem;
+section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* About Page Styles */
+.about-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.education, .background {
+    margin-bottom: 2.5rem;
+}
+
+.education h3, .background h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.skills {
+    margin-top: 2rem;
+}
+
+.skills h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-tags span {
+    background-color: var(--section-bg);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.skill-tags span:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Contact Page Styles */
+.contact-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    margin-top: 2rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info {
+    padding: 1rem;
+}
+
+.contact-info h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.contact-item i {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+.contact-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--accent-color);
+}
+
+.contact-form {
+    padding: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.btn {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: var(--accent-hover);
+}
+
+/* Responsive Design for Contact Page */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
     }
-
-    .project-item h3 {
-        font-size: 1.3rem;
+    
+    .contact-info {
+        text-align: center;
+    }
+    
+    .contact-item {
+        justify-content: center;
     }
 }
