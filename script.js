@@ -45,3 +45,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Add scroll event listener for compact navigation
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Theme switching
+const themeSwitcher = document.querySelector('.theme-switcher');
+const themes = ['warm', 'cool'];
+let currentThemeIndex = 0;
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    currentThemeIndex = themes.indexOf(savedTheme);
+} else {
+    // Set warm theme as default
+    document.documentElement.setAttribute('data-theme', 'warm');
+    localStorage.setItem('theme', 'warm');
+}
+
+themeSwitcher.addEventListener('click', () => {
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    const newTheme = themes[currentThemeIndex];
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+});
