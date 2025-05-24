@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan Nguyen - Portfolio</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <title>About - Tan Nguyen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <button class="theme-switcher" aria-label="Switch theme">
+        <i class="fas fa-palette"></i>
+    </button>
     <header>
         <nav>
-            <h1>Tan's Portfolio</h1>
+            <h1>Tan Nguyen</h1>
             <ul>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -21,12 +24,6 @@
             </ul>
         </nav>
     </header>
-
-    <button class="theme-switcher" aria-label="Toggle theme">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
-    </button>
 
     <main>
         <section id="about">
@@ -46,39 +43,55 @@
 
                     <div class="skills">
                         <h3>Skills & Technologies</h3>
-                        <div class="skill-tags">
-                            <span>JavaScript</span>
-                            <span>Node.js</span>
-                            <span>Express</span>
-                            <span>MongoDB</span>
-                            <span>SQLite</span>
-                            <span>RESTful APIs</span>
-                            <span>CLI Development</span>
-                            <span>Artificial Intelligence</span>
-                            <span>Machine Learning</span>
+                        <div class="skill-categories">
+                            <div class="skill-category">
+                                <h4>Frontend Development</h4>
+                                <div class="skill-tags">
+                                    <span>HTML5</span>
+                                    <span>CSS3</span>
+                                    <span>JavaScript</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h4>Backend Development</h4>
+                                <div class="skill-tags">
+                                    <span>Node.js</span>
+                                    <span>Express</span>
+                                    <span>RESTful APIs</span>
+                                    <span>MongoDB</span>
+                                    <span>SQLite</span>
+                                    <span>PostgreSQL</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h4>AI & Machine Learning</h4>
+                                <div class="skill-tags">
+                                    <span>Python</span>
+                                    <span>TensorFlow</span>
+                                    <span>PyTorch</span>
+                                    <span>Natural Language Processing</span>
+                                    <span>Computer Vision</span>
+                                    <span>Deep Learning</span>
+                                    <span>Ollama</span>
+                                    <span>AI Agents</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <h4>Tools & Others</h4>
+                                <div class="skill-tags">
+                                    <span>Git</span>
+                                    <span>Docker</span>
+                                    <span>CLI Development</span>
+                                    <span>Linux</span>
+                                    <span>Agile Methodologies</span>
+                                    <span>Problem Solving</span>
+                                    <span>Streamlit</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2>My Projects</h2>
-            <div class="project-item">
-                <h3>Project 1</h3>
-                <p>Description of project 1</p>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <span>email@example.com</span>
                     </div>
                 </div>
             </div>
@@ -87,10 +100,15 @@
 
     <footer>
         <div class="footer-content">
-            <p>&copy; 2024 Tan's Portfolio. All rights reserved.</p>
+            <p>&copy; 2025 Tan Nguyen. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/tangerine0000" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/sperc/" target="_blank">LinkedIn</a>
+                <a href="mailto:tan.personal.mail@gmail.com">Email</a>
+            </div>
         </div>
     </footer>
 
-    <script type="module" src="js/main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 
