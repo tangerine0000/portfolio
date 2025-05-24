@@ -29,8 +29,8 @@ body {
     --secondary-color: #9a3412;
     --text-color: #1f2937;
     --light-text: #6b7280;
-    --background: #1c1917;
-    --section-bg: #fef3c7;
+    --background: #fef3c7;
+    --section-bg: #ffffff;
     --nav-bg: #fcd34d;
     --transition: all 0.3s ease;
     --accent-color: #c2410c;
@@ -46,7 +46,7 @@ body {
     --secondary-color: #0e7490;
     --text-color: #1f2937;
     --light-text: #6b7280;
-    --background: #164e63;
-    --section-bg: #e0f2fe;
+    --background: #e0f2fe;
+    --section-bg: #ffffff;
     --nav-bg: #7dd3fc;
 } 
