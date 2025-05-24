@@ -46,13 +46,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Add scroll event listener for compact navigation
-window.addEventListener('scroll', function() {
+// Remove all existing scroll event listeners
+window.removeEventListener('scroll', function() {
     const header = document.querySelector('header');
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
+    }
+});
+
+window.removeEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 50) {
+        header.classList.add('header-scrolled');
+    } else {
+        header.classList.remove('header-scrolled');
+    }
+    lastScroll = currentScroll;
+});
+
+// Simple scroll event listener for nav
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+        nav.classList.add('small');
+    } else {
+        nav.classList.remove('small');
+    }
+});
+
+// Make nav shrink when scrolling
+window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+        nav.classList.add('py-3', 'px-6', 'rounded-2xl');
+        nav.querySelector('h1').classList.add('text-2xl');
+        nav.querySelectorAll('a').forEach(link => {
+            link.classList.add('px-4', 'py-2', 'text-sm');
+        });
+    } else {
+        nav.classList.remove('py-3', 'px-6', 'rounded-2xl');
+        nav.querySelector('h1').classList.remove('text-2xl');
+        nav.querySelectorAll('a').forEach(link => {
+            link.classList.remove('px-4', 'py-2', 'text-sm');
+        });
     }
 });
 

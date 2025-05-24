@@ -53,7 +53,6 @@ body {
 
 /* Header Styles */
 header {
-    background-color: transparent;
     position: fixed;
     top: 0;
     left: 50%;
@@ -80,11 +79,26 @@ nav {
     transition: all 0.3s ease;
 }
 
+nav.shrink {
+    padding: 0.8rem 1.5rem;
+    border-radius: 1rem;
+}
+
+nav.shrink h1 {
+    font-size: 1.5rem;
+}
+
+nav.shrink ul li a {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
 nav h1 {
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary-color);
     text-align: left;
+    transition: font-size 0.3s ease;
 }
 
 nav ul {
@@ -100,7 +114,7 @@ nav ul li a {
     font-weight: 500;
     padding: 0.8rem 1.5rem;
     border-radius: 0.5rem;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     font-size: 1.1rem;
 }
 
@@ -108,26 +122,6 @@ nav ul li a:hover {
     color: var(--primary-color);
     background-color: var(--section-bg);
     transform: translateY(-2px);
-}
-
-/* Compact navigation styles */
-header.scrolled {
-    padding: 0;
-}
-
-header.scrolled nav {
-    max-width: 800px;
-    padding: 0.8rem 1.5rem;
-    border-radius: 1rem;
-}
-
-header.scrolled nav h1 {
-    font-size: 1.5rem;
-}
-
-header.scrolled nav ul li a {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
 }
 
 /* Main Content */
