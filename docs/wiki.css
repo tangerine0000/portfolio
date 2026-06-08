@@ -1,0 +1,165 @@
+/* =====================================================================
+   Codebase wiki — layout only.
+   Design tokens + prose typography are reused from ../style.css
+   (:root inks, grain background, .post-body headings/code/lists).
+   ===================================================================== */
+
+body {
+    display: block;            /* override the site's flex-column body */
+}
+
+.wiki-topbar {
+    background: var(--ink-black);
+    color: var(--paper);
+    border-bottom: 3px solid var(--ink-1);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.wiki-topbar .wiki-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+}
+
+.wiki-topbar .wiki-title b { color: var(--ink-1-soft); }
+
+.wiki-topbar a {
+    color: var(--paper);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 3px solid var(--ink-1);
+    padding: 0.2rem 0.4rem;
+}
+
+.wiki-topbar a:hover { background: var(--ink-1); color: var(--ink-black); }
+
+.wiki {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Sidebar (rendered by docs.js) */
+.wiki-nav {
+    position: sticky;
+    top: 1.5rem;
+    background: var(--paper);
+    border: 3px solid var(--ink-black);
+    border-radius: var(--radius);
+    box-shadow: 6px 6px 0 var(--ink-2);
+    padding: 1.2rem;
+}
+
+.wiki-nav h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 0.8rem;
+}
+
+.wiki-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+
+.wiki-nav a {
+    display: block;
+    text-decoration: none;
+    color: var(--ink-black);
+    font-weight: 600;
+    padding: 0.45rem 0.7rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.wiki-nav a:hover {
+    border-color: var(--ink-black);
+    box-shadow: 2px 2px 0 var(--ink-1);
+    transform: translate(-1px, -1px);
+}
+
+.wiki-nav a.active {
+    background: var(--ink-2);
+    color: var(--paper);
+    border-color: var(--ink-black);
+    box-shadow: 2px 2px 0 var(--ink-black);
+}
+
+/* Content card — reuses .post-body for prose */
+.wiki-main {
+    background: var(--paper);
+    border: 3px solid var(--ink-black);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+    min-width: 0;            /* let <pre> scroll instead of stretching grid */
+}
+
+.wiki-main > h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--ink-1);
+    font-size: 2.2rem;
+    line-height: 1.15;
+    text-shadow: 3px 3px 0 var(--ink-2);
+    margin-bottom: 0.4rem;
+}
+
+.wiki-lede {
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 3px dashed var(--ink-2);
+}
+
+/* Definition-style rows for file/term reference */
+.wiki-defs { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+
+.wiki-def {
+    border: 2px solid var(--ink-black);
+    border-radius: var(--radius);
+    box-shadow: 4px 4px 0 var(--ink-2);
+    padding: 1rem 1.2rem;
+    background: var(--paper-2);
+}
+
+.wiki-def h3 {
+    font-family: 'Courier New', monospace;
+    color: var(--ink-1);
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+}
+
+.wiki-def p { margin: 0.3rem 0; color: var(--ink-black); line-height: 1.6; }
+.wiki-def .role { font-weight: 700; color: var(--ink-2); }
+
+.wiki-tag {
+    display: inline-block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--ink-1);
+    color: var(--paper);
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+}
+
+@media (max-width: 860px) {
+    .wiki { grid-template-columns: 1fr; }
+    .wiki-nav { position: static; }
+    .wiki-main { padding: 1.5rem; }
+}

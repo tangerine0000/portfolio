@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How-To Guides — Portfolio Codebase Wiki</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wiki.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-doc="guides">
+    <div class="wiki-topbar">
+        <span class="wiki-title">Tan Nguyen <b>·</b> Codebase Wiki</span>
+        <a href="../about.html">← Back to site</a>
+    </div>
+
+    <div class="wiki">
+        <aside class="wiki-nav" id="wiki-nav"></aside>
+
+        <article class="wiki-main post-body">
+            <h1>How-To Guides</h1>
+            <p class="wiki-lede">The common tasks. Each is one or two edits, by design.</p>
+
+            <h2>Run it locally</h2>
+            <p>The blog uses <code>fetch()</code> to load Markdown, which browsers block on <code>file://</code>. Serve over HTTP:</p>
+            <pre><code>cd portfolio
+python -m http.server 8000
+# open http://localhost:8000/about.html</code></pre>
+            <p>Non-blog pages also work by double-clicking the HTML, but the blog needs the server.</p>
+
+            <h2>Write a new blog post</h2>
+            <p>Two steps, no HTML:</p>
+            <pre><code>1. Create  posts/my-first-build.md   and write it in Markdown.
+
+2. Add one entry to posts.js (newest entries can go anywhere —
+   the list is sorted by date automatically):
+
+   {
+     slug: 'my-first-build',          // must match the .md filename
+     title: 'My First Build',
+     date: '2026-07-01',              // YYYY-MM-DD, used to sort
+     tags: ['Node.js'],               // optional
+     readMins: 5,                     // optional
+     excerpt: 'One line shown on the blog card.'
+   }</code></pre>
+            <p>The card on <code>blog.html</code> and the page at <code>post.html?slug=my-first-build</code> both appear automatically.</p>
+
+            <h2>Add a nav link / a new page</h2>
+            <p>Say you want a "Resume" page:</p>
+            <pre><code>1. Create resume.html. Copy any content page (e.g. about.html) and:
+     - set &lt;body data-page="resume"&gt;
+     - replace the &lt;main&gt; content
+     - keep the &lt;script&gt; tags (chrome.js, script.js)
+
+2. Add one entry to NAV in chrome.js:
+     { page: 'resume', href: 'resume.html', label: 'Resume' }</code></pre>
+            <p>The link now shows in the nav on every page, and highlights when you're on it. You do <em>not</em> edit the nav in any HTML file.</p>
+
+            <h2>Add a theme</h2>
+            <p>Add one object to <code>THEMES</code> in <code>chrome.js</code>:</p>
+            <pre><code>{ id: 'midnight', ink1: '#e0457b', ink1soft: '#f0a6c2',
+  ink2: '#3b46c4', ink2soft: '#9aa2ec' }</code></pre>
+            <p>The theme button cycles through the array; the choice is saved in <code>localStorage</code>. No CSS change is needed — <code>applyTheme()</code> sets the ink custom properties for you.</p>
+
+            <h2>Change the footer or social links</h2>
+            <p>Edit the <code>SOCIAL</code> array in <code>chrome.js</code>. The footer is rendered from it on every page.</p>
+
+            <h2>Adjust the look</h2>
+            <p>All colours and shadows are tokens on <code>:root</code> in <code>style.css</code>. Change <code>--paper</code>, <code>--ink-black</code>, the <code>--shadow*</code> values, or the radius once and the whole site follows. Per-component tweaks live in their labelled sections of the same file.</p>
+
+            <h2>Deploy</h2>
+            <p>It's static — push the folder to any static host (Netlify, GitHub Pages, Cloudflare Pages, etc.). No build step. The blog's <code>fetch()</code> works on any real host because it serves over HTTP. Make sure <code>posts/</code> and the CDN-loaded libraries (Font Awesome, Google Fonts, marked) are reachable.</p>
+
+            <h2>Keep the knowledge graph current</h2>
+            <p>After changing code files, the project convention is to rebuild the graphify graph:</p>
+            <pre><code>python -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"</code></pre>
+        </article>
+    </div>
+
+    <script src="docs.js"></script>
+</body>
+</html>

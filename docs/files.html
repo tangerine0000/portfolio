@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Reference — Portfolio Codebase Wiki</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wiki.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-doc="files">
+    <div class="wiki-topbar">
+        <span class="wiki-title">Tan Nguyen <b>·</b> Codebase Wiki</span>
+        <a href="../about.html">← Back to site</a>
+    </div>
+
+    <div class="wiki">
+        <aside class="wiki-nav" id="wiki-nav"></aside>
+
+        <article class="wiki-main post-body">
+            <h1>File Reference</h1>
+            <p class="wiki-lede">Every file in the project, what it is responsible for, and when you'd open it.</p>
+
+            <h2>Pages</h2>
+            <div class="wiki-defs">
+                <div class="wiki-def">
+                    <h3>index.html <span class="wiki-tag">entry</span></h3>
+                    <p class="role">Landing redirect.</p>
+                    <p>Meta-refresh to <code>about.html</code>, with a clickable fallback link. No chrome. Rarely edited.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>about.html · projects.html · contact.html <span class="wiki-tag">page</span></h3>
+                    <p class="role">Content pages.</p>
+                    <p>Each is a thin <code>&lt;main&gt;</code> with <code>&lt;body data-page="…"&gt;</code>. Nav/footer/theme are injected by <code>chrome.js</code>. Projects hosts the AI-agents tab switcher; Contact hosts the form.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>blog.html <span class="wiki-tag">page</span></h3>
+                    <p class="role">Blog index.</p>
+                    <p>Holds an empty <code>#post-list</code>; <code>renderBlogIndex()</code> fills it from <code>posts.js</code>. Loads <code>posts.js</code> before <code>script.js</code>.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>post.html <span class="wiki-tag">reader</span></h3>
+                    <p class="role">Single post reader (parameterised).</p>
+                    <p>Reads <code>?slug=…</code>, looks it up in <code>posts.js</code>, fetches the matching Markdown, renders it with <code>marked</code>. One file serves all posts. Uses <code>data-page="blog"</code>.</p>
+                </div>
+            </div>
+
+            <h2>Behaviour</h2>
+            <div class="wiki-defs">
+                <div class="wiki-def">
+                    <h3>chrome.js <span class="wiki-tag">shared</span></h3>
+                    <p class="role">The shared chrome + theme engine.</p>
+                    <p>Injects nav, footer, and theme switcher into every page; owns <code>NAV</code>, <code>SOCIAL</code>, <code>THEMES</code>, theme persistence, and nav-shrink. <strong>Edit to:</strong> change nav links, footer links, or add a theme.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>script.js <span class="wiki-tag">page</span></h3>
+                    <p class="role">Page-content behaviour.</p>
+                    <p>Smooth-scroll, blog renderers (<code>renderBlogIndex</code>, <code>renderPost</code>), the tab switcher, and the contact form handler. <strong>Edit to:</strong> change blog card markup or page interactions.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>posts.js <span class="wiki-tag">data</span></h3>
+                    <p class="role">Blog manifest — the source of truth.</p>
+                    <p>The <code>POSTS</code> array: one entry per post (<code>slug</code>, <code>title</code>, <code>date</code>, <code>excerpt</code>, optional <code>tags</code>/<code>readMins</code>). <strong>Edit to:</strong> publish, rename, reorder, or unpublish a post.</p>
+                </div>
+            </div>
+
+            <h2>Content &amp; style</h2>
+            <div class="wiki-defs">
+                <div class="wiki-def">
+                    <h3>posts/&lt;slug&gt;.md <span class="wiki-tag">content</span></h3>
+                    <p class="role">Post bodies, in Markdown.</p>
+                    <p>One file per post; the filename's slug must match the manifest entry. <code>posts/welcome.md</code> is the starter post.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>style.css <span class="wiki-tag">style</span></h3>
+                    <p class="role">The whole design system.</p>
+                    <p>Tokens on <code>:root</code>, the risograph devices (grain, halftone, hard shadows, misregistration), and styles for every component including blog cards and post prose. The <code>:root</code> inks are the default-theme fallback.</p>
+                </div>
+            </div>
+
+            <h2>Docs (this wiki)</h2>
+            <div class="wiki-defs">
+                <div class="wiki-def">
+                    <h3>docs/*.html · docs/wiki.css · docs/docs.js <span class="wiki-tag">docs</span></h3>
+                    <p class="role">The codebase wiki.</p>
+                    <p>These pages. The sidebar is rendered by <code>docs.js</code> from the <code>DOCS</code> table of contents (same single-source pattern as <code>chrome.js</code>); layout is in <code>docs/wiki.css</code>, reusing the site's tokens and <code>.post-body</code> prose styles.</p>
+                </div>
+                <div class="wiki-def">
+                    <h3>graphify-out/ <span class="wiki-tag">generated</span></h3>
+                    <p class="role">Knowledge-graph output.</p>
+                    <p>Generated by the graphify tool — do not hand-edit. Rebuilt after code changes.</p>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <script src="docs.js"></script>
+</body>
+</html>

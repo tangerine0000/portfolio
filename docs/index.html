@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview — Portfolio Codebase Wiki</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wiki.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-doc="index">
+    <div class="wiki-topbar">
+        <span class="wiki-title">Tan Nguyen <b>·</b> Codebase Wiki</span>
+        <a href="../about.html">← Back to site</a>
+    </div>
+
+    <div class="wiki">
+        <aside class="wiki-nav" id="wiki-nav"></aside>
+
+        <article class="wiki-main post-body">
+            <h1>Overview</h1>
+            <p class="wiki-lede">A static, build-free personal portfolio with a risograph-inspired look and a Markdown blog. Plain HTML, CSS, and vanilla JavaScript — no framework, no bundler.</p>
+
+            <h2>What this project is</h2>
+            <p>Four content pages (About, Projects, Blog, Contact) plus a Markdown-driven blog. Everything is served as static files. The only runtime dependencies are loaded from a CDN: <strong>Font Awesome</strong> (icons), <strong>Google Fonts</strong> (Inter + Space Grotesk), and <strong>marked</strong> (Markdown → HTML, blog only).</p>
+
+            <h2>The three ideas to understand</h2>
+            <p>Most of the codebase falls out of three decisions. Each one puts a lot of behaviour behind a small, single place to edit.</p>
+            <ul>
+                <li><strong>Shared chrome lives in one module.</strong> The nav, footer, and theme switcher are injected by <code>chrome.js</code>. A page only writes its own <code>&lt;main&gt;</code> and declares <code>&lt;body data-page="…"&gt;</code>. Add a nav link once, every page updates.</li>
+                <li><strong>The blog is manifest-driven.</strong> <code>posts.js</code> is the single source of truth. Adding a post means dropping a <code>.md</code> file and adding one entry — the card list, sorting, and the post page all follow.</li>
+                <li><strong>Themes are data.</strong> Colour palettes are objects in <code>chrome.js</code> (<code>THEMES</code>), applied as CSS custom properties. Add a palette = add one object.</li>
+            </ul>
+
+            <h2>Mental model</h2>
+            <pre><code>Every page  =  static &lt;head&gt; + &lt;body data-page&gt; + &lt;main&gt;
+                          │
+              chrome.js injects nav + footer + theme button
+                          │
+        style.css paints it (riso tokens, grain, hard shadows)
+
+Blog        =  posts.js (manifest)
+                 ├─ blog.html  → renderBlogIndex()  → cards
+                 └─ post.html?slug=x → renderPost() → fetch posts/x.md → marked</code></pre>
+
+            <h2>Where to go next</h2>
+            <ul>
+                <li><a href="architecture.html">Architecture</a> — the modules, their interfaces, and how data flows.</li>
+                <li><a href="files.html">File Reference</a> — every file, its role, and when to edit it.</li>
+                <li><a href="guides.html">How-To Guides</a> — add a post, a page, or a theme; run and deploy.</li>
+            </ul>
+
+            <h2>Run it locally</h2>
+            <p>The blog reads Markdown with <code>fetch()</code>, which browsers block over <code>file://</code>. Serve the folder over HTTP:</p>
+            <pre><code>python -m http.server 8000
+# then open http://localhost:8000/about.html</code></pre>
+            <p>The non-blog pages work even from <code>file://</code>; only the blog needs a server. On a static host (e.g. Netlify) everything works as-is.</p>
+        </article>
+    </div>
+
+    <script src="docs.js"></script>
+</body>
+</html>

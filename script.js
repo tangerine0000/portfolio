@@ -1,138 +1,143 @@
+// =====================================================================
+//  script.js — page-content behaviour.
+//  Shared chrome (nav, footer, theme, nav-shrink) lives in chrome.js.
+// =====================================================================
+
+// ---- Smooth scroll for in-page anchors ----
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-
+    anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId)
-
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-
+        const target = document.querySelector(targetId);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
             if (history.pushState) {
-                history.pushState(null, null, targetId);
+                history.pushState(null, '', targetId);
             } else {
                 location.hash = targetId;
             }
         }
-    })
-})
+    });
+});
 
-// Form handling
-document.addEventListener('DOMContentLoaded', function() {
+// ---------------------------------------------------------------------
+//  Blog — manifest-driven (POSTS comes from posts.js)
+// ---------------------------------------------------------------------
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+
+// Parse 'YYYY-MM-DD' manually — avoids new Date() timezone shifts.
+function formatDate(iso) {
+    const parts = String(iso).split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return iso;
+    const [y, m, d] = parts;
+    return `${MONTHS[m - 1]} ${d}, ${y}`;
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
+function postMetaHtml(post) {
+    const tags = (post.tags || []).map(t => `<span class="post-tag">${escapeHtml(t)}</span>`).join('');
+    const read = post.readMins ? `<span>· ${post.readMins} min read</span>` : '';
+    return `${tags}<span class="post-date">${formatDate(post.date)}</span>${read}`;
+}
+
+function sortedPosts() {
+    // newest first; date strings sort lexically when 'YYYY-MM-DD'
+    return [...POSTS].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+}
+
+// Blog index — render cards from the manifest
+function renderBlogIndex() {
+    const list = document.getElementById('post-list');
+    if (!list || typeof POSTS === 'undefined') return;
+
+    const posts = sortedPosts();
+    if (!posts.length) {
+        list.innerHTML = '<p style="text-align:center;color:var(--ink-soft)">No posts yet — check back soon.</p>';
+        return;
+    }
+
+    list.innerHTML = posts.map(p => `
+        <a class="post-card" href="post.html?slug=${encodeURIComponent(p.slug)}">
+            <div class="post-meta">${postMetaHtml(p)}</div>
+            <h3>${escapeHtml(p.title)}</h3>
+            <p class="post-excerpt">${escapeHtml(p.excerpt || '')}</p>
+            <span class="read-more">Read post</span>
+        </a>`).join('');
+}
+
+// Single post — look up slug in manifest, fetch + render the markdown
+async function renderPost() {
+    const body = document.getElementById('post-content');
+    if (!body || typeof POSTS === 'undefined') return;
+
+    const titleEl = document.getElementById('post-title');
+    const metaEl = document.getElementById('post-meta');
+    const slug = new URLSearchParams(location.search).get('slug');
+    const post = POSTS.find(p => p.slug === slug); // restrict fetch to known slugs
+
+    if (!post) {
+        document.title = 'Post not found - Tan Nguyen';
+        if (titleEl) titleEl.textContent = 'Post not found';
+        body.innerHTML = '<p>That post doesn’t exist. <a href="blog.html">Back to the blog</a>.</p>';
+        return;
+    }
+
+    document.title = `${post.title} - Tan Nguyen`;
+    if (titleEl) titleEl.textContent = post.title;
+    if (metaEl) metaEl.innerHTML = postMetaHtml(post);
+
+    if (typeof marked === 'undefined') {
+        body.innerHTML = '<p>Markdown renderer failed to load. Check your connection and refresh.</p>';
+        return;
+    }
+
+    try {
+        const res = await fetch(`posts/${post.slug}.md`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        body.innerHTML = marked.parse(await res.text());
+    } catch (err) {
+        body.innerHTML =
+            '<p>Couldn’t load this post.</p>' +
+            '<p style="color:var(--ink-soft)">If you opened this page directly from disk, the browser blocks reading the Markdown file. Serve the folder over HTTP — e.g. run <code>python -m http.server</code> in this folder and open <code>http://localhost:8000/blog.html</code>. On a host like Netlify it works as-is.</p>';
+        console.error('Post load failed:', err);
+    }
+}
+
+// ---- Project tabs ----
+document.addEventListener('DOMContentLoaded', function () {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            button.classList.add('active');
+            const pane = document.getElementById(button.getAttribute('data-tab'));
+            if (pane) pane.classList.add('active');
+        });
+    });
+
+    // ---- Blog ----
+    renderBlogIndex();
+    renderPost();
+
+    // ---- Contact form (no backend — client feedback only) ----
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            // Get form data
-            const formData = {
+            console.log('Form submitted:', {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 message: document.getElementById('message').value
-            };
-            
-            // Here you would typically send the form data to a server
-            // For now, we'll just log it and show a success message
-            console.log('Form submitted:', formData);
-            
-            // Show success message
+            });
             alert('Thank you for your message! I will get back to you soon.');
-            
-            // Reset form
             contactForm.reset();
         });
     }
-});
-
-// Remove all existing scroll event listeners
-window.removeEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-
-window.removeEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > 50) {
-        header.classList.add('header-scrolled');
-    } else {
-        header.classList.remove('header-scrolled');
-    }
-    lastScroll = currentScroll;
-});
-
-// Simple scroll event listener for nav
-window.addEventListener('scroll', function() {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-        nav.classList.add('small');
-    } else {
-        nav.classList.remove('small');
-    }
-});
-
-// Make nav shrink when scrolling
-window.addEventListener('scroll', function() {
-    const nav = document.getElementById('mainNav');
-    if (window.scrollY > 50) {
-        nav.classList.add('py-3', 'px-6', 'rounded-2xl');
-        nav.querySelector('h1').classList.add('text-2xl');
-        nav.querySelectorAll('a').forEach(link => {
-            link.classList.add('px-4', 'py-2', 'text-sm');
-        });
-    } else {
-        nav.classList.remove('py-3', 'px-6', 'rounded-2xl');
-        nav.querySelector('h1').classList.remove('text-2xl');
-        nav.querySelectorAll('a').forEach(link => {
-            link.classList.remove('px-4', 'py-2', 'text-sm');
-        });
-    }
-});
-
-// Theme switching
-const themeSwitcher = document.querySelector('.theme-switcher');
-const themes = ['warm', 'cool'];
-let currentThemeIndex = 0;
-
-// Load saved theme
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    currentThemeIndex = themes.indexOf(savedTheme);
-} else {
-    // Set warm theme as default
-    document.documentElement.setAttribute('data-theme', 'warm');
-    localStorage.setItem('theme', 'warm');
-}
-
-themeSwitcher.addEventListener('click', () => {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    const newTheme = themes[currentThemeIndex];
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-});
-
-// Project Tabs
-document.addEventListener('DOMContentLoaded', function() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons and panes
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Show corresponding tab pane
-            const tabId = button.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-        });
-    });
 });

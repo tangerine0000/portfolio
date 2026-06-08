@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture — Portfolio Codebase Wiki</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wiki.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-doc="architecture">
+    <div class="wiki-topbar">
+        <span class="wiki-title">Tan Nguyen <b>·</b> Codebase Wiki</span>
+        <a href="../about.html">← Back to site</a>
+    </div>
+
+    <div class="wiki">
+        <aside class="wiki-nav" id="wiki-nav"></aside>
+
+        <article class="wiki-main post-body">
+            <h1>Architecture</h1>
+            <p class="wiki-lede">How the pieces fit: the page model, the chrome module, the blog engine, the theme registry, and the styling system.</p>
+
+            <h2>The page model</h2>
+            <p>Each content page is intentionally thin. It carries a static <code>&lt;head&gt;</code> (charset, title, stylesheet links, fonts), one attribute on the body, and its own <code>&lt;main&gt;</code>. Nothing else.</p>
+            <pre><code>&lt;body data-page="projects"&gt;
+    &lt;main&gt; … unique page content … &lt;/main&gt;
+    &lt;script src="chrome.js"&gt;&lt;/script&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+            <p>The <code>data-page</code> value is the seam between a page and the shared chrome. <code>chrome.js</code> reads it to highlight the matching nav link. The post page uses <code>data-page="blog"</code> so "Blog" stays active while reading an article.</p>
+
+            <h2>chrome.js — the shared chrome</h2>
+            <p>Everything every page used to repeat — the nav, the footer, the theme switcher, and their behaviour — lives here once. On load it injects the markup into the body and wires up the behaviour.</p>
+            <p>Its interface is three data tables plus one attribute:</p>
+            <ul>
+                <li><code>NAV</code> — the nav links. Add an entry → the link appears on every page.</li>
+                <li><code>SOCIAL</code> — the footer links.</li>
+                <li><code>THEMES</code> — the colour palettes (see below).</li>
+                <li><code>&lt;body data-page&gt;</code> — which nav link is active.</li>
+            </ul>
+            <p>Behaviour it owns: theme cycling + persistence (<code>localStorage</code>), and nav-shrink-on-scroll. Because the nav exists in exactly one place, the classic "edited four pages, forgot the fifth" drift bug cannot happen.</p>
+
+            <h2>The blog engine</h2>
+            <p>The blog has one source of truth — <code>posts.js</code> — and two consumers. Adding a post never touches HTML.</p>
+            <pre><code>posts.js  (const POSTS = [ { slug, title, date, excerpt, tags?, readMins? } ])
+   │
+   ├─ blog.html   → renderBlogIndex()
+   │       sorts POSTS newest-first, builds a card per post into #post-list
+   │
+   └─ post.html?slug=x → renderPost()
+           1. look up x in POSTS   (only known slugs are fetchable)
+           2. set title + meta from the manifest entry
+           3. fetch posts/x.md
+           4. marked.parse() → #post-content</code></pre>
+            <p>Both renderers live in <code>script.js</code> and share <code>postMetaHtml()</code> so the tag/date/read-time markup is defined once. Titles and excerpts are HTML-escaped before injection; dates are parsed by hand to avoid timezone shifts.</p>
+            <p><strong>Why a single reader?</strong> There is one <code>post.html</code>, not one HTML file per post. The post pages vary only by content, and the content is the Markdown file — so the page is a parameterised reader, not N copies.</p>
+
+            <h2>The theme registry</h2>
+            <p>A theme is just data: two inks and their soft tints.</p>
+            <pre><code>{ id:'tangerine', ink1:'#f0530e', ink1soft:'#f8a072',
+  ink2:'#1f4fd6', ink2soft:'#8aa6f2' }</code></pre>
+            <p><code>applyTheme()</code> writes these onto <code>:root</code> as the CSS custom properties <code>--ink-1</code>, <code>--ink-1-soft</code>, <code>--ink-2</code>, <code>--ink-2-soft</code>. There are no per-theme blocks in <code>style.css</code> to keep in sync — the <code>:root</code> values are only a no-JS fallback (the default tangerine palette). The switcher cycles the <code>THEMES</code> array and saves the chosen <code>id</code>.</p>
+
+            <h2>script.js — page-content behaviour</h2>
+            <p>What's left after chrome moved out: smooth-scroll for in-page anchors, the blog renderers, the Projects tab switcher, and the Contact form handler (client-side only — it logs and shows a thank-you; there is no backend). Each concern self-gates on the elements it needs, so the one file is safe to load on every page.</p>
+
+            <h2>style.css — the design system</h2>
+            <p>Tokens live on <code>:root</code>: paper, ink-black/soft, the two inks + tints, hard shadow values, and a shared transition. The risograph look is built from a few repeated devices:</p>
+            <ul>
+                <li><strong>Grain</strong> — an SVG turbulence overlay fixed over the page (<code>body::after</code>, multiply blend).</li>
+                <li><strong>Halftone</strong> — two offset radial-gradient dot grids on the body background.</li>
+                <li><strong>Hard offset shadows</strong> — <code>Npx Npx 0</code> (no blur). Hover "presses" a card into its shadow.</li>
+                <li><strong>Misregistration</strong> — headings get an offset ink <code>text-shadow</code>, mimicking mis-aligned ink layers.</li>
+                <li><strong>Flat ink blocks</strong> — 3px black borders, chips, and buttons share one card recipe.</li>
+            </ul>
+
+            <h2>Why these shapes</h2>
+            <p>The recurring move is depth: a small interface in front of a lot of behaviour, so a change lands in one place. Add a nav link in <code>NAV</code>; a post in <code>posts.js</code>; a palette in <code>THEMES</code>. The duplication that used to spread edits across files (and let copies drift) is gone.</p>
+        </article>
+    </div>
+
+    <script src="docs.js"></script>
+</body>
+</html>
