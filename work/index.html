@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work — Tan Nguyen</title>
+    <meta name="description" content="Engineering projects, AI agents, and web tools built by Tan Nguyen.">
+    <script>
+        (function () {
+            var m = localStorage.getItem('mode');
+            if (!m) {
+                m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-mode', m);
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="work">
+    <main class="main-content">
+        <div class="page-wrapper">
+            <header class="page-header">
+                <h1 class="page-title">Work</h1>
+                <p class="page-intro">A selection of software systems, AI agent workflows, and web tools I've engineered.</p>
+            </header>
+            <div id="work-list" class="work-list">
+                <!-- Hydrated dynamically by renderWorkPage() in script.js -->
+            </div>
+        </div>
+    </main>
+
+    <script src="/projects.js"></script>
+    <script src="/chrome.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

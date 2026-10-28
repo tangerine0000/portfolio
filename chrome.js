@@ -1,120 +1,130 @@
 // =====================================================================
-//  chrome.js — the site's shared chrome, in one place.
-//
-//  Owns everything every page repeats: the nav, the footer, the theme
-//  switcher, and the behaviour attached to them (theme cycling,
-//  nav-shrink-on-scroll).
-//
-//  A page opts in with one attribute:   <body data-page="blog">
-//  That value highlights the matching nav link. The post page uses
-//  data-page="blog" so Blog stays highlighted while reading a post.
-//
-//  TO ADD A NAV LINK:  add one entry to NAV below.
-//  TO ADD A THEME:     add one object to THEMES below.
+//  chrome.js — Shared Chrome & Responsive Side-Rail Shell
+//  Owns side-rail navigation, dark mode toggling, and social channels.
 // =====================================================================
 
-// ---- Theme registry (single source of truth) -----------------------
-// Each theme is just data: two inks + their soft tints. chrome.js
-// applies them as CSS custom properties, so there are no per-theme
-// blocks in style.css to keep in sync.
-const THEMES = [
-    { id: 'tangerine', ink1: '#f0530e', ink1soft: '#f8a072', ink2: '#1f4fd6', ink2soft: '#8aa6f2' },
-    { id: 'flamingo',  ink1: '#ff2e74', ink1soft: '#ff9cbf', ink2: '#1f4fd6', ink2soft: '#8aa6f2' },
-    { id: 'orchard',   ink1: '#6a2fb5', ink1soft: '#b794e0', ink2: '#1f9e57', ink2soft: '#8fd9af' },
-    { id: 'solar',     ink1: '#e8a200', ink1soft: '#f4cf73', ink2: '#0f9bb0', ink2soft: '#82d2dd' },
-];
-
-// ---- Nav (single source of truth) ----------------------------------
+// Navigation items
 const NAV = [
-    { page: 'about',    href: 'about.html',    label: 'About' },
-    { page: 'projects', href: 'projects.html', label: 'Projects' },
-    { page: 'blog',     href: 'blog.html',     label: 'Blog' },
-    { page: 'contact',  href: 'contact.html',  label: 'Contact' },
+    { page: 'home',    href: '/',           label: 'index' },
+    { page: 'work',    href: '/work/',      label: 'work' },
+    { page: 'writing', href: '/writing/',   label: 'writing' },
+    { page: 'about',   href: '/about.html', label: 'about' },
 ];
 
+// Social channels
 const SOCIAL = [
     { href: 'https://github.com/tangerine0000', label: 'GitHub', external: true },
     { href: 'https://www.linkedin.com/in/sperc/', label: 'LinkedIn', external: true },
     { href: 'mailto:tan.personal.mail@gmail.com', label: 'Email', external: false },
 ];
 
-// ---- Theme application ---------------------------------------------
-function applyTheme(theme) {
-    const root = document.documentElement.style;
-    root.setProperty('--ink-1', theme.ink1);
-    root.setProperty('--ink-1-soft', theme.ink1soft);
-    root.setProperty('--ink-2', theme.ink2);
-    root.setProperty('--ink-2-soft', theme.ink2soft);
-    document.documentElement.setAttribute('data-theme', theme.id);
-}
+// Icon SVGs
+const SUN_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
 
+const MOON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+// ---- Theme management ----
 function initTheme(button) {
-    let savedId = localStorage.getItem('theme');
-    let index = THEMES.findIndex(t => t.id === savedId);
-    if (index < 0) index = 0; // migrate old warm/cool values -> default
-    applyTheme(THEMES[index]);
-    localStorage.setItem('theme', THEMES[index].id);
+    function getMode() {
+        return document.documentElement.getAttribute('data-mode') || 'light';
+    }
 
-    button.addEventListener('click', () => {
-        index = (index + 1) % THEMES.length;
-        applyTheme(THEMES[index]);
-        localStorage.setItem('theme', THEMES[index].id);
-    });
+    function updateButton(mode) {
+        if (!button) return;
+        const icon = button.querySelector('.theme-icon');
+        const label = button.querySelector('.theme-label');
+        if (mode === 'dark') {
+            if (icon) icon.innerHTML = SUN_SVG;
+            if (label) label.textContent = 'light';
+            button.setAttribute('aria-label', 'Switch to light mode');
+        } else {
+            if (icon) icon.innerHTML = MOON_SVG;
+            if (label) label.textContent = 'dark';
+            button.setAttribute('aria-label', 'Switch to dark mode');
+        }
+    }
+
+    // Set initial toggle button state
+    updateButton(getMode());
+
+    if (button) {
+        button.addEventListener('click', () => {
+            const current = getMode();
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-mode', next);
+            localStorage.setItem('mode', next);
+            updateButton(next);
+        });
+    }
+
+    // Listen for OS color scheme shifts if user has not explicitly set preference
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('mode')) {
+                const mode = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-mode', mode);
+                updateButton(mode);
+            }
+        });
+    }
 }
 
-// ---- Chrome injection ----------------------------------------------
+// ---- Chrome injection ----
 function buildChrome() {
     const active = document.body.getAttribute('data-page');
 
-    const navLinks = NAV.map(item =>
-        `<li><a href="${item.href}"${item.page === active ? ' class="active" aria-current="page"' : ''}>${item.label}</a></li>`
-    ).join('');
+    const navLinks = NAV.map(item => {
+        const isActive = item.page === active;
+        return `<li><a href="${item.href}"${isActive ? ' class="active" aria-current="page"' : ''}>${item.label}</a></li>`;
+    }).join('');
 
     const socialLinks = SOCIAL.map(s =>
-        `<a href="${s.href}"${s.external ? ' target="_blank" rel="noopener"' : ''}>${s.label}</a>`
+        `<a href="${s.href}"${s.external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${s.label}</a>`
     ).join('');
 
-    // Theme switcher
-    const button = document.createElement('button');
-    button.className = 'theme-switcher';
-    button.setAttribute('aria-label', 'Switch theme');
-    button.innerHTML = '<i class="fas fa-palette"></i>';
+    const rail = document.createElement('aside');
+    rail.className = 'side-rail';
+    rail.setAttribute('aria-label', 'Primary Navigation');
+    rail.innerHTML = `
+        <div class="rail-brand">
+            <a href="/" class="brand-name">tan nguyen</a>
+            <span class="brand-sub">developer</span>
+        </div>
+        <nav class="rail-nav">
+            <ul>${navLinks}</ul>
+        </nav>
+        <div class="rail-bottom">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+                <span class="theme-icon" aria-hidden="true"></span>
+                <span class="theme-label">mode</span>
+            </button>
+            <div class="rail-social">${socialLinks}</div>
+        </div>
+    `;
 
-    // Header / nav
-    const header = document.createElement('header');
-    header.innerHTML =
-        `<nav><h1>Tan Nguyen</h1><ul>${navLinks}</ul></nav>`;
+    document.body.prepend(rail);
 
-    // Footer
-    const footer = document.createElement('footer');
-    footer.innerHTML =
-        `<div class="footer-content">` +
-        `<p>&copy; 2025 Tan Nguyen. All rights reserved.</p>` +
-        `<div class="social-links">${socialLinks}</div>` +
-        `</div>`;
+    // Append mobile social section to main if not on index
+    const mainEl = document.querySelector('main') || document.querySelector('.main-content');
+    if (mainEl && active !== 'home' && !document.querySelector('.mobile-social')) {
+        const mobSocial = document.createElement('div');
+        mobSocial.className = 'mobile-social';
+        mobSocial.innerHTML = `
+            <span class="mobile-social-title">Connect</span>
+            <div class="mobile-social-links">${socialLinks}</div>
+        `;
+        const wrapper = mainEl.querySelector('.page-wrapper') || mainEl;
+        wrapper.appendChild(mobSocial);
+    }
 
-    document.body.prepend(header);
-    document.body.prepend(button);
-    document.body.append(footer);
-
-    return button;
+    return rail.querySelector('#theme-toggle');
 }
 
-// ---- Nav shrink on scroll ------------------------------------------
-function initNavShrink() {
-    const nav = document.querySelector('nav');
-    if (!nav) return;
-    const onScroll = () => nav.classList.toggle('shrink', window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-}
-
-// ---- Boot -----------------------------------------------------------
+// ---- Boot ----
 function initChrome() {
     if (!document.body) return;
     const button = buildChrome();
     initTheme(button);
-    initNavShrink();
 }
 
 if (document.readyState === 'loading') {
