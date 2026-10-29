@@ -400,6 +400,21 @@ a {
     border: 1px solid var(--border);
 }
 
+.project-badge-inline {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.12rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
 .snapshot-tag {
     font-family: var(--font-mono);
     font-size: 0.72rem;

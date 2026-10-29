@@ -43,12 +43,14 @@ Exposes `PROJECTS` (and attaches to `window.PROJECTS`):
 ```
 
 ### `posts.js` — Writing Manifest
-Exposes `POSTS` (and attaches to `window.POSTS`). Writing is currently paused; future blog entries do not require note/personal sub-classifications:
+Exposes `POSTS` (and attaches to `window.POSTS`):
 ```javascript
 {
   slug: string,
   title: string,
   date: string,               // 'YYYY-MM-DD'
+  kind?: 'note' | 'essay' | 'personal',
+  lede?: string,              // Opening hook / pull-quote
   excerpt: string,            // Summary description
   tags?: string[],
   readMins?: number
