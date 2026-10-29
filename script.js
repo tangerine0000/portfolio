@@ -306,7 +306,7 @@ function renderWritingPage() {
                 <p class="writing-empty-title">No writing entries published yet.</p>
                 <p class="writing-empty-desc">
                     Essays, notes, and architectural reflections will be published here.
-                    In the meantime, feel free to explore my <a href="/work/">Work</a> or read more <a href="/about.html">About me</a>.
+                    In the meantime, feel free to explore my <a href="/work/">Work</a> or read more <a href="/">About me</a>.
                 </p>
             </div>
         `;

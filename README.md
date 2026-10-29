@@ -17,10 +17,10 @@ Blog posts are Markdown files in `posts/` rendered client-side by `marked` (CDN,
 
 ## Routes & Pages
 
-- `/` (`index.html`) — Interactive landing page fork between Work and Writing previews (`data-page="home"`).
+- `/` (`index.html`) — Unified About landing page with exploration boxes for Work and Writing (`data-page="about"`).
 - `/work/` (`work/index.html`) — Catalog of projects, AI agents, and web applications (`data-page="work"`).
 - `/writing/` (`writing/index.html`) — Chronological stream of essays, technical notes, and build logs (`data-page="writing"`).
-- `/about.html` (`about.html`) — Background, education, technical stack, and direct contact channels (`data-page="about"`).
+- `/about.html` (`about.html`) — Redirects cleanly to `/` (backwards compatibility).
 - `/post.html?slug=<slug>` (`post.html`) — Markdown article reader (`data-page="writing"`).
 
 ## Manifest Contracts

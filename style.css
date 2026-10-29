@@ -911,6 +911,165 @@ a {
 }
 
 /* ---------------------------------------------------------------------
+   8.5. Explore Nav Boxes (Unified About / Home Page)
+--------------------------------------------------------------------- */
+.explore-nav-section {
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.explore-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: block;
+    font-weight: 600;
+}
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 680px) {
+    .explore-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.explore-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem 1.75rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.explore-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.explore-box-work::before {
+    background: radial-gradient(circle at 10% 10%, var(--glow-peach), transparent 70%);
+}
+
+.explore-box-writing::before {
+    background: radial-gradient(circle at 90% 10%, var(--glow-aqua), transparent 70%);
+}
+
+.explore-box:hover::before,
+.explore-box:focus-visible::before {
+    opacity: 1;
+}
+
+.explore-box:hover,
+.explore-box:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+html[data-mode="dark"] .explore-box:hover,
+html[data-mode="dark"] .explore-box:focus-visible {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.explore-box-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+    position: relative;
+    z-index: 1;
+}
+
+.explore-box-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.explore-box-arrow {
+    font-size: 1.15rem;
+    color: var(--muted);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.explore-box:hover .explore-box-arrow,
+.explore-box:focus-visible .explore-box-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+}
+
+.explore-box-title {
+    font-size: 1.5rem;
+    font-family: var(--font-grotesk);
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.explore-box-desc {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+.explore-box-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.85rem;
+    position: relative;
+    z-index: 1;
+}
+
+.explore-badge {
+    background: rgba(100, 115, 140, 0.1);
+    color: var(--text);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.explore-link-hint {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------------------------
    9. About Page (about.html)
 --------------------------------------------------------------------- */
 .about-section {

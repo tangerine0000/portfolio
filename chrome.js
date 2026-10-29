@@ -5,10 +5,9 @@
 
 // Navigation items
 const NAV = [
-    { page: 'home',    href: '/',           label: 'index' },
+    { page: 'about',   href: '/',           label: 'about' },
     { page: 'work',    href: '/work/',      label: 'work' },
     { page: 'writing', href: '/writing/',   label: 'writing' },
-    { page: 'about',   href: '/about.html', label: 'about' },
 ];
 
 // Social channels
