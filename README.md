@@ -31,8 +31,8 @@ Exposes `PROJECTS` (and attaches to `window.PROJECTS`):
 {
   slug: string,
   title: string,
-  category: 'working' | 'personal', // 'working' = Working Project, 'personal' = Personal Project
-  categoryLabel: string,            // 'Working Project' | 'Personal Project'
+  category: 'professional' | 'personal', // 'professional' = Professional Project, 'personal' = Personal Project
+  categoryLabel: string,                  // 'Professional Project' | 'Personal Project'
   year: string,
   stack: string[],
   summary: string,

@@ -3,19 +3,19 @@
 //  Single source of truth for all projects and engineering work.
 //
 //  Categories:
-//    - 'working'  : Projects done for working / production environments
-//    - 'personal' : Personal, hobby, and open-source exploration projects
+//    - 'professional' : Projects engineered in professional / production company environments
+//    - 'personal'     : Personal, hobby, and open-source exploration projects
 // =====================================================================
 
 const PROJECTS = [
     // -----------------------------------------------------------------
-    //  Working Projects (Professional & Production Work)
+    //  Professional Projects (Company & Production Work)
     // -----------------------------------------------------------------
     {
         slug: 'ai-web-scraper',
         title: 'AI Web Scraper & Extraction Pipeline',
-        category: 'working',
-        categoryLabel: 'Working Project',
+        category: 'professional',
+        categoryLabel: 'Professional Project',
         year: '2025',
         stack: ['Python', 'Streamlit', 'LangChain', 'Playwright'],
         summary: 'Production content extraction and summarization pipeline pulling domain-specific intelligence and structured insights from target web pages using LLM agents.',
@@ -26,8 +26,8 @@ const PROJECTS = [
     {
         slug: 'faiss-search',
         title: 'FAISS Semantic Search & Retrieval Engine',
-        category: 'working',
-        categoryLabel: 'Working Project',
+        category: 'professional',
+        categoryLabel: 'Professional Project',
         year: '2025',
         stack: ['Python', 'FAISS', 'Vector DB', 'LangChain'],
         summary: 'Vector retrieval engine enabling fast semantic similarity matching and interactive Q&A over unstructured scraped web content with embedding storage.',
@@ -38,8 +38,8 @@ const PROJECTS = [
     {
         slug: 'ai-chatbot',
         title: 'Contextual AI Chatbot & Memory Service',
-        category: 'working',
-        categoryLabel: 'Working Project',
+        category: 'professional',
+        categoryLabel: 'Professional Project',
         year: '2025',
         stack: ['Python', 'FastAPI', 'LangChain', 'Streamlit', 'Ollama'],
         summary: 'Conversational assistant featuring contextual vector search, local model deployment with Ollama, and multi-turn session memory.',

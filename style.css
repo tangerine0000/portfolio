@@ -388,6 +388,7 @@ a {
     width: fit-content;
 }
 
+.badge-professional,
 .badge-working {
     background: var(--accent-soft);
     color: var(--accent);

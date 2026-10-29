@@ -56,15 +56,15 @@ function renderHomeFork() {
                     <a href="/work/" class="fork-title-link">
                         Work <span class="fork-arrow">→</span>
                     </a>
-                    <p class="fork-subtitle">Systems, AI pipelines, and web tools across working and personal projects.</p>
+                    <p class="fork-subtitle">Systems, AI pipelines, and web tools across professional and personal projects.</p>
                 </header>
 
                 <div class="fork-body">
                     ${featuredProject ? `
                     <div class="featured-snapshot">
                         <div class="snapshot-header-row">
-                            <span class="project-badge ${featuredProject.category === 'working' ? 'badge-working' : 'badge-personal'}">
-                                ${escapeHtml(featuredProject.categoryLabel || (featuredProject.category === 'working' ? 'Working Project' : 'Personal Project'))}
+                            <span class="project-badge ${featuredProject.category === 'personal' ? 'badge-personal' : 'badge-professional'}">
+                                ${escapeHtml(featuredProject.categoryLabel || (featuredProject.category === 'personal' ? 'Personal Project' : 'Professional Project'))}
                             </span>
                             <span class="snapshot-tag">Featured Project</span>
                         </div>
@@ -86,8 +86,8 @@ function renderHomeFork() {
                                 <span class="fork-item-meta">${p.year}</span>
                                 <span class="fork-item-title">
                                     ${escapeHtml(p.title)}
-                                    <span class="project-badge-inline ${p.category === 'working' ? 'badge-working' : 'badge-personal'}">
-                                        ${p.category === 'working' ? 'Working' : 'Personal'}
+                                    <span class="project-badge-inline ${p.category === 'personal' ? 'badge-personal' : 'badge-professional'}">
+                                        ${p.category === 'personal' ? 'Personal' : 'Professional'}
                                     </span>
                                 </span>
                                 <span class="fork-item-meta">${(p.stack || []).slice(0, 2).join(' / ')}</span>
@@ -167,7 +167,7 @@ function renderHomeFork() {
 
 // ---------------------------------------------------------------------
 //  2. Work Catalog Page (work/index.html)
-//  Classified into Working Projects and Personal Projects with Filter Tabs
+//  Classified into Professional Projects and Personal Projects with Filter Tabs
 // ---------------------------------------------------------------------
 function renderWorkPage() {
     const list = document.getElementById('work-list');
@@ -179,13 +179,14 @@ function renderWorkPage() {
     }
 
     // Read active category from URL hash or default to 'all'
-    const hash = (location.hash || '').replace('#', '').toLowerCase();
-    let currentFilter = ['working', 'personal'].includes(hash) ? hash : 'all';
+    const rawHash = (location.hash || '').replace('#', '').toLowerCase();
+    const normalizedHash = rawHash === 'working' ? 'professional' : rawHash;
+    let currentFilter = ['professional', 'personal'].includes(normalizedHash) ? normalizedHash : 'all';
 
     function renderProjectCard(p) {
-        const isWorking = p.category === 'working';
-        const badgeClass = isWorking ? 'badge-working' : 'badge-personal';
-        const badgeText = isWorking ? 'Working Project' : 'Personal Project';
+        const isProfessional = p.category === 'professional' || p.category === 'working';
+        const badgeClass = isProfessional ? 'badge-professional' : 'badge-personal';
+        const badgeText = isProfessional ? 'Professional Project' : 'Personal Project';
 
         return `
             <article class="work-item" data-category="${p.category}">
@@ -212,7 +213,7 @@ function renderWorkPage() {
 
     function updateView(filter) {
         currentFilter = filter;
-        const workingCount = PROJECTS.filter(p => p.category === 'working').length;
+        const professionalCount = PROJECTS.filter(p => p.category === 'professional' || p.category === 'working').length;
         const personalCount = PROJECTS.filter(p => p.category === 'personal').length;
 
         // Render Tabs
@@ -221,8 +222,8 @@ function renderWorkPage() {
                 <button type="button" class="work-filter-btn ${filter === 'all' ? 'active' : ''}" data-filter="all">
                     All <span class="filter-count">${PROJECTS.length}</span>
                 </button>
-                <button type="button" class="work-filter-btn ${filter === 'working' ? 'active' : ''}" data-filter="working">
-                    Working Projects <span class="filter-count">${workingCount}</span>
+                <button type="button" class="work-filter-btn ${filter === 'professional' ? 'active' : ''}" data-filter="professional">
+                    Professional Projects <span class="filter-count">${professionalCount}</span>
                 </button>
                 <button type="button" class="work-filter-btn ${filter === 'personal' ? 'active' : ''}" data-filter="personal">
                     Personal Projects <span class="filter-count">${personalCount}</span>
@@ -233,16 +234,16 @@ function renderWorkPage() {
         let content = '';
 
         if (filter === 'all') {
-            const working = PROJECTS.filter(p => p.category === 'working');
+            const professional = PROJECTS.filter(p => p.category === 'professional' || p.category === 'working');
             const personal = PROJECTS.filter(p => p.category === 'personal');
 
             content = `
                 <section class="work-group-section">
                     <div class="work-group-header">
-                        <span class="group-label">// Working Projects</span>
-                        <p class="group-desc">Projects engineered for working and professional production environments.</p>
+                        <span class="group-label">// Professional Projects</span>
+                        <p class="group-desc">Projects engineered in professional company environments and client production systems.</p>
                     </div>
-                    ${working.map(renderProjectCard).join('')}
+                    ${professional.map(renderProjectCard).join('')}
                 </section>
 
                 <section class="work-group-section" style="margin-top: 3.5rem;">
@@ -254,7 +255,10 @@ function renderWorkPage() {
                 </section>
             `;
         } else {
-            const filtered = PROJECTS.filter(p => p.category === filter);
+            const filtered = PROJECTS.filter(p => {
+                if (filter === 'professional') return p.category === 'professional' || p.category === 'working';
+                return p.category === filter;
+            });
             content = filtered.map(renderProjectCard).join('');
         }
 
@@ -278,8 +282,9 @@ function renderWorkPage() {
 
     // Listen for hash changes (e.g. from home page link clicks)
     window.addEventListener('hashchange', () => {
-        const newHash = (location.hash || '').replace('#', '').toLowerCase();
-        const nextFilter = ['working', 'personal'].includes(newHash) ? newHash : 'all';
+        const raw = (location.hash || '').replace('#', '').toLowerCase();
+        const normalized = raw === 'working' ? 'professional' : raw;
+        const nextFilter = ['professional', 'personal'].includes(normalized) ? normalized : 'all';
         if (nextFilter !== currentFilter) {
             updateView(nextFilter);
         }
