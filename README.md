@@ -31,6 +31,8 @@ Exposes `PROJECTS` (and attaches to `window.PROJECTS`):
 {
   slug: string,
   title: string,
+  category: 'working' | 'personal', // 'working' = Working Project, 'personal' = Personal Project
+  categoryLabel: string,            // 'Working Project' | 'Personal Project'
   year: string,
   stack: string[],
   summary: string,
@@ -41,14 +43,12 @@ Exposes `PROJECTS` (and attaches to `window.PROJECTS`):
 ```
 
 ### `posts.js` — Writing Manifest
-Exposes `POSTS` (and attaches to `window.POSTS`):
+Exposes `POSTS` (and attaches to `window.POSTS`). Writing is currently paused; future blog entries do not require note/personal sub-classifications:
 ```javascript
 {
   slug: string,
   title: string,
   date: string,               // 'YYYY-MM-DD'
-  kind: 'note' | 'essay' | 'personal',
-  lede: string,               // Opening hook / pull-quote
   excerpt: string,            // Summary description
   tags?: string[],
   readMins?: number

@@ -1,6 +1,6 @@
 // =====================================================================
 //  script.js — Page Logic & Dynamic Hydration
-//  Renders Home Fork, Work Catalog, Writing Stream, and Single Posts.
+//  Renders Home Fork (Working vs Personal), Work Catalog, and Writing.
 // =====================================================================
 
 const MONTHS = [
@@ -26,55 +26,58 @@ function escapeHtml(s) {
 
 // ---------------------------------------------------------------------
 //  1. Home Fork Split View (index.html)
+//  Shows Working Projects (left) & Personal Projects (right)
 // ---------------------------------------------------------------------
 function renderHomeFork() {
     const forkRoot = document.getElementById('fork-root');
     if (!forkRoot) return;
 
     const hasProjects = typeof PROJECTS !== 'undefined' && Array.isArray(PROJECTS);
-    const hasPosts = typeof POSTS !== 'undefined' && Array.isArray(POSTS);
+    if (!hasProjects) return;
 
-    if (!hasProjects || !hasPosts) return;
+    const workingProjects = PROJECTS.filter(p => p.category === 'working');
+    const personalProjects = PROJECTS.filter(p => p.category === 'personal');
 
-    // Featured Work item
-    const featuredProject = PROJECTS.find(p => p.featured) || PROJECTS[0];
-    const otherProjects = PROJECTS.filter(p => p !== featuredProject).slice(0, 3);
+    const featuredWorking = workingProjects.find(p => p.featured) || workingProjects[0];
+    const otherWorking = workingProjects.filter(p => p !== featuredWorking).slice(0, 3);
 
-    // Latest Writing item
-    const sortedWriting = [...POSTS].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
-    const latestPost = sortedWriting[0];
-    const olderPosts = sortedWriting.slice(1, 3);
+    const featuredPersonal = personalProjects.find(p => p.featured) || personalProjects[0];
+    const otherPersonal = personalProjects.filter(p => p !== featuredPersonal).slice(0, 3);
 
     forkRoot.innerHTML = `
-        <!-- Work Fork Half -->
-        <section class="fork-half fork-work" tabindex="0" aria-label="Work Section">
+        <!-- Working Projects Fork Half -->
+        <section class="fork-half fork-working" tabindex="0" aria-label="Working Projects Section">
             <div>
                 <header class="fork-header">
-                    <span class="fork-label">// Work</span>
-                    <a href="/work/" class="fork-title-link">
-                        Work <span class="fork-arrow">→</span>
+                    <span class="fork-label">// Work · Professional</span>
+                    <a href="/work/#working" class="fork-title-link">
+                        Working Projects <span class="fork-arrow">→</span>
                     </a>
+                    <p class="fork-subtitle">Systems and engineering pipelines developed for working & production environments.</p>
                 </header>
 
                 <div class="fork-body">
-                    ${featuredProject ? `
+                    ${featuredWorking ? `
                     <div class="featured-snapshot">
-                        <span class="snapshot-tag">Featured Project</span>
-                        <h2 class="snapshot-title">${escapeHtml(featuredProject.title)}</h2>
-                        <p class="snapshot-summary">${escapeHtml(featuredProject.summary)}</p>
+                        <div class="snapshot-header-row">
+                            <span class="project-badge badge-working">Working Project</span>
+                            <span class="snapshot-tag">Featured</span>
+                        </div>
+                        <h2 class="snapshot-title">${escapeHtml(featuredWorking.title)}</h2>
+                        <p class="snapshot-summary">${escapeHtml(featuredWorking.summary)}</p>
                         <div class="snapshot-stack">
-                            ${(featuredProject.stack || []).map(s => `<span>${escapeHtml(s)}</span>`).join('')}
+                            ${(featuredWorking.stack || []).map(s => `<span>${escapeHtml(s)}</span>`).join('')}
                         </div>
                         <div class="snapshot-links">
-                            ${featuredProject.link ? `<a href="${featuredProject.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
-                            ${featuredProject.repo ? `<a href="${featuredProject.repo}" target="_blank" rel="noopener noreferrer">GitHub Repo ↗</a>` : ''}
+                            ${featuredWorking.link ? `<a href="${featuredWorking.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
+                            ${featuredWorking.repo ? `<a href="${featuredWorking.repo}" target="_blank" rel="noopener noreferrer">GitHub Repo ↗</a>` : ''}
                         </div>
                     </div>
                     ` : ''}
 
-                    <div class="fork-list" aria-label="Selected Projects">
-                        ${otherProjects.map(p => `
-                            <a href="/work/" class="fork-list-item">
+                    <div class="fork-list" aria-label="Selected Working Projects">
+                        ${otherWorking.map(p => `
+                            <a href="/work/#working" class="fork-list-item">
                                 <span class="fork-item-meta">${p.year}</span>
                                 <span class="fork-item-title">${escapeHtml(p.title)}</span>
                                 <span class="fork-item-meta">${(p.stack || []).slice(0, 2).join(' / ')}</span>
@@ -85,46 +88,46 @@ function renderHomeFork() {
             </div>
 
             <footer class="fork-footer">
-                <a href="/work/" class="fork-more-link">View all projects (${PROJECTS.length}) →</a>
+                <a href="/work/#working" class="fork-more-link">View all working projects (${workingProjects.length}) →</a>
             </footer>
         </section>
 
-        <!-- Writing Fork Half -->
-        <section class="fork-half fork-writing" tabindex="0" aria-label="Writing Section">
+        <!-- Personal Projects Fork Half -->
+        <section class="fork-half fork-personal" tabindex="0" aria-label="Personal Projects Section">
             <div>
                 <header class="fork-header">
-                    <span class="fork-label">// Writing</span>
-                    <a href="/writing/" class="fork-title-link">
-                        Writing <span class="fork-arrow">→</span>
+                    <span class="fork-label">// Personal · Hobby & Experiments</span>
+                    <a href="/work/#personal" class="fork-title-link">
+                        Personal Projects <span class="fork-arrow">→</span>
                     </a>
+                    <p class="fork-subtitle">Personal tools, open-source utilities, and independent experiments.</p>
                 </header>
 
                 <div class="fork-body">
-                    ${latestPost ? `
-                    <div class="featured-writing">
-                        <blockquote class="fork-lede-quote">
-                            “${escapeHtml(latestPost.lede || latestPost.excerpt)}”
-                        </blockquote>
-                        <div class="fork-lede-meta">
-                            <span class="kind-badge">${escapeHtml(latestPost.kind || 'note')}</span>
-                            <span>${formatDate(latestPost.date)}</span>
-                            ${latestPost.readMins ? `<span>· ${latestPost.readMins} min read</span>` : ''}
+                    ${featuredPersonal ? `
+                    <div class="featured-snapshot">
+                        <div class="snapshot-header-row">
+                            <span class="project-badge badge-personal">Personal Project</span>
+                            <span class="snapshot-tag">Featured</span>
                         </div>
-                        <h2 class="snapshot-title" style="font-size:1.15rem; margin-bottom:0.4rem;">
-                            <a href="/post.html?slug=${encodeURIComponent(latestPost.slug)}" style="color:var(--text-bright);">
-                                ${escapeHtml(latestPost.title)}
-                            </a>
-                        </h2>
-                        <p class="snapshot-summary">${escapeHtml(latestPost.excerpt)}</p>
+                        <h2 class="snapshot-title">${escapeHtml(featuredPersonal.title)}</h2>
+                        <p class="snapshot-summary">${escapeHtml(featuredPersonal.summary)}</p>
+                        <div class="snapshot-stack">
+                            ${(featuredPersonal.stack || []).map(s => `<span>${escapeHtml(s)}</span>`).join('')}
+                        </div>
+                        <div class="snapshot-links">
+                            ${featuredPersonal.link ? `<a href="${featuredPersonal.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
+                            ${featuredPersonal.repo ? `<a href="${featuredPersonal.repo}" target="_blank" rel="noopener noreferrer">GitHub Repo ↗</a>` : ''}
+                        </div>
                     </div>
                     ` : ''}
 
-                    <div class="fork-list" aria-label="Recent Posts">
-                        ${olderPosts.map(p => `
-                            <a href="/post.html?slug=${encodeURIComponent(p.slug)}" class="fork-list-item">
-                                <span class="fork-item-meta">${p.kind || 'note'}</span>
+                    <div class="fork-list" aria-label="Selected Personal Projects">
+                        ${otherPersonal.map(p => `
+                            <a href="/work/#personal" class="fork-list-item">
+                                <span class="fork-item-meta">${p.year}</span>
                                 <span class="fork-item-title">${escapeHtml(p.title)}</span>
-                                <span class="fork-item-meta">${formatDate(p.date).split(',')[0]}</span>
+                                <span class="fork-item-meta">${(p.stack || []).slice(0, 2).join(' / ')}</span>
                             </a>
                         `).join('')}
                     </div>
@@ -132,7 +135,7 @@ function renderHomeFork() {
             </div>
 
             <footer class="fork-footer">
-                <a href="/writing/" class="fork-more-link">Explore writing stream (${POSTS.length}) →</a>
+                <a href="/work/#personal" class="fork-more-link">View all personal projects (${personalProjects.length}) →</a>
             </footer>
         </section>
     `;
@@ -140,6 +143,7 @@ function renderHomeFork() {
 
 // ---------------------------------------------------------------------
 //  2. Work Catalog Page (work/index.html)
+//  Classified into Working Projects and Personal Projects with Filter Tabs
 // ---------------------------------------------------------------------
 function renderWorkPage() {
     const list = document.getElementById('work-list');
@@ -150,43 +154,140 @@ function renderWorkPage() {
         return;
     }
 
-    list.innerHTML = PROJECTS.map(p => `
-        <article class="work-item">
-            <div class="work-item-top">
-                <h2 class="work-item-title">
-                    <span>${escapeHtml(p.title)}</span>
-                    <span class="work-year">${escapeHtml(p.year)}</span>
-                </h2>
-                <div class="work-links">
-                    ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
-                    ${p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener noreferrer">Source ↗</a>` : ''}
+    // Read active category from URL hash or default to 'all'
+    const hash = (location.hash || '').replace('#', '').toLowerCase();
+    let currentFilter = ['working', 'personal'].includes(hash) ? hash : 'all';
+
+    function renderProjectCard(p) {
+        const isWorking = p.category === 'working';
+        const badgeClass = isWorking ? 'badge-working' : 'badge-personal';
+        const badgeText = isWorking ? 'Working Project' : 'Personal Project';
+
+        return `
+            <article class="work-item" data-category="${p.category}">
+                <div class="work-item-top">
+                    <div class="work-item-title-group">
+                        <span class="project-badge ${badgeClass}">${badgeText}</span>
+                        <h2 class="work-item-title">
+                            <span>${escapeHtml(p.title)}</span>
+                            <span class="work-year">${escapeHtml(p.year)}</span>
+                        </h2>
+                    </div>
+                    <div class="work-links">
+                        ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
+                        ${p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener noreferrer">Source ↗</a>` : ''}
+                    </div>
                 </div>
+                <p class="work-summary">${escapeHtml(p.summary)}</p>
+                <div class="work-stack">
+                    ${(p.stack || []).map(s => `<span class="stack-pill">${escapeHtml(s)}</span>`).join('')}
+                </div>
+            </article>
+        `;
+    }
+
+    function updateView(filter) {
+        currentFilter = filter;
+        const workingCount = PROJECTS.filter(p => p.category === 'working').length;
+        const personalCount = PROJECTS.filter(p => p.category === 'personal').length;
+
+        // Render Tabs
+        const filterBar = `
+            <div class="work-filter-bar" role="tablist" aria-label="Filter projects">
+                <button type="button" class="work-filter-btn ${filter === 'all' ? 'active' : ''}" data-filter="all">
+                    All <span class="filter-count">${PROJECTS.length}</span>
+                </button>
+                <button type="button" class="work-filter-btn ${filter === 'working' ? 'active' : ''}" data-filter="working">
+                    Working Projects <span class="filter-count">${workingCount}</span>
+                </button>
+                <button type="button" class="work-filter-btn ${filter === 'personal' ? 'active' : ''}" data-filter="personal">
+                    Personal Projects <span class="filter-count">${personalCount}</span>
+                </button>
             </div>
-            <p class="work-summary">${escapeHtml(p.summary)}</p>
-            <div class="work-stack">
-                ${(p.stack || []).map(s => `<span class="stack-pill">${escapeHtml(s)}</span>`).join('')}
-            </div>
-        </article>
-    `).join('');
+        `;
+
+        let content = '';
+
+        if (filter === 'all') {
+            const working = PROJECTS.filter(p => p.category === 'working');
+            const personal = PROJECTS.filter(p => p.category === 'personal');
+
+            content = `
+                <section class="work-group-section">
+                    <div class="work-group-header">
+                        <span class="group-label">// Working Projects</span>
+                        <p class="group-desc">Projects engineered for working and professional production environments.</p>
+                    </div>
+                    ${working.map(renderProjectCard).join('')}
+                </section>
+
+                <section class="work-group-section" style="margin-top: 3.5rem;">
+                    <div class="work-group-header">
+                        <span class="group-label">// Personal Projects</span>
+                        <p class="group-desc">Hobby projects, open-source utilities, and personal experiments.</p>
+                    </div>
+                    ${personal.map(renderProjectCard).join('')}
+                </section>
+            `;
+        } else {
+            const filtered = PROJECTS.filter(p => p.category === filter);
+            content = filtered.map(renderProjectCard).join('');
+        }
+
+        list.innerHTML = filterBar + '<div class="work-items-container">' + content + '</div>';
+
+        // Add Tab Listeners
+        list.querySelectorAll('.work-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const f = btn.getAttribute('data-filter');
+                if (f === 'all') {
+                    history.replaceState(null, '', location.pathname);
+                } else {
+                    history.replaceState(null, '', '#' + f);
+                }
+                updateView(f);
+            });
+        });
+    }
+
+    updateView(currentFilter);
+
+    // Listen for hash changes (e.g. from home page link clicks)
+    window.addEventListener('hashchange', () => {
+        const newHash = (location.hash || '').replace('#', '').toLowerCase();
+        const nextFilter = ['working', 'personal'].includes(newHash) ? newHash : 'all';
+        if (nextFilter !== currentFilter) {
+            updateView(nextFilter);
+        }
+    });
 }
 
 // ---------------------------------------------------------------------
 //  3. Writing Stream Page (writing/index.html)
+//  Writing is currently paused. Clean, minimalist state without note/personal tags.
 // ---------------------------------------------------------------------
 function renderWritingPage() {
     const list = document.getElementById('writing-list');
-    if (!list || typeof POSTS === 'undefined') return;
+    if (!list) return;
 
-    const posts = [...POSTS].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+    const posts = typeof POSTS !== 'undefined' && Array.isArray(POSTS) ? POSTS : [];
+
     if (!posts.length) {
-        list.innerHTML = '<p style="color:var(--muted)">No writing entries published yet.</p>';
+        list.innerHTML = `
+            <div class="writing-empty-state">
+                <p class="writing-empty-title">Writing is paused for now.</p>
+                <p class="writing-empty-desc">
+                    I am currently prioritizing engineering systems and active projects. 
+                    In the meantime, feel free to explore my <a href="/work/">Work</a> or read more <a href="/about.html">About me</a>.
+                </p>
+            </div>
+        `;
         return;
     }
 
     list.innerHTML = posts.map(p => `
         <article class="writing-item">
             <div class="writing-item-meta">
-                <span class="kind-badge">${escapeHtml(p.kind || 'note')}</span>
                 <span>${formatDate(p.date)}</span>
                 ${p.readMins ? `<span>· ${p.readMins} min read</span>` : ''}
             </div>
@@ -214,7 +315,7 @@ async function renderPost() {
     if (!post) {
         document.title = 'Post not found - Tan Nguyen';
         if (titleEl) titleEl.textContent = 'Post not found';
-        body.innerHTML = '<p>That post doesn’t exist. <a href="/writing/" style="color:var(--accent);">Back to writing stream</a>.</p>';
+        body.innerHTML = '<p>That post doesn’t exist. <a href="/work/" style="color:var(--accent);">Explore my work</a>.</p>';
         return;
     }
 
@@ -222,7 +323,6 @@ async function renderPost() {
     if (titleEl) titleEl.textContent = post.title;
     if (metaEl) {
         metaEl.innerHTML = `
-            <span class="kind-badge">${escapeHtml(post.kind || 'note')}</span>
             <span>${formatDate(post.date)}</span>
             ${post.readMins ? `<span>· ${post.readMins} min read</span>` : ''}
         `;
