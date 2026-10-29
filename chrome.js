@@ -14,7 +14,7 @@ const NAV = [
 const SOCIAL = [
     { href: 'https://github.com/tangerine0000', label: 'GitHub', external: true },
     { href: 'https://www.linkedin.com/in/sperc/', label: 'LinkedIn', external: true },
-    { href: 'mailto:tan.personal.mail@gmail.com', label: 'Email', external: false },
+    { href: 'mailto:tan.nguyen.atwork@gmail.com', label: 'Email', external: false },
 ];
 
 // Icon SVGs

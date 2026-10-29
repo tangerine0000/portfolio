@@ -1091,6 +1091,33 @@ html[data-mode="dark"] .explore-box:focus-visible {
     padding-bottom: 0.6rem;
 }
 
+.career-focus-callout {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.15rem 1.35rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.focus-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.focus-text {
+    font-size: 0.95rem;
+    color: var(--text-bright);
+    line-height: 1.6;
+    margin: 0;
+}
+
 .skill-category-group {
     display: flex;
     flex-direction: column;
