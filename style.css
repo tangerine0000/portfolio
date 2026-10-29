@@ -1169,6 +1169,78 @@ html[data-mode="dark"] .explore-box:focus-visible {
     text-decoration: underline;
 }
 
+/* Certifications Section */
+.cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.cert-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1.25rem 1.4rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cert-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.cert-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cert-title-group {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.cert-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    font-family: var(--font-grotesk);
+}
+
+.cert-issuer {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+.cert-date {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.cert-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.cert-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.35rem;
+}
+
 /* ---------------------------------------------------------------------
    10. Mobile Responsiveness (< 768px)
 --------------------------------------------------------------------- */
