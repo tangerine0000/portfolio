@@ -87,7 +87,7 @@ function buildChrome() {
     rail.setAttribute('aria-label', 'Primary Navigation');
     rail.innerHTML = `
         <div class="rail-brand">
-            <a href="/" class="brand-name">tan nguyen</a>
+            <a href="/" class="brand-name">Tan Nguyen</a>
             <span class="brand-sub">developer</span>
         </div>
         <nav class="rail-nav">
