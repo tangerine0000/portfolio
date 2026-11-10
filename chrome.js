@@ -87,7 +87,7 @@ function buildChrome() {
     rail.innerHTML = `
         <div class="rail-brand">
             <a href="/" class="brand-name">Tan Nguyen</a>
-            <span class="brand-sub">developer</span>
+            <span class="brand-sub">ai engineer</span>
         </div>
         <nav class="rail-nav">
             <ul>${navLinks}</ul>

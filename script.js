@@ -185,18 +185,17 @@ function renderWorkPage() {
 
     function renderProjectCard(p) {
         const isProfessional = p.category === 'professional' || p.category === 'working';
-        const badgeClass = isProfessional ? 'badge-professional' : 'badge-personal';
-        const badgeText = isProfessional ? 'Professional Project' : 'Personal Project';
+        const signatureText = isProfessional ? 'production' : 'tool';
 
         return `
             <article class="work-item" data-category="${p.category}">
                 <div class="work-item-top">
                     <div class="work-item-title-group">
-                        <span class="project-badge ${badgeClass}">${badgeText}</span>
                         <h2 class="work-item-title">
                             <span>${escapeHtml(p.title)}</span>
-                            <span class="work-year">${escapeHtml(p.year)}</span>
+                            <span class="work-signature-tag">● ${signatureText}</span>
                         </h2>
+                        <span class="work-year">${escapeHtml(p.year)}</span>
                     </div>
                     <div class="work-links">
                         ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
@@ -205,7 +204,7 @@ function renderWorkPage() {
                 </div>
                 <p class="work-summary">${escapeHtml(p.summary)}</p>
                 <div class="work-stack">
-                    ${(p.stack || []).map(s => `<span class="stack-pill">${escapeHtml(s)}</span>`).join('')}
+                    ${(p.stack || []).map(s => `<span class="stack-tag">${escapeHtml(s)}</span>`).join('')}
                 </div>
             </article>
         `;
@@ -223,10 +222,10 @@ function renderWorkPage() {
                     All <span class="filter-count">${PROJECTS.length}</span>
                 </button>
                 <button type="button" class="work-filter-btn ${filter === 'professional' ? 'active' : ''}" data-filter="professional">
-                    Professional Projects <span class="filter-count">${professionalCount}</span>
+                    Production Systems <span class="filter-count">${professionalCount}</span>
                 </button>
                 <button type="button" class="work-filter-btn ${filter === 'personal' ? 'active' : ''}" data-filter="personal">
-                    Personal Projects <span class="filter-count">${personalCount}</span>
+                    Open Source &amp; Tools <span class="filter-count">${personalCount}</span>
                 </button>
             </div>
         `;
@@ -240,16 +239,16 @@ function renderWorkPage() {
             content = `
                 <section class="work-group-section">
                     <div class="work-group-header">
-                        <span class="group-label">// Professional Projects</span>
-                        <p class="group-desc">Projects engineered in professional company environments and client production systems.</p>
+                        <span class="group-label">Production Systems</span>
+                        <p class="group-desc">Projects engineered in professional environments and client production systems.</p>
                     </div>
                     ${professional.map(renderProjectCard).join('')}
                 </section>
 
-                <section class="work-group-section" style="margin-top: 3.5rem;">
+                <section class="work-group-section" style="margin-top: 2rem;">
                     <div class="work-group-header">
-                        <span class="group-label">// Personal Projects</span>
-                        <p class="group-desc">Hobby projects, open-source utilities, and personal experiments.</p>
+                        <span class="group-label">Open Source &amp; Personal Tools</span>
+                        <p class="group-desc">Utilities, open-source explorations, and machine learning experiments.</p>
                     </div>
                     ${personal.map(renderProjectCard).join('')}
                 </section>
@@ -316,7 +315,7 @@ function renderWritingPage() {
     list.innerHTML = posts.map(p => `
         <article class="writing-item">
             <div class="writing-item-meta">
-                ${p.kind ? `<span class="kind-badge">${escapeHtml(p.kind)}</span>` : ''}
+                ${p.kind ? `<span class="kind-tag">${escapeHtml(p.kind)}</span>` : ''}
                 <span>${formatDate(p.date)}</span>
                 ${p.readMins ? `<span>· ${p.readMins} min read</span>` : ''}
             </div>
@@ -352,7 +351,7 @@ async function renderPost() {
     if (titleEl) titleEl.textContent = post.title;
     if (metaEl) {
         metaEl.innerHTML = `
-            ${post.kind ? `<span class="kind-badge">${escapeHtml(post.kind)}</span>` : ''}
+            ${post.kind ? `<span class="kind-tag">${escapeHtml(post.kind)}</span>` : ''}
             <span>${formatDate(post.date)}</span>
             ${post.readMins ? `<span>· ${post.readMins} min read</span>` : ''}
         `;
