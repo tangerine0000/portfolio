@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tan Nguyen — AI Engineer &amp; Full-Stack Developer</title>
-    <meta name="description" content="About Tan Nguyen — background, technical stack, software systems, and engineering writing.">
+    <meta name="description" content="About Tan Nguyen — AI Engineer &amp; Full-Stack Developer building LLM retrieval pipelines, vector search services, and dependable web backends.">
     <script>
         (function () {
             var m = null;
@@ -23,99 +23,57 @@
 <body data-page="about">
     <main class="main-content">
         <div class="page-wrapper">
-            <header class="page-header">
-                <div class="header-meta">
-                    <span class="coord-status"><span class="status-dot" aria-hidden="true">●</span> Available for AI &amp; backend engineering roles</span>
+            <header class="hero-split">
+                <div class="hero-copy">
+                    <div class="header-meta">
+                        <span class="coord-status"><span class="status-dot" aria-hidden="true">●</span> Available for AI &amp; backend roles</span>
+                    </div>
+                    <h1 class="page-title">Tan Nguyen</h1>
+                    <p class="page-intro">AI Engineer &amp; Full-Stack Developer building LLM retrieval pipelines, vector search services, and dependable web backends</p>
+                    <div class="hero-actions">
+                        <a href="/work/" class="btn btn-primary">Explore work</a>
+                        <a href="/writing/" class="btn btn-secondary">Read writing</a>
+                    </div>
                 </div>
-                <h1 class="page-title">Tan Nguyen</h1>
-                <p class="page-intro">AI Engineer &amp; Full-Stack Developer building LLM retrieval pipelines, vector search services, and dependable web backends</p>
-                <div class="hero-actions">
-                    <a href="/work/" class="btn btn-primary">Explore work</a>
-                    <a href="/writing/" class="btn btn-secondary">Read writing</a>
+
+                <div class="hero-visual" role="img" aria-label="Vector embedding field: cosine similarity topology">
+                    <div class="visual-mesh" aria-hidden="true"></div>
+                    <div class="visual-grain" aria-hidden="true"></div>
+                    <svg class="visual-contours" viewBox="0 0 360 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <ellipse cx="248" cy="88" rx="148" ry="96" transform="rotate(-14 248 88)" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.22"/>
+                        <ellipse cx="248" cy="88" rx="96" ry="62" transform="rotate(-14 248 88)" stroke="currentColor" stroke-width="1" opacity="0.28"/>
+                        <ellipse cx="248" cy="88" rx="46" ry="30" transform="rotate(-14 248 88)" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+                        <path d="M44 212 C 116 184, 178 136, 248 88" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+                        <circle cx="248" cy="88" r="4" fill="var(--accent)"/>
+                        <circle cx="176" cy="134" r="3" fill="currentColor" opacity="0.55"/>
+                        <circle cx="108" cy="178" r="2.5" fill="currentColor" opacity="0.35"/>
+                    </svg>
+                    <div class="visual-meta" aria-hidden="true">
+                        <span class="visual-coord"><span class="status-dot">●</span> cos(θ) = 0.94</span>
+                        <span class="visual-dim">384-d · FlatIP</span>
+                    </div>
                 </div>
             </header>
 
             <div class="editorial-ledger">
-                <!-- Retrieval Pipeline Preview (Craft Moment) -->
-                <section class="editorial-section" aria-label="Core Engineering Pipeline">
+                <!-- Background -->
+                <section class="editorial-section" id="background">
                     <div class="section-index">
-                        <span class="idx-label">Retrieval pipeline</span>
-                        <span class="idx-sub">Live architecture</span>
+                        <span class="idx-label">About</span>
+                        <span class="idx-sub">HCMUS · CS</span>
                     </div>
                     <div class="section-body">
-                        <div class="craft-moment">
-                            <div class="moment-header">
-                                <span class="moment-title">scrape-chatbot · FAISS similarity search</span>
-                                <span class="moment-signature"><span class="status-dot" aria-hidden="true">●</span> 42 ms · 384-d MiniLM</span>
-                            </div>
-
-                            <div class="trace-query">
-                                <span class="trace-label">Query</span>
-                                <span class="trace-input">How does the pipeline chunk DOM nodes before indexing into FAISS?</span>
-                            </div>
-
-                            <div class="trace-results" role="list" aria-label="Top retrieved vector chunks">
-                                <div class="trace-row trace-row-top" role="listitem">
-                                    <div class="trace-row-head">
-                                        <span class="trace-source">extractor/chunker.py:48</span>
-                                        <span class="trace-desc">Semantic DOM splitter (512 tokens, 64 overlap)</span>
-                                        <span class="trace-score">0.94</span>
-                                    </div>
-                                    <div class="trace-bar-track" aria-hidden="true">
-                                        <div class="trace-bar-fill trace-bar-accent" style="width: 94%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="trace-row" role="listitem">
-                                    <div class="trace-row-head">
-                                        <span class="trace-source">vector/faiss_store.py:112</span>
-                                        <span class="trace-desc">IndexFlatIP L2-normalized cosine similarity lookup</span>
-                                        <span class="trace-score">0.81</span>
-                                    </div>
-                                    <div class="trace-bar-track" aria-hidden="true">
-                                        <div class="trace-bar-fill" style="width: 81%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="trace-row" role="listitem">
-                                    <div class="trace-row-head">
-                                        <span class="trace-source">crawler/playwright_dom.py:29</span>
-                                        <span class="trace-desc">Headless Chromium extraction &amp; boilerplate strip</span>
-                                        <span class="trace-score">0.64</span>
-                                    </div>
-                                    <div class="trace-bar-track" aria-hidden="true">
-                                        <div class="trace-bar-fill" style="width: 64%"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="moment-stages">
-                                <div class="stage-item">
-                                    <span class="stage-step">1. Crawl</span>
-                                    <span class="stage-tech">Playwright DOM</span>
-                                </div>
-                                <div class="stage-item">
-                                    <span class="stage-step">2. Embed</span>
-                                    <span class="stage-tech">384-d vectors</span>
-                                </div>
-                                <div class="stage-item">
-                                    <span class="stage-step">3. Index</span>
-                                    <span class="stage-tech">FAISS FlatIP</span>
-                                </div>
-                                <div class="stage-item">
-                                    <span class="stage-step">4. Synthesize</span>
-                                    <span class="stage-tech">Ollama &amp; LangChain</span>
-                                </div>
-                            </div>
+                        <div class="prose-block">
+                            <p>Computer Science graduate from Ho Chi Minh City University of Science (HCMUS) specializing in Artificial Intelligence. I engineer retrieval-augmented pipelines, local model services, and calm, maintainable web backends.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Directory -->
-                <section class="editorial-section" aria-label="Explore Portfolio">
+                <section class="editorial-section" id="directory" aria-label="Explore Portfolio">
                     <div class="section-index">
-                        <span class="idx-label">Directory</span>
-                        <span class="idx-sub">Index</span>
+                        <span class="idx-label">Index</span>
+                        <span class="idx-sub">Archive</span>
                     </div>
                     <div class="section-body">
                         <div class="directory-ledger">
@@ -143,86 +101,6 @@
                     </div>
                 </section>
 
-                <!-- Background -->
-                <section class="editorial-section" id="background">
-                    <div class="section-index">
-                        <span class="idx-label">Background</span>
-                        <span class="idx-sub">HCMUS · CS</span>
-                    </div>
-                    <div class="section-body">
-                        <div class="prose-block">
-                            <p>I graduated from Ho Chi Minh City University of Science (HCMUS) with a degree in Computer Science, specializing in Artificial Intelligence. My academic training established a rigorous foundation in algorithms, statistical learning, and computational systems.</p>
-                            <p>Today, I apply that systems mindset across the full software stack—engineering dependable backend APIs, calm interfaces, and integrating open-weight models into deterministic production workflows.</p>
-                        </div>
-                        <blockquote class="editorial-pullquote">
-                            <span class="pullquote-tag">Current focus</span>
-                            <p>Designing end-to-end retrieval-augmented pipelines and autonomous agent workflows built on maintainable web architectures</p>
-                        </blockquote>
-                    </div>
-                </section>
-
-                <!-- Technical Stack -->
-                <section class="editorial-section" id="stack">
-                    <div class="section-index">
-                        <span class="idx-label">Technical stack</span>
-                        <span class="idx-sub">Core tools</span>
-                    </div>
-                    <div class="section-body">
-                        <div class="specs-grid">
-                            <div class="spec-row">
-                                <span class="spec-label">Languages &amp; runtimes</span>
-                                <span class="spec-value">Python, JavaScript (ES6+), Node.js, HTML5, CSS</span>
-                            </div>
-                            <div class="spec-row">
-                                <span class="spec-label">Backend &amp; storage</span>
-                                <span class="spec-value">FastAPI, Express, REST APIs, PostgreSQL, MongoDB, SQLite</span>
-                            </div>
-                            <div class="spec-row">
-                                <span class="spec-label">AI &amp; vector systems</span>
-                                <span class="spec-value">LangChain, Ollama, FAISS, PyTorch, Streamlit</span>
-                            </div>
-                            <div class="spec-row">
-                                <span class="spec-label">Infrastructure</span>
-                                <span class="spec-value">Docker, Linux, Git &amp; GitHub, CLI tooling</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Credentials -->
-                <section class="editorial-section" id="certifications">
-                    <div class="section-index">
-                        <span class="idx-label">Credentials</span>
-                        <span class="idx-sub">Specializations</span>
-                    </div>
-                    <div class="section-body">
-                        <div class="cert-ledger">
-                            <div class="cert-row">
-                                <span class="cert-year">2024</span>
-                                <div class="cert-main">
-                                    <div class="cert-header-line">
-                                        <h3 class="cert-title">Machine Learning Specialization</h3>
-                                        <span class="cert-issuer">DeepLearning.AI &amp; Stanford</span>
-                                    </div>
-                                    <p class="cert-desc">Supervised learning, neural networks, decision trees, recommender systems, and unsupervised learning</p>
-                                </div>
-                                <span class="cert-domain">ML · Python</span>
-                            </div>
-                            <div class="cert-row">
-                                <span class="cert-year">2024</span>
-                                <div class="cert-main">
-                                    <div class="cert-header-line">
-                                        <h3 class="cert-title">Deep Learning Specialization</h3>
-                                        <span class="cert-issuer">DeepLearning.AI</span>
-                                    </div>
-                                    <p class="cert-desc">Convolutional networks, sequence models, attention mechanisms, transformers, and model optimization</p>
-                                </div>
-                                <span class="cert-domain">DL · Transformers</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <!-- Contact -->
                 <section class="editorial-section" id="contact">
                     <div class="section-index">
@@ -230,22 +108,21 @@
                         <span class="idx-sub">Direct channels</span>
                     </div>
                     <div class="section-body">
-                        <p class="connect-intro">Open to engineering roles, technical collaborations, and discussions on AI systems</p>
                         <div class="contact-ledger">
                             <a href="mailto:tan.nguyen.atwork@gmail.com" class="contact-row">
                                 <span class="contact-channel">Email</span>
                                 <span class="contact-handle">tan.nguyen.atwork@gmail.com</span>
                                 <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                             </a>
-                            <a href="https://www.linkedin.com/in/sperc/" target="_blank" rel="noopener noreferrer" class="contact-row">
-                                <span class="contact-channel">LinkedIn</span>
-                                <span class="contact-handle">linkedin.com/in/sperc</span>
-                                <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
-                            </a>
                             <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer" class="contact-row">
                                 <span class="contact-channel">GitHub</span>
                                 <span class="contact-handle">github.com/tangerine0000</span>
-                                <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                                <svg class="ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/sperc/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                                <span class="contact-channel">LinkedIn</span>
+                                <span class="contact-handle">linkedin.com/in/sperc</span>
+                                <svg class="ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
                             </a>
                         </div>
                     </div>

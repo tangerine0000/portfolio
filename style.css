@@ -1,7 +1,8 @@
 /* =====================================================================
    Tan Nguyen — Portfolio
-   Unslopped Design System
-   Direction: Quiet, exact, literary — archival warm paper & draughtsman's ink
+   Unslopped Design System (unslop by @heydamir, CC BY 4.0)
+   Direction: Calm, exact, tactile — archival warm paper & draughtsman's ink
+   Moment: Asymmetric split hero with a framed grainy vector-field canvas
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -22,6 +23,14 @@
     --accent-hover: #184e4a;
     --accent-soft: rgba(35, 107, 102, 0.10);
 
+    /* Framed Visual Canvas Tokens (Light) */
+    --canvas-base: #efe8dc;
+    --canvas-mesh-1: rgba(35, 107, 102, 0.34);
+    --canvas-mesh-2: rgba(196, 125, 68, 0.26);
+    --canvas-mesh-3: rgba(31, 27, 22, 0.08);
+    --grain-opacity: 0.36;
+    --grain-blend: multiply;
+
     /* Typography Pairing: Interface Sans + Display Serif + Meta Mono */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
@@ -35,7 +44,7 @@
     /* Nested Radius Scale (tokens.md) */
     --radius-sm: 4px;
     --radius-md: 8px;
-    --radius-lg: 12px;
+    --radius-lg: 16px;
 
     /* Motion Tokens (tokens.md) */
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -57,11 +66,19 @@
     --accent: #58b7af;
     --accent-hover: #7ad0c9;
     --accent-soft: rgba(88, 183, 175, 0.12);
+
+    /* Framed Visual Canvas Tokens (Dark) */
+    --canvas-base: #1b1916;
+    --canvas-mesh-1: rgba(88, 183, 175, 0.28);
+    --canvas-mesh-2: rgba(196, 125, 68, 0.20);
+    --canvas-mesh-3: rgba(35, 107, 102, 0.22);
+    --grain-opacity: 0.28;
+    --grain-blend: overlay;
 }
 
 /* ---------------------------------------------------------------------
    2. Reset & Base Typography
-   Type scale: 12 / 14 / 15 / 18 / 20 / 24 / 44
+   Type scale: 12 / 13 / 14 / 15 / 18 / 20 / 24 / 44
 --------------------------------------------------------------------- */
 *, *::before, *::after {
     margin: 0;
@@ -299,7 +316,7 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   4. Main Content Shell & Hero Header
+   4. Main Content Shell & Asymmetric Split Hero (About Page)
 --------------------------------------------------------------------- */
 .main-content {
     flex: 1;
@@ -327,6 +344,100 @@ a:hover .row-icon {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Asymmetric Split Hero:
+   Left: quiet text on calm neutral surface
+   Right: one bright moment — framed grainy gradient vector-field artwork */
+.hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+    align-items: center;
+    gap: 32px;
+    padding-bottom: 40px;
+}
+
+.hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Framed Vector-Field Art Piece (Outer radius: 16px, inner padding: 16px) */
+.hero-visual {
+    position: relative;
+    height: 240px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background-color: var(--canvas-base);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    color: var(--text-primary);
+}
+
+[data-mode="dark"] .hero-visual {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.visual-mesh {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+        radial-gradient(95% 110% at 76% 28%, var(--canvas-mesh-1) 0%, transparent 64%),
+        radial-gradient(90% 100% at 18% 88%, var(--canvas-mesh-2) 0%, transparent 62%),
+        radial-gradient(70% 70% at 50% 50%, var(--canvas-mesh-3) 0%, transparent 70%);
+}
+
+.visual-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: var(--grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+}
+
+.visual-contours {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.visual-meta {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-secondary);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.visual-coord {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.visual-dim {
+    color: var(--text-muted);
 }
 
 .page-header {
@@ -386,14 +497,14 @@ a:hover .row-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 44px;
     padding: 0 16px;
     border-radius: var(--radius-md);
     font-family: var(--font-sans);
     font-size: 14px;
     line-height: 20px;
     font-weight: 500;
-    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .btn:active {
@@ -436,7 +547,7 @@ a:hover .row-icon {
     display: grid;
     grid-template-columns: var(--index-col-width) minmax(0, 1fr);
     gap: 32px;
-    padding: 36px 0;
+    padding: 32px 0;
     border-top: 1px solid var(--border);
 }
 
@@ -465,169 +576,13 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   6. Craft Moment: Vector Retrieval Trace
-   One bright element with ranked cosine similarity bars
+   6. Background Prose (About Page)
 --------------------------------------------------------------------- */
-.craft-moment {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background-color: var(--bg-card);
-    overflow: hidden;
-}
-
-.moment-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--border);
-    background-color: var(--bg-raised);
-}
-
-.moment-title {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.moment-signature {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
+.prose-block p {
+    font-size: 15px;
+    line-height: 24px;
     color: var(--text-secondary);
-    white-space: nowrap;
-}
-
-.trace-query {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.trace-label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-}
-
-.trace-input {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--text-primary);
-}
-
-.trace-results {
-    display: flex;
-    flex-direction: column;
-    padding: 8px 12px;
-    gap: 4px;
-}
-
-.trace-row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px;
-    border-radius: var(--radius-sm);
-    transition: background-color var(--dur-fast) var(--ease-out);
-}
-
-.trace-row-top {
-    background-color: var(--accent-soft);
-}
-
-.trace-row-head {
-    display: grid;
-    grid-template-columns: 200px minmax(0, 1fr) auto;
-    align-items: baseline;
-    gap: 12px;
-}
-
-.trace-source {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.trace-desc {
-    font-size: 13px;
-    line-height: 20px;
-    color: var(--text-secondary);
-}
-
-.trace-score {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-align: right;
-}
-
-.trace-row-top .trace-score {
-    color: var(--accent);
-}
-
-.trace-bar-track {
-    width: 100%;
-    height: 4px;
-    background-color: var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.trace-bar-fill {
-    height: 100%;
-    background-color: var(--text-muted);
-    opacity: 0.45;
-    border-radius: 4px;
-}
-
-.trace-bar-fill.trace-bar-accent {
-    background-color: var(--accent);
-    opacity: 1;
-}
-
-.moment-stages {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background-color: var(--border);
-    border-top: 1px solid var(--border);
-}
-
-.stage-item {
-    background-color: var(--bg-card);
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.stage-step {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-}
-
-.stage-tech {
-    font-size: 13px;
-    line-height: 20px;
-    color: var(--text-primary);
-    font-weight: 500;
+    max-width: 60ch;
 }
 
 /* ---------------------------------------------------------------------
@@ -643,7 +598,7 @@ a:hover .row-icon {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    padding: 20px 0;
+    padding: 16px 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -690,154 +645,8 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   8. Background Prose & Pullquote
+   8. Contact Ledger (About Page)
 --------------------------------------------------------------------- */
-.prose-block p {
-    font-size: 15px;
-    line-height: 24px;
-    color: var(--text-secondary);
-    max-width: 60ch;
-}
-
-.editorial-pullquote {
-    margin-top: 24px;
-    padding: 16px 20px;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
-    border-radius: var(--radius-md);
-}
-
-.pullquote-tag {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-}
-
-.editorial-pullquote p {
-    font-family: var(--font-serif);
-    font-size: 18px;
-    line-height: 28px;
-    color: var(--text-primary);
-    max-width: 54ch;
-}
-
-/* ---------------------------------------------------------------------
-   9. Technical Stack Ledger
---------------------------------------------------------------------- */
-.specs-grid {
-    display: flex;
-    flex-direction: column;
-}
-
-.spec-row {
-    display: grid;
-    grid-template-columns: 184px minmax(0, 1fr);
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: baseline;
-}
-
-.spec-row:first-child {
-    padding-top: 0;
-}
-
-.spec-label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-}
-
-.spec-value {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--text-primary);
-}
-
-/* ---------------------------------------------------------------------
-   10. Credentials Ledger
---------------------------------------------------------------------- */
-.cert-ledger {
-    display: flex;
-    flex-direction: column;
-}
-
-.cert-row {
-    display: grid;
-    grid-template-columns: 48px minmax(0, 1fr) auto;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: baseline;
-}
-
-.cert-row:first-child {
-    padding-top: 0;
-}
-
-.cert-year {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-}
-
-.cert-main {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.cert-header-line {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px 12px;
-}
-
-.cert-title {
-    font-size: 15px;
-    line-height: 24px;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.cert-issuer {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-}
-
-.cert-desc {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--text-secondary);
-}
-
-.cert-domain {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--text-muted);
-    white-space: nowrap;
-}
-
-/* ---------------------------------------------------------------------
-   11. Contact Ledger
---------------------------------------------------------------------- */
-.connect-intro {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-}
-
 .contact-ledger {
     display: flex;
     flex-direction: column;
@@ -850,6 +659,10 @@ a:hover .row-icon {
     gap: 16px;
     padding: 12px 0;
     border-bottom: 1px solid var(--border);
+}
+
+.contact-row:first-child {
+    padding-top: 0;
 }
 
 .contact-row:hover {
@@ -870,7 +683,7 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   12. Work Catalog Page (work/index.html)
+   9. Work Catalog Page (work/index.html)
 --------------------------------------------------------------------- */
 .work-filter-bar {
     display: flex;
@@ -1030,7 +843,7 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   13. Writing Stream Page (writing/index.html)
+   10. Writing Stream Page (writing/index.html)
 --------------------------------------------------------------------- */
 .writing-ledger {
     display: flex;
@@ -1112,7 +925,7 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   14. Single Post Reader (post.html)
+   11. Single Post Reader (post.html)
 --------------------------------------------------------------------- */
 .back-link {
     display: inline-flex;
@@ -1243,7 +1056,7 @@ a:hover .row-icon {
 }
 
 /* ---------------------------------------------------------------------
-   15. Mobile Footer Links & Responsive Breakpoints
+   12. Mobile Footer Links & Responsive Breakpoints
 --------------------------------------------------------------------- */
 .mobile-social {
     display: none;
@@ -1277,17 +1090,13 @@ a:hover .row-icon {
 }
 
 @media (max-width: 900px) {
-    .moment-stages {
-        grid-template-columns: repeat(2, 1fr);
+    .hero-split {
+        grid-template-columns: 1fr;
+        gap: 28px;
     }
 
-    .trace-row-head {
-        grid-template-columns: 1fr auto;
-    }
-
-    .trace-desc {
-        grid-column: 1 / -1;
-        order: 3;
+    .hero-visual {
+        height: 200px;
     }
 
     .editorial-section {
@@ -1362,7 +1171,11 @@ a:hover .row-icon {
     }
 
     .page-wrapper {
-        padding: 32px 20px 64px;
+        padding: 24px 20px 64px;
+    }
+
+    .hero-split {
+        padding-bottom: 28px;
     }
 
     .page-title {
@@ -1372,7 +1185,7 @@ a:hover .row-icon {
     .editorial-section {
         grid-template-columns: 1fr;
         gap: 16px;
-        padding: 28px 0;
+        padding: 24px 0;
     }
 
     .section-index {
@@ -1382,26 +1195,12 @@ a:hover .row-icon {
         gap: 8px;
     }
 
-    .spec-row {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-
-    .cert-row {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-
     .mobile-social {
         display: block;
     }
 }
 
 @media (max-width: 520px) {
-    .moment-stages {
-        grid-template-columns: 1fr;
-    }
-
     .contact-row {
         grid-template-columns: 1fr auto;
     }
