@@ -27,4 +27,4 @@ console.log(greet("world"));
 
 ---
 
-That's the plan. More soon. If something here is useful or wrong, [tell me](contact.html).
+That's the plan. More soon. If something here is useful or wrong, [tell me](/#contact).

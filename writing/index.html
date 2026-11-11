@@ -7,7 +7,8 @@
     <meta name="description" content="Essays, notes, and technical reflections on software engineering and AI systems by Tan Nguyen.">
     <script>
         (function () {
-            var m = localStorage.getItem('mode');
+            var m = null;
+            try { m = localStorage.getItem('mode'); } catch (e) {}
             if (!m) {
                 m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }
@@ -16,15 +17,18 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body data-page="writing">
     <main class="main-content">
         <div class="page-wrapper">
             <header class="page-header">
+                <div class="header-meta">
+                    <span class="coord-status"><span class="status-dot" aria-hidden="true">●</span> 3 published entries</span>
+                </div>
                 <h1 class="page-title">Writing</h1>
-                <p class="page-intro">Essays, notes, and architectural reflections on full-stack development, AI, and developer tools.</p>
+                <p class="page-intro">Essays, technical notes, and architectural reflections on full-stack development, LLMs, and developer tooling</p>
             </header>
             <div id="writing-list" class="writing-list">
                 <!-- Hydrated dynamically by renderWritingPage() in script.js -->

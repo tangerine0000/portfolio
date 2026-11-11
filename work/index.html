@@ -7,7 +7,8 @@
     <meta name="description" content="Engineering projects, AI systems, and web tools built by Tan Nguyen.">
     <script>
         (function () {
-            var m = localStorage.getItem('mode');
+            var m = null;
+            try { m = localStorage.getItem('mode'); } catch (e) {}
             if (!m) {
                 m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }
@@ -16,15 +17,18 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body data-page="work">
     <main class="main-content">
         <div class="page-wrapper">
             <header class="page-header">
+                <div class="header-meta">
+                    <span class="coord-status"><span class="status-dot" aria-hidden="true">●</span> 6 cataloged systems</span>
+                </div>
                 <h1 class="page-title">Work</h1>
-                <p class="page-intro">Selected software systems, AI pipelines, and web tools — organized by production environments and open-source tools.</p>
+                <p class="page-intro">Selected software systems, AI pipelines, and web tools across production environments and open-source exploration</p>
             </header>
             <div id="work-list" class="work-list">
                 <!-- Hydrated dynamically by renderWorkPage() in script.js -->

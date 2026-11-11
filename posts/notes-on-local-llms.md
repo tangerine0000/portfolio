@@ -6,7 +6,7 @@ Cloud APIs are convenient, but local models change the economics and privacy bou
 
 - **Zero API costs**: You can test prompts, run loops, and execute batch pipelines without worrying about token budgets.
 - **Data privacy**: Code, documents, and user inputs never leave the host machine.
-- **Offline reliability**: Tools continue to function seamlessly without network latency or service outages.
+- **Offline reliability**: Tools continue to operate offline without network latency or third-party service outages.
 
 ## Key Observations
 

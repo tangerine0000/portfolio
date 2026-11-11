@@ -1,12 +1,16 @@
 // =====================================================================
 //  script.js — Page Logic & Dynamic Hydration
-//  Renders Home Fork (Working vs Personal), Work Catalog, and Writing.
+//  Renders Work Ledger, Writing Stream, and Markdown Posts.
 // =====================================================================
 
 const MONTHS = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
 ];
+
+const ICON_ARROW_RIGHT = `<svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>`;
+
+const ICON_ARROW_UP_RIGHT = `<svg class="ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>`;
 
 // Parse 'YYYY-MM-DD' cleanly without timezone skew
 function formatDate(iso) {
@@ -17,6 +21,12 @@ function formatDate(iso) {
     return `${MONTHS[m - 1]} ${d}, ${y}`;
 }
 
+function sentenceCase(s) {
+    if (!s) return '';
+    const str = String(s);
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 function escapeHtml(s) {
     if (!s) return '';
     return String(s).replace(/[&<>"']/g, c => ({
@@ -25,186 +35,44 @@ function escapeHtml(s) {
 }
 
 // ---------------------------------------------------------------------
-//  1. Home Fork Split View (index.html)
-//  Left: Work (with working & personal project badges)
-//  Right: Writing (essays & notes stream)
-// ---------------------------------------------------------------------
-function renderHomeFork() {
-    const forkRoot = document.getElementById('fork-root');
-    if (!forkRoot) return;
-
-    const hasProjects = typeof PROJECTS !== 'undefined' && Array.isArray(PROJECTS);
-    const hasPosts = typeof POSTS !== 'undefined' && Array.isArray(POSTS);
-
-    if (!hasProjects) return;
-
-    // Featured Work item (prioritize featured, or first project)
-    const featuredProject = PROJECTS.find(p => p.featured) || PROJECTS[0];
-    const otherProjects = PROJECTS.filter(p => p !== featuredProject).slice(0, 3);
-
-    // Latest Writing items
-    const sortedWriting = hasPosts ? [...POSTS].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)) : [];
-    const latestPost = sortedWriting[0];
-    const olderPosts = sortedWriting.slice(1, 3);
-
-    forkRoot.innerHTML = `
-        <!-- Work Fork Half -->
-        <section class="fork-half fork-work" tabindex="0" aria-label="Work Section">
-            <div>
-                <header class="fork-header">
-                    <span class="fork-label">// Work</span>
-                    <a href="/work/" class="fork-title-link">
-                        Work <span class="fork-arrow">→</span>
-                    </a>
-                    <p class="fork-subtitle">Systems, AI pipelines, and web tools across professional and personal projects.</p>
-                </header>
-
-                <div class="fork-body">
-                    ${featuredProject ? `
-                    <div class="featured-snapshot">
-                        <div class="snapshot-header-row">
-                            <span class="project-badge ${featuredProject.category === 'personal' ? 'badge-personal' : 'badge-professional'}">
-                                ${escapeHtml(featuredProject.categoryLabel || (featuredProject.category === 'personal' ? 'Personal Project' : 'Professional Project'))}
-                            </span>
-                            <span class="snapshot-tag">Featured Project</span>
-                        </div>
-                        <h2 class="snapshot-title">${escapeHtml(featuredProject.title)}</h2>
-                        <p class="snapshot-summary">${escapeHtml(featuredProject.summary)}</p>
-                        <div class="snapshot-stack">
-                            ${(featuredProject.stack || []).map(s => `<span>${escapeHtml(s)}</span>`).join('')}
-                        </div>
-                        <div class="snapshot-links">
-                            ${featuredProject.link ? `<a href="${featuredProject.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
-                            ${featuredProject.repo ? `<a href="${featuredProject.repo}" target="_blank" rel="noopener noreferrer">GitHub Repo ↗</a>` : ''}
-                        </div>
-                    </div>
-                    ` : ''}
-
-                    <div class="fork-list" aria-label="Selected Projects">
-                        ${otherProjects.map(p => `
-                            <a href="/work/#${p.category || 'all'}" class="fork-list-item">
-                                <span class="fork-item-meta">${p.year}</span>
-                                <span class="fork-item-title">
-                                    ${escapeHtml(p.title)}
-                                    <span class="project-badge-inline ${p.category === 'personal' ? 'badge-personal' : 'badge-professional'}">
-                                        ${p.category === 'personal' ? 'Personal' : 'Professional'}
-                                    </span>
-                                </span>
-                                <span class="fork-item-meta">${(p.stack || []).slice(0, 2).join(' / ')}</span>
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-
-            <footer class="fork-footer">
-                <a href="/work/" class="fork-more-link">View all projects (${PROJECTS.length}) →</a>
-            </footer>
-        </section>
-
-        <!-- Writing Fork Half -->
-        <section class="fork-half fork-writing" tabindex="0" aria-label="Writing Section">
-            <div>
-                <header class="fork-header">
-                    <span class="fork-label">// Writing</span>
-                    <a href="/writing/" class="fork-title-link">
-                        Writing <span class="fork-arrow">→</span>
-                    </a>
-                    <p class="fork-subtitle">Essays, notes, and architectural reflections on full-stack development and AI.</p>
-                </header>
-
-                <div class="fork-body">
-                    ${latestPost ? `
-                    <div class="featured-writing">
-                        <blockquote class="fork-lede-quote">
-                            “${escapeHtml(latestPost.lede || latestPost.excerpt)}”
-                        </blockquote>
-                        <div class="fork-lede-meta">
-                            ${latestPost.kind ? `<span class="kind-badge">${escapeHtml(latestPost.kind)}</span>` : ''}
-                            <span>${formatDate(latestPost.date)}</span>
-                            ${latestPost.readMins ? `<span>· ${latestPost.readMins} min read</span>` : ''}
-                        </div>
-                        <h2 class="snapshot-title" style="font-size:1.15rem; margin-bottom:0.4rem;">
-                            <a href="/post.html?slug=${encodeURIComponent(latestPost.slug)}" style="color:var(--text-bright);">
-                                ${escapeHtml(latestPost.title)}
-                            </a>
-                        </h2>
-                        <p class="snapshot-summary">${escapeHtml(latestPost.excerpt)}</p>
-                    </div>
-
-                    <div class="fork-list" aria-label="Recent Posts">
-                        ${olderPosts.map(p => `
-                            <a href="/post.html?slug=${encodeURIComponent(p.slug)}" class="fork-list-item">
-                                <span class="fork-item-meta">${p.kind || 'note'}</span>
-                                <span class="fork-item-title">${escapeHtml(p.title)}</span>
-                                <span class="fork-item-meta">${formatDate(p.date).split(',')[0]}</span>
-                            </a>
-                        `).join('')}
-                    </div>
-                    ` : `
-                    <div class="featured-writing">
-                        <p class="snapshot-tag">Articles & Notes</p>
-                        <h2 class="snapshot-title" style="font-size:1.15rem; margin-bottom:0.4rem; color:var(--text-bright);">
-                            Writing Stream
-                        </h2>
-                        <p class="snapshot-summary">
-                            Essays, notes, and architectural reflections will be published here.
-                        </p>
-                        <div class="snapshot-links" style="margin-top: 1rem;">
-                            <a href="/writing/">View writing archive →</a>
-                        </div>
-                    </div>
-                    `}
-                </div>
-            </div>
-
-            <footer class="fork-footer">
-                <a href="/writing/" class="fork-more-link">View writing archive (${hasPosts ? POSTS.length : 0}) →</a>
-            </footer>
-        </section>
-    `;
-}
-
-// ---------------------------------------------------------------------
-//  2. Work Catalog Page (work/index.html)
-//  Classified into Professional Projects and Personal Projects with Filter Tabs
+//  1. Work Catalog Page (work/index.html)
 // ---------------------------------------------------------------------
 function renderWorkPage() {
     const list = document.getElementById('work-list');
     if (!list || typeof PROJECTS === 'undefined') return;
 
     if (!PROJECTS.length) {
-        list.innerHTML = '<p style="color:var(--muted)">No projects cataloged yet.</p>';
+        list.innerHTML = '<p class="empty-msg">No projects cataloged yet</p>';
         return;
     }
 
-    // Read active category from URL hash or default to 'all'
     const rawHash = (location.hash || '').replace('#', '').toLowerCase();
     const normalizedHash = rawHash === 'working' ? 'professional' : rawHash;
     let currentFilter = ['professional', 'personal'].includes(normalizedHash) ? normalizedHash : 'all';
 
-    function renderProjectCard(p) {
+    function renderProjectRow(p) {
         const isProfessional = p.category === 'professional' || p.category === 'working';
-        const signatureText = isProfessional ? 'production' : 'tool';
+        const statusHtml = isProfessional
+            ? `<span class="work-signature-tag"><span class="status-dot" aria-hidden="true">●</span> Production</span>`
+            : `<span class="work-signature-tag">Open source</span>`;
+        const stackStr = (p.stack || []).map(escapeHtml).join(' · ');
 
         return `
-            <article class="work-item" data-category="${p.category}">
-                <div class="work-item-top">
-                    <div class="work-item-title-group">
-                        <h2 class="work-item-title">
-                            <span>${escapeHtml(p.title)}</span>
-                            <span class="work-signature-tag">● ${signatureText}</span>
-                        </h2>
+            <article class="work-row" data-category="${escapeHtml(p.category)}">
+                <div class="work-row-head">
+                    <h2 class="work-item-title">${escapeHtml(p.title)}</h2>
+                    <div class="work-row-badges">
+                        ${statusHtml}
                         <span class="work-year">${escapeHtml(p.year)}</span>
-                    </div>
-                    <div class="work-links">
-                        ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>` : ''}
-                        ${p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener noreferrer">Source ↗</a>` : ''}
                     </div>
                 </div>
                 <p class="work-summary">${escapeHtml(p.summary)}</p>
-                <div class="work-stack">
-                    ${(p.stack || []).map(s => `<span class="stack-tag">${escapeHtml(s)}</span>`).join('')}
+                <div class="work-meta-line">
+                    <span class="work-stack-inline">${stackStr}</span>
+                    <div class="work-links">
+                        ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer"><span>Live demo</span>${ICON_ARROW_UP_RIGHT}</a>` : ''}
+                        ${p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener noreferrer"><span>Source</span>${ICON_ARROW_UP_RIGHT}</a>` : ''}
+                    </div>
                 </div>
             </article>
         `;
@@ -212,20 +80,22 @@ function renderWorkPage() {
 
     function updateView(filter) {
         currentFilter = filter;
-        const professionalCount = PROJECTS.filter(p => p.category === 'professional' || p.category === 'working').length;
-        const personalCount = PROJECTS.filter(p => p.category === 'personal').length;
+        const professional = PROJECTS.filter(p => p.category === 'professional' || p.category === 'working');
+        const personal = PROJECTS.filter(p => p.category === 'personal');
 
-        // Render Tabs
         const filterBar = `
             <div class="work-filter-bar" role="tablist" aria-label="Filter projects">
-                <button type="button" class="work-filter-btn ${filter === 'all' ? 'active' : ''}" data-filter="all">
-                    All <span class="filter-count">${PROJECTS.length}</span>
+                <button type="button" role="tab" aria-selected="${filter === 'all'}" class="work-filter-btn ${filter === 'all' ? 'active' : ''}" data-filter="all">
+                    <span>All</span>
+                    <span class="filter-count">${PROJECTS.length}</span>
                 </button>
-                <button type="button" class="work-filter-btn ${filter === 'professional' ? 'active' : ''}" data-filter="professional">
-                    Production Systems <span class="filter-count">${professionalCount}</span>
+                <button type="button" role="tab" aria-selected="${filter === 'professional'}" class="work-filter-btn ${filter === 'professional' ? 'active' : ''}" data-filter="professional">
+                    <span>Production systems</span>
+                    <span class="filter-count">${professional.length}</span>
                 </button>
-                <button type="button" class="work-filter-btn ${filter === 'personal' ? 'active' : ''}" data-filter="personal">
-                    Open Source &amp; Tools <span class="filter-count">${personalCount}</span>
+                <button type="button" role="tab" aria-selected="${filter === 'personal'}" class="work-filter-btn ${filter === 'personal' ? 'active' : ''}" data-filter="personal">
+                    <span>Open source &amp; tools</span>
+                    <span class="filter-count">${personal.length}</span>
                 </button>
             </div>
         `;
@@ -233,37 +103,55 @@ function renderWorkPage() {
         let content = '';
 
         if (filter === 'all') {
-            const professional = PROJECTS.filter(p => p.category === 'professional' || p.category === 'working');
-            const personal = PROJECTS.filter(p => p.category === 'personal');
-
             content = `
-                <section class="work-group-section">
-                    <div class="work-group-header">
-                        <span class="group-label">Production Systems</span>
-                        <p class="group-desc">Projects engineered in professional environments and client production systems.</p>
-                    </div>
-                    ${professional.map(renderProjectCard).join('')}
-                </section>
+                <div class="editorial-ledger">
+                    <section class="editorial-section">
+                        <div class="section-index">
+                            <span class="idx-label">Production</span>
+                            <span class="idx-sub">Company &amp; client systems</span>
+                        </div>
+                        <div class="section-body">
+                            <div class="work-ledger">
+                                ${professional.map(p => renderProjectRow(p)).join('')}
+                            </div>
+                        </div>
+                    </section>
 
-                <section class="work-group-section" style="margin-top: 2rem;">
-                    <div class="work-group-header">
-                        <span class="group-label">Open Source &amp; Personal Tools</span>
-                        <p class="group-desc">Utilities, open-source explorations, and machine learning experiments.</p>
-                    </div>
-                    ${personal.map(renderProjectCard).join('')}
-                </section>
+                    <section class="editorial-section">
+                        <div class="section-index">
+                            <span class="idx-label">Open source</span>
+                            <span class="idx-sub">Tools &amp; ML experiments</span>
+                        </div>
+                        <div class="section-body">
+                            <div class="work-ledger">
+                                ${personal.map(p => renderProjectRow(p)).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>
             `;
         } else {
-            const filtered = PROJECTS.filter(p => {
-                if (filter === 'professional') return p.category === 'professional' || p.category === 'working';
-                return p.category === filter;
-            });
-            content = filtered.map(renderProjectCard).join('');
+            const isProf = filter === 'professional';
+            const filtered = isProf ? professional : personal;
+            content = `
+                <div class="editorial-ledger">
+                    <section class="editorial-section">
+                        <div class="section-index">
+                            <span class="idx-label">${isProf ? 'Production' : 'Open source'}</span>
+                            <span class="idx-sub">${isProf ? 'Company & client systems' : 'Tools & ML experiments'}</span>
+                        </div>
+                        <div class="section-body">
+                            <div class="work-ledger">
+                                ${filtered.map(p => renderProjectRow(p)).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
         }
 
-        list.innerHTML = filterBar + '<div class="work-items-container">' + content + '</div>';
+        list.innerHTML = filterBar + content;
 
-        // Add Tab Listeners
         list.querySelectorAll('.work-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const f = btn.getAttribute('data-filter');
@@ -279,7 +167,6 @@ function renderWorkPage() {
 
     updateView(currentFilter);
 
-    // Listen for hash changes (e.g. from home page link clicks)
     window.addEventListener('hashchange', () => {
         const raw = (location.hash || '').replace('#', '').toLowerCase();
         const normalized = raw === 'working' ? 'professional' : raw;
@@ -291,7 +178,7 @@ function renderWorkPage() {
 }
 
 // ---------------------------------------------------------------------
-//  3. Writing Stream Page (writing/index.html)
+//  2. Writing Stream Page (writing/index.html)
 // ---------------------------------------------------------------------
 function renderWritingPage() {
     const list = document.getElementById('writing-list');
@@ -302,34 +189,53 @@ function renderWritingPage() {
     if (!posts.length) {
         list.innerHTML = `
             <div class="writing-empty-state">
-                <p class="writing-empty-title">No writing entries published yet.</p>
+                <p class="writing-empty-title">No writing entries published yet</p>
                 <p class="writing-empty-desc">
                     Essays, notes, and architectural reflections will be published here.
-                    In the meantime, feel free to explore my <a href="/work/">Work</a> or read more <a href="/">About me</a>.
+                    In the meantime, explore <a href="/work/">Work</a> or read <a href="/">About me</a>.
                 </p>
             </div>
         `;
         return;
     }
 
-    list.innerHTML = posts.map(p => `
-        <article class="writing-item">
-            <div class="writing-item-meta">
-                ${p.kind ? `<span class="kind-tag">${escapeHtml(p.kind)}</span>` : ''}
-                <span>${formatDate(p.date)}</span>
-                ${p.readMins ? `<span>· ${p.readMins} min read</span>` : ''}
-            </div>
-            <h2 class="writing-item-title">
-                <a href="/post.html?slug=${encodeURIComponent(p.slug)}">${escapeHtml(p.title)}</a>
-            </h2>
-            ${p.lede ? `<p class="writing-lede">“${escapeHtml(p.lede)}”</p>` : ''}
-            <p class="writing-excerpt">${escapeHtml(p.excerpt)}</p>
+    const rowsHtml = posts.map(p => `
+        <article class="writing-row">
+            <a href="/post.html?slug=${encodeURIComponent(p.slug)}" class="writing-row-link">
+                <div class="writing-item-meta">
+                    ${p.kind ? `<span class="kind-tag">${escapeHtml(sentenceCase(p.kind))}</span>` : ''}
+                    <span class="writing-date">${formatDate(p.date)}</span>
+                    ${p.readMins ? `<span class="writing-read">${p.readMins} min read</span>` : ''}
+                </div>
+                <h2 class="writing-item-title">
+                    <span>${escapeHtml(p.title)}</span>
+                    ${ICON_ARROW_RIGHT}
+                </h2>
+                ${p.lede ? `<p class="writing-lede">${escapeHtml(p.lede)}</p>` : ''}
+                <p class="writing-excerpt">${escapeHtml(p.excerpt)}</p>
+            </a>
         </article>
     `).join('');
+
+    list.innerHTML = `
+        <div class="editorial-ledger">
+            <section class="editorial-section">
+                <div class="section-index">
+                    <span class="idx-label">Archive</span>
+                    <span class="idx-sub">2026 — Present</span>
+                </div>
+                <div class="section-body">
+                    <div class="writing-ledger">
+                        ${rowsHtml}
+                    </div>
+                </div>
+            </section>
+        </div>
+    `;
 }
 
 // ---------------------------------------------------------------------
-//  4. Single Post View (post.html)
+//  3. Single Post View (post.html)
 // ---------------------------------------------------------------------
 async function renderPost() {
     const body = document.getElementById('post-content');
@@ -341,17 +247,17 @@ async function renderPost() {
     const post = POSTS.find(p => p.slug === slug);
 
     if (!post) {
-        document.title = 'Post not found - Tan Nguyen';
+        document.title = 'Post not found — Tan Nguyen';
         if (titleEl) titleEl.textContent = 'Post not found';
-        body.innerHTML = '<p>That post doesn’t exist. <a href="/writing/" style="color:var(--accent);">Back to writing stream</a>.</p>';
+        body.innerHTML = '<p>That post doesn’t exist. <a href="/writing/">Back to writing stream</a>.</p>';
         return;
     }
 
-    document.title = `${post.title} - Tan Nguyen`;
+    document.title = `${post.title} — Tan Nguyen`;
     if (titleEl) titleEl.textContent = post.title;
     if (metaEl) {
         metaEl.innerHTML = `
-            ${post.kind ? `<span class="kind-tag">${escapeHtml(post.kind)}</span>` : ''}
+            ${post.kind ? `<span class="kind-tag">${escapeHtml(sentenceCase(post.kind))}</span>` : ''}
             <span>${formatDate(post.date)}</span>
             ${post.readMins ? `<span>· ${post.readMins} min read</span>` : ''}
         `;
@@ -369,7 +275,7 @@ async function renderPost() {
     } catch (err) {
         body.innerHTML = `
             <p>Couldn't load this post.</p>
-            <p style="color:var(--muted); font-size:0.9rem;">
+            <p class="empty-msg">
                 If opening directly from disk via file:///, browser security restricts fetching local files. Serve the directory over HTTP (e.g., <code>python -m http.server</code>).
             </p>
         `;
@@ -381,7 +287,6 @@ async function renderPost() {
 //  DOM Initialization
 // ---------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-    renderHomeFork();
     renderWorkPage();
     renderWritingPage();
     renderPost();

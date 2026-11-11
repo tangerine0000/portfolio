@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About — Tan Nguyen</title>
+    <title>Tan Nguyen — AI Engineer &amp; Full-Stack Developer</title>
     <meta name="description" content="About Tan Nguyen — background, technical stack, software systems, and engineering writing.">
     <script>
         (function () {
-            var m = localStorage.getItem('mode');
+            var m = null;
+            try { m = localStorage.getItem('mode'); } catch (e) {}
             if (!m) {
                 m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }
@@ -16,171 +17,236 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body data-page="about">
     <main class="main-content">
         <div class="page-wrapper">
             <header class="page-header">
+                <div class="header-meta">
+                    <span class="coord-status"><span class="status-dot" aria-hidden="true">●</span> Available for AI &amp; backend engineering roles</span>
+                </div>
                 <h1 class="page-title">Tan Nguyen</h1>
-                <p class="page-intro">AI Engineer &amp; Full-Stack Developer. Building LLM pipelines, vector retrieval engines, and dependable web systems.</p>
+                <p class="page-intro">AI Engineer &amp; Full-Stack Developer building LLM retrieval pipelines, vector search services, and dependable web backends</p>
+                <div class="hero-actions">
+                    <a href="/work/" class="btn btn-primary">Explore work</a>
+                    <a href="/writing/" class="btn btn-secondary">Read writing</a>
+                </div>
             </header>
 
-            <!-- Exploration Section: Work and Writing -->
-            <section class="explore-nav-section" aria-label="Explore Portfolio">
-                <span class="explore-section-label">Explore</span>
-                <div class="explore-grid">
-                    <!-- Box 1: Work -->
-                    <a href="/work/" class="explore-box explore-box-work">
-                        <div class="explore-box-top">
-                            <span class="explore-box-tag">Work</span>
-                            <span class="explore-box-arrow" aria-hidden="true">→</span>
-                        </div>
-                        <h2 class="explore-box-title">Work</h2>
-                        <p class="explore-box-desc">
-                            Selected software systems, AI pipelines, and web tools across production environments and open-source exploration.
-                        </p>
-                        <div class="explore-box-meta">
-                            <span>Production &amp; Tools</span>
-                            <span class="explore-link-hint">View systems →</span>
-                        </div>
-                    </a>
-
-                    <!-- Box 2: Writing -->
-                    <a href="/writing/" class="explore-box explore-box-writing">
-                        <div class="explore-box-top">
-                            <span class="explore-box-tag">Writing</span>
-                            <span class="explore-box-arrow" aria-hidden="true">→</span>
-                        </div>
-                        <h2 class="explore-box-title">Writing</h2>
-                        <p class="explore-box-desc">
-                            Essays, technical notes, and architectural reflections on full-stack web architectures, LLMs, and developer tooling.
-                        </p>
-                        <div class="explore-box-meta">
-                            <span>Essays &amp; Notes</span>
-                            <span class="explore-link-hint">Read stream →</span>
-                        </div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Craft Moment: AI Extraction & Vector Retrieval Architecture -->
-            <div class="craft-moment" aria-label="Core Engineering Pipeline">
-                <div class="moment-header">
-                    <span class="moment-title">Pipeline Architecture: Content Extraction &amp; Vector Retrieval</span>
-                    <span class="moment-signature">● operational</span>
-                </div>
-                <div class="moment-pipeline">
-                    <div class="pipeline-step">
-                        <span class="pipeline-step-num">01 / crawl</span>
-                        <div class="pipeline-step-name">Playwright Engine</div>
-                        <div class="pipeline-step-desc">Headless DOM extraction &amp; structured text sanitization</div>
+            <div class="editorial-ledger">
+                <!-- Retrieval Pipeline Preview (Craft Moment) -->
+                <section class="editorial-section" aria-label="Core Engineering Pipeline">
+                    <div class="section-index">
+                        <span class="idx-label">Retrieval pipeline</span>
+                        <span class="idx-sub">Live architecture</span>
                     </div>
-                    <div class="pipeline-step">
-                        <span class="pipeline-step-num">02 / embed</span>
-                        <div class="pipeline-step-name">Dense Vectors</div>
-                        <div class="pipeline-step-desc">Text chunking &amp; 384-dim semantic embeddings</div>
-                    </div>
-                    <div class="pipeline-step">
-                        <span class="pipeline-step-num">03 / index</span>
-                        <div class="pipeline-step-name">FAISS Store</div>
-                        <div class="pipeline-step-desc">Cosine similarity matching &amp; top-k retrieval</div>
-                    </div>
-                    <div class="pipeline-step">
-                        <span class="pipeline-step-num">04 / agent</span>
-                        <div class="pipeline-step-name">Ollama / LLM</div>
-                        <div class="pipeline-step-desc">Context-augmented synthesis &amp; session memory</div>
-                    </div>
-                </div>
-                <div class="moment-telemetry">
-                    <span>runtime: python 3.11</span>
-                    <span>vector index: flat-ip</span>
-                    <span>avg latency: 42ms</span>
-                    <span>endpoints: huggingface + local</span>
-                </div>
-            </div>
-
-            <!-- About Content -->
-            <div class="about-section">
-                <section class="about-block">
-                    <h2>Background</h2>
-                    <p>I graduated from Ho Chi Minh City University of Science (HCMUS) with a degree in Computer Science, specializing in Artificial Intelligence. My academic background gave me a firm grounding in algorithms, machine learning principles, and computational foundations.</p>
-                    <p>Today, I apply that AI perspective across the full software engineering stack. I build dependable backend APIs, responsive user interfaces, and integrate local and open-weight models into production workflows.</p>
-                    <div class="career-focus-callout">
-                        <span class="focus-label">Focus</span>
-                        <p class="focus-text">
-                            Designing end-to-end intelligent systems, LLM-powered pipelines, autonomous agent workflows, and integrating modern machine learning models with robust production architectures.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="about-block">
-                    <h2>Technical Stack</h2>
-                    <div class="specs-grid">
-                        <div class="spec-row">
-                            <span class="spec-label">Languages &amp; Runtimes</span>
-                            <span class="spec-value">JavaScript (ES6+), Node.js, Python, HTML5, Modern CSS</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Backend &amp; Storage</span>
-                            <span class="spec-value">FastAPI, Express, RESTful APIs, PostgreSQL, MongoDB, SQLite</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">AI &amp; Vector Systems</span>
-                            <span class="spec-value">LangChain, Ollama, FAISS (Vector Search), PyTorch, Streamlit</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Tools &amp; Infrastructure</span>
-                            <span class="spec-value">Docker, Linux, Git &amp; GitHub, CLI Engineering, Clean Architecture</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="about-block" id="certifications">
-                    <h2>Certifications</h2>
-                    <div class="cert-list">
-                        <div class="cert-item">
-                            <div class="cert-top">
-                                <div class="cert-title-group">
-                                    <h3 class="cert-title">Machine Learning Specialization</h3>
-                                    <span class="cert-issuer">DeepLearning.AI &amp; Stanford</span>
-                                </div>
-                                <span class="cert-date">2024</span>
+                    <div class="section-body">
+                        <div class="craft-moment">
+                            <div class="moment-header">
+                                <span class="moment-title">scrape-chatbot · FAISS similarity search</span>
+                                <span class="moment-signature"><span class="status-dot" aria-hidden="true">●</span> 42 ms · 384-d MiniLM</span>
                             </div>
-                            <p class="cert-desc">Supervised learning, advanced learning algorithms, neural networks, decision trees, and unsupervised learning.</p>
-                            <div class="cert-specs">Focus: Machine Learning · Neural Networks · Python</div>
-                        </div>
 
-                        <div class="cert-item">
-                            <div class="cert-top">
-                                <div class="cert-title-group">
-                                    <h3 class="cert-title">Deep Learning Specialization</h3>
-                                    <span class="cert-issuer">DeepLearning.AI</span>
-                                </div>
-                                <span class="cert-date">2024</span>
+                            <div class="trace-query">
+                                <span class="trace-label">Query</span>
+                                <span class="trace-input">How does the pipeline chunk DOM nodes before indexing into FAISS?</span>
                             </div>
-                            <p class="cert-desc">Convolutional neural networks, sequence models, transformers, LLM foundations, and model optimization.</p>
-                            <div class="cert-specs">Focus: Deep Learning · CNNs / RNNs · Transformers</div>
+
+                            <div class="trace-results" role="list" aria-label="Top retrieved vector chunks">
+                                <div class="trace-row trace-row-top" role="listitem">
+                                    <div class="trace-row-head">
+                                        <span class="trace-source">extractor/chunker.py:48</span>
+                                        <span class="trace-desc">Semantic DOM splitter (512 tokens, 64 overlap)</span>
+                                        <span class="trace-score">0.94</span>
+                                    </div>
+                                    <div class="trace-bar-track" aria-hidden="true">
+                                        <div class="trace-bar-fill trace-bar-accent" style="width: 94%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="trace-row" role="listitem">
+                                    <div class="trace-row-head">
+                                        <span class="trace-source">vector/faiss_store.py:112</span>
+                                        <span class="trace-desc">IndexFlatIP L2-normalized cosine similarity lookup</span>
+                                        <span class="trace-score">0.81</span>
+                                    </div>
+                                    <div class="trace-bar-track" aria-hidden="true">
+                                        <div class="trace-bar-fill" style="width: 81%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="trace-row" role="listitem">
+                                    <div class="trace-row-head">
+                                        <span class="trace-source">crawler/playwright_dom.py:29</span>
+                                        <span class="trace-desc">Headless Chromium extraction &amp; boilerplate strip</span>
+                                        <span class="trace-score">0.64</span>
+                                    </div>
+                                    <div class="trace-bar-track" aria-hidden="true">
+                                        <div class="trace-bar-fill" style="width: 64%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="moment-stages">
+                                <div class="stage-item">
+                                    <span class="stage-step">1. Crawl</span>
+                                    <span class="stage-tech">Playwright DOM</span>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-step">2. Embed</span>
+                                    <span class="stage-tech">384-d vectors</span>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-step">3. Index</span>
+                                    <span class="stage-tech">FAISS FlatIP</span>
+                                </div>
+                                <div class="stage-item">
+                                    <span class="stage-step">4. Synthesize</span>
+                                    <span class="stage-tech">Ollama &amp; LangChain</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="about-block" id="contact">
-                    <h2>Get in Touch</h2>
-                    <p>I am always interested in discussing new engineering opportunities, open source projects, and software systems:</p>
-                    <div class="contact-channels">
-                        <div class="contact-link-item">
-                            <span>Email</span>
-                            <a href="mailto:tan.nguyen.atwork@gmail.com">tan.nguyen.atwork@gmail.com</a>
+                <!-- Directory -->
+                <section class="editorial-section" aria-label="Explore Portfolio">
+                    <div class="section-index">
+                        <span class="idx-label">Directory</span>
+                        <span class="idx-sub">Index</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="directory-ledger">
+                            <a href="/work/" class="directory-row">
+                                <div class="dir-main">
+                                    <span class="dir-title">Work</span>
+                                    <span class="dir-desc">Selected software systems, AI pipelines, and production web tools</span>
+                                </div>
+                                <span class="dir-meta">
+                                    <span>6 systems</span>
+                                    <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                                </span>
+                            </a>
+                            <a href="/writing/" class="directory-row">
+                                <div class="dir-main">
+                                    <span class="dir-title">Writing</span>
+                                    <span class="dir-desc">Essays, technical notes, and architectural reflections on LLMs &amp; web tooling</span>
+                                </div>
+                                <span class="dir-meta">
+                                    <span>3 entries</span>
+                                    <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                                </span>
+                            </a>
                         </div>
-                        <div class="contact-link-item">
-                            <span>LinkedIn</span>
-                            <a href="https://www.linkedin.com/in/sperc/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sperc</a>
+                    </div>
+                </section>
+
+                <!-- Background -->
+                <section class="editorial-section" id="background">
+                    <div class="section-index">
+                        <span class="idx-label">Background</span>
+                        <span class="idx-sub">HCMUS · CS</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="prose-block">
+                            <p>I graduated from Ho Chi Minh City University of Science (HCMUS) with a degree in Computer Science, specializing in Artificial Intelligence. My academic training established a rigorous foundation in algorithms, statistical learning, and computational systems.</p>
+                            <p>Today, I apply that systems mindset across the full software stack—engineering dependable backend APIs, calm interfaces, and integrating open-weight models into deterministic production workflows.</p>
                         </div>
-                        <div class="contact-link-item">
-                            <span>GitHub</span>
-                            <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer">github.com/tangerine0000</a>
+                        <blockquote class="editorial-pullquote">
+                            <span class="pullquote-tag">Current focus</span>
+                            <p>Designing end-to-end retrieval-augmented pipelines and autonomous agent workflows built on maintainable web architectures</p>
+                        </blockquote>
+                    </div>
+                </section>
+
+                <!-- Technical Stack -->
+                <section class="editorial-section" id="stack">
+                    <div class="section-index">
+                        <span class="idx-label">Technical stack</span>
+                        <span class="idx-sub">Core tools</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="specs-grid">
+                            <div class="spec-row">
+                                <span class="spec-label">Languages &amp; runtimes</span>
+                                <span class="spec-value">Python, JavaScript (ES6+), Node.js, HTML5, CSS</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Backend &amp; storage</span>
+                                <span class="spec-value">FastAPI, Express, REST APIs, PostgreSQL, MongoDB, SQLite</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">AI &amp; vector systems</span>
+                                <span class="spec-value">LangChain, Ollama, FAISS, PyTorch, Streamlit</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-label">Infrastructure</span>
+                                <span class="spec-value">Docker, Linux, Git &amp; GitHub, CLI tooling</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Credentials -->
+                <section class="editorial-section" id="certifications">
+                    <div class="section-index">
+                        <span class="idx-label">Credentials</span>
+                        <span class="idx-sub">Specializations</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="cert-ledger">
+                            <div class="cert-row">
+                                <span class="cert-year">2024</span>
+                                <div class="cert-main">
+                                    <div class="cert-header-line">
+                                        <h3 class="cert-title">Machine Learning Specialization</h3>
+                                        <span class="cert-issuer">DeepLearning.AI &amp; Stanford</span>
+                                    </div>
+                                    <p class="cert-desc">Supervised learning, neural networks, decision trees, recommender systems, and unsupervised learning</p>
+                                </div>
+                                <span class="cert-domain">ML · Python</span>
+                            </div>
+                            <div class="cert-row">
+                                <span class="cert-year">2024</span>
+                                <div class="cert-main">
+                                    <div class="cert-header-line">
+                                        <h3 class="cert-title">Deep Learning Specialization</h3>
+                                        <span class="cert-issuer">DeepLearning.AI</span>
+                                    </div>
+                                    <p class="cert-desc">Convolutional networks, sequence models, attention mechanisms, transformers, and model optimization</p>
+                                </div>
+                                <span class="cert-domain">DL · Transformers</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section class="editorial-section" id="contact">
+                    <div class="section-index">
+                        <span class="idx-label">Contact</span>
+                        <span class="idx-sub">Direct channels</span>
+                    </div>
+                    <div class="section-body">
+                        <p class="connect-intro">Open to engineering roles, technical collaborations, and discussions on AI systems</p>
+                        <div class="contact-ledger">
+                            <a href="mailto:tan.nguyen.atwork@gmail.com" class="contact-row">
+                                <span class="contact-channel">Email</span>
+                                <span class="contact-handle">tan.nguyen.atwork@gmail.com</span>
+                                <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/sperc/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                                <span class="contact-channel">LinkedIn</span>
+                                <span class="contact-handle">linkedin.com/in/sperc</span>
+                                <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                            </a>
+                            <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer" class="contact-row">
+                                <span class="contact-channel">GitHub</span>
+                                <span class="contact-handle">github.com/tangerine0000</span>
+                                <svg class="row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+                            </a>
                         </div>
                     </div>
                 </section>

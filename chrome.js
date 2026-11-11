@@ -3,24 +3,24 @@
 //  Owns side-rail navigation, dark mode toggling, and social channels.
 // =====================================================================
 
-// Navigation items
 const NAV = [
-    { page: 'about',   href: '/',           label: 'about' },
-    { page: 'work',    href: '/work/',      label: 'work' },
-    { page: 'writing', href: '/writing/',   label: 'writing' },
+    { page: 'about',   href: '/',         label: 'About' },
+    { page: 'work',    href: '/work/',    label: 'Work' },
+    { page: 'writing', href: '/writing/', label: 'Writing' },
 ];
 
-// Social channels
 const SOCIAL = [
     { href: 'https://github.com/tangerine0000', label: 'GitHub', external: true },
     { href: 'https://www.linkedin.com/in/sperc/', label: 'LinkedIn', external: true },
     { href: 'mailto:tan.nguyen.atwork@gmail.com', label: 'Email', external: false },
 ];
 
-// Icon SVGs
-const SUN_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+// Line icons: 16px, 1.5px stroke (Lucide standard)
+const SUN_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`;
 
-const MOON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+const MOON_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`;
+
+const ARROW_UP_RIGHT_SVG = `<svg class="ext-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>`;
 
 // ---- Theme management ----
 function initTheme(button) {
@@ -34,16 +34,15 @@ function initTheme(button) {
         const label = button.querySelector('.theme-label');
         if (mode === 'dark') {
             if (icon) icon.innerHTML = SUN_SVG;
-            if (label) label.textContent = 'light';
-            button.setAttribute('aria-label', 'Switch to light mode');
+            if (label) label.textContent = 'Light theme';
+            button.setAttribute('aria-label', 'Switch to light theme');
         } else {
             if (icon) icon.innerHTML = MOON_SVG;
-            if (label) label.textContent = 'dark';
-            button.setAttribute('aria-label', 'Switch to dark mode');
+            if (label) label.textContent = 'Dark theme';
+            button.setAttribute('aria-label', 'Switch to dark theme');
         }
     }
 
-    // Set initial toggle button state
     updateButton(getMode());
 
     if (button) {
@@ -51,15 +50,16 @@ function initTheme(button) {
             const current = getMode();
             const next = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-mode', next);
-            localStorage.setItem('mode', next);
+            try { localStorage.setItem('mode', next); } catch (e) {}
             updateButton(next);
         });
     }
 
-    // Listen for OS color scheme shifts if user has not explicitly set preference
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('mode')) {
+            let stored = null;
+            try { stored = localStorage.getItem('mode'); } catch (err) {}
+            if (!stored) {
                 const mode = e.matches ? 'dark' : 'light';
                 document.documentElement.setAttribute('data-mode', mode);
                 updateButton(mode);
@@ -74,42 +74,47 @@ function buildChrome() {
 
     const navLinks = NAV.map(item => {
         const isActive = item.page === active;
-        return `<li><a href="${item.href}"${isActive ? ' class="active" aria-current="page"' : ''}>${item.label}</a></li>`;
+        return `<li>
+            <a href="${item.href}"${isActive ? ' class="active" aria-current="page"' : ''}>
+                <span class="nav-label">${item.label}</span>
+            </a>
+        </li>`;
     }).join('');
 
     const socialLinks = SOCIAL.map(s =>
-        `<a href="${s.href}"${s.external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${s.label}</a>`
+        `<a href="${s.href}"${s.external ? ' target="_blank" rel="noopener noreferrer"' : ''}><span>${s.label}</span>${s.external ? ARROW_UP_RIGHT_SVG : ''}</a>`
     ).join('');
 
     const rail = document.createElement('aside');
     rail.className = 'side-rail';
-    rail.setAttribute('aria-label', 'Primary Navigation');
+    rail.setAttribute('aria-label', 'Primary navigation');
     rail.innerHTML = `
-        <div class="rail-brand">
-            <a href="/" class="brand-name">Tan Nguyen</a>
-            <span class="brand-sub">ai engineer</span>
+        <div class="rail-top">
+            <div class="rail-brand">
+                <a href="/" class="brand-name">Tan Nguyen</a>
+                <span class="brand-sub">AI Engineer · Ho Chi Minh City</span>
+            </div>
+            <nav class="rail-nav">
+                <ul>${navLinks}</ul>
+            </nav>
         </div>
-        <nav class="rail-nav">
-            <ul>${navLinks}</ul>
-        </nav>
         <div class="rail-bottom">
-            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
-                <span class="theme-icon" aria-hidden="true"></span>
-                <span class="theme-label">mode</span>
-            </button>
             <div class="rail-social">${socialLinks}</div>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme">
+                <span class="theme-icon" aria-hidden="true"></span>
+                <span class="theme-label">Theme</span>
+            </button>
         </div>
     `;
 
     document.body.prepend(rail);
 
-    // Append mobile social section to main if not on index
     const mainEl = document.querySelector('main') || document.querySelector('.main-content');
     if (mainEl && active !== 'home' && !document.querySelector('.mobile-social')) {
         const mobSocial = document.createElement('div');
         mobSocial.className = 'mobile-social';
         mobSocial.innerHTML = `
-            <span class="mobile-social-title">Connect</span>
+            <span class="mobile-social-title">Links</span>
             <div class="mobile-social-links">${socialLinks}</div>
         `;
         const wrapper = mainEl.querySelector('.page-wrapper') || mainEl;
