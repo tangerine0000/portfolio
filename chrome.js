@@ -6,12 +6,13 @@
 const NAV = [
     { page: 'about',   href: '/',         label: 'About' },
     { page: 'work',    href: '/work/',    label: 'Work' },
-    { page: 'writing', href: '/writing/', label: 'Writing' },
+    // Blog / Writing temporarily hidden
+    // { page: 'writing', href: '/writing/', label: 'Writing' },
 ];
 
 const SOCIAL = [
     { href: 'https://github.com/tangerine0000', label: 'GitHub', external: true },
-    { href: 'https://www.linkedin.com/in/sperc/', label: 'LinkedIn', external: true },
+    { href: 'https://linkedin.com/in/tangerine0000/', label: 'LinkedIn', external: true },
     { href: 'mailto:tan.nguyen.atwork@gmail.com', label: 'Email', external: false },
 ];
 
@@ -92,7 +93,7 @@ function buildChrome() {
         <div class="rail-top">
             <div class="rail-brand">
                 <a href="/" class="brand-name">Tan Nguyen</a>
-                <span class="brand-sub">AI Engineer · Ho Chi Minh City</span>
+                <span class="brand-sub">Full-Stack &amp; AI · HCMC</span>
             </div>
             <nav class="rail-nav">
                 <ul>${navLinks}</ul>
