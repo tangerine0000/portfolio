@@ -20,12 +20,13 @@
                 <span data-i18n="brand.name">Tan Nguyen</span>
                 <span class="nav-handle">// tangerine0000</span>
             </a>
-            <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="nav-right">
                 <div class="nav-links">
                     <a href="#experience"><span>01</span><em style="font-style:normal;" data-i18n="nav.experience">Experience</em></a>
                     <a href="#systems"><span>02</span><em style="font-style:normal;" data-i18n="nav.systems">Systems</em></a>
                     <a href="#capabilities"><span>03</span><em style="font-style:normal;" data-i18n="nav.capabilities">Capabilities</em></a>
-                    <a href="#contact"><span>04</span><em style="font-style:normal;" data-i18n="nav.contact">Contact</em></a>
+                    <a href="#resume"><span>04</span><em style="font-style:normal;" data-i18n="nav.resume">CV</em></a>
+                    <a href="#contact"><span>05</span><em style="font-style:normal;" data-i18n="nav.contact">Contact</em></a>
                 </div>
                 <div class="lang-switch" role="group" aria-label="Language switcher">
                     <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
@@ -80,10 +81,6 @@
                         <li>
                             <span class="spec-key" data-i18n="spec.eduKey">Education</span>
                             <span class="spec-val" data-i18n="spec.eduVal">HCMUS · B.Sc. CS (3.66 / 4.0)</span>
-                        </li>
-                        <li>
-                            <span class="spec-key" data-i18n="spec.accKey">Parser Accuracy</span>
-                            <span class="spec-val highlight" data-i18n="spec.accVal">98.5%+ F1 · 861 Tests</span>
                         </li>
                         <li>
                             <span class="spec-key" data-i18n="spec.langKey">Core Languages</span>
@@ -190,7 +187,7 @@
                     </div>
                 </div>
 
-                <div class="systems-grid" id="systems-grid">
+                <div id="systems-container">
                     <!-- Populated dynamically from projects.js -->
                 </div>
 
@@ -261,12 +258,45 @@
             </div>
         </section>
 
-        <!-- 04 / Contact -->
+        <!-- 04 / Resume (CV Viewer) -->
+        <section class="section" id="resume">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-index" data-i18n="cv.index">04 / Resume</span>
+                        <h2 class="section-title" data-i18n="cv.title">Curriculum Vitae</h2>
+                    </div>
+                    <div class="cv-actions">
+                        <a href="assets/TanNguyen_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="cv.open">Open in new tab ↗</a>
+                        <a href="assets/TanNguyen_SoftwareEngineer.pdf" download="TanNguyen_SoftwareEngineer.pdf" class="btn btn-primary" data-i18n="cv.download">Download PDF ↓</a>
+                    </div>
+                </div>
+
+                <div class="cv-frame-wrap">
+                    <div class="cv-frame-bar">
+                        <span>TanNguyen_SoftwareEngineer.pdf</span>
+                        <span data-i18n="cv.meta">Software Engineer · PDF</span>
+                    </div>
+                    <iframe
+                        class="cv-iframe"
+                        src="assets/TanNguyen_SoftwareEngineer.pdf#view=FitH"
+                        title="Tan Nguyen — Software Engineer CV"
+                        loading="lazy">
+                    </iframe>
+                    <div class="cv-fallback">
+                        <span data-i18n="cv.fallbackNote">If the embedded PDF does not display on your device, open or download it directly.</span>
+                        <a href="assets/TanNguyen_SoftwareEngineer.pdf" target="_blank" rel="noopener noreferrer" data-i18n="cv.fallbackLink">Open CV PDF ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 / Contact -->
         <section class="contact-section" id="contact">
             <div class="container">
                 <div class="contact-grid">
                     <div>
-                        <span class="section-index" data-i18n="contact.index">04 / Direct Channels</span>
+                        <span class="section-index" data-i18n="contact.index">05 / Direct Channels</span>
                         <h2 class="contact-headline">
                             <span data-i18n="contact.h1">LET'S</span> <span class="accent" data-i18n="contact.h2">BUILD</span>
                         </h2>
@@ -287,7 +317,7 @@
                             <span class="contact-label">GitHub</span>
                             <span class="contact-value">github.com/tangerine0000 ↗</span>
                         </a>
-                        <a href="https://linkedin.com/in/tangerine0000/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                        <a href="https://www.linkedin.com/in/tangerine0000/" target="_blank" rel="noopener noreferrer" class="contact-row">
                             <span class="contact-label">LinkedIn</span>
                             <span class="contact-value">linkedin.com/in/tangerine0000 ↗</span>
                         </a>
@@ -312,6 +342,7 @@
                     'nav.experience': 'Experience',
                     'nav.systems': 'Systems',
                     'nav.capabilities': 'Capabilities',
+                    'nav.resume': 'CV',
                     'nav.contact': 'Contact',
                     'hero.eyebrow': 'Full-Stack & AI Engineer · Ho Chi Minh City, VN',
                     'hero.name': 'TAN NGUYEN',
@@ -325,8 +356,6 @@
                     'spec.roleVal': 'Full-Stack Engineer @ Innomize',
                     'spec.eduKey': 'Education',
                     'spec.eduVal': 'HCMUS · B.Sc. CS (3.66 / 4.0)',
-                    'spec.accKey': 'Parser Accuracy',
-                    'spec.accVal': '98.5%+ F1 · 861 Tests',
                     'spec.langKey': 'Core Languages',
                     'spec.pubKey': 'Publication',
                     'spec.pubVal': 'MIC 2025 · Vietnamese VQA XAI',
@@ -353,6 +382,9 @@
                     'sys.archive': 'View Full Work Index →',
                     'sys.demo': 'Live Demo ↗',
                     'sys.source': 'Source Code ↗',
+                    'sys.flagshipLabel': 'Flagship Systems',
+                    'sys.flagshipBadge': 'Flagship',
+                    'sys.otherLabel': 'Other Notable Work',
                     'cap.index': '03 / Engineering Scope',
                     'cap.title': 'Capabilities',
                     'cap.subtitle': 'End-to-end ownership from deterministic data pipelines and backend architecture to crisp frontend interfaces.',
@@ -378,7 +410,14 @@
                     'cap.c4.i2': 'Leptos WASM real-time clients',
                     'cap.c4.i3': 'DynamoDB & OpenSearch sync',
                     'cap.c4.i4': 'Docker, AWS EC2 & CI/CD',
-                    'contact.index': '04 / Direct Channels',
+                    'cv.index': '04 / Resume',
+                    'cv.title': 'Curriculum Vitae',
+                    'cv.open': 'Open in new tab ↗',
+                    'cv.download': 'Download PDF ↓',
+                    'cv.meta': 'Software Engineer · PDF',
+                    'cv.fallbackNote': 'If the embedded PDF does not display on your device, open or download it directly.',
+                    'cv.fallbackLink': 'Open CV PDF ↗',
+                    'contact.index': '05 / Direct Channels',
                     'contact.h1': "LET'S",
                     'contact.h2': 'BUILD',
                     'contact.note': 'Open to full-stack & AI systems engineering roles, technical collaborations, and interesting architecture problems.',
@@ -393,6 +432,7 @@
                     'nav.experience': 'Kinh nghiệm',
                     'nav.systems': 'Dự án',
                     'nav.capabilities': 'Thế mạnh',
+                    'nav.resume': 'CV',
                     'nav.contact': 'Liên hệ',
                     'hero.eyebrow': 'Kỹ sư Phần mềm & AI · TP. Hồ Chí Minh',
                     'hero.name': 'TÂN NGUYỄN',
@@ -406,8 +446,6 @@
                     'spec.roleVal': 'Kỹ sư Full-Stack tại Innomize',
                     'spec.eduKey': 'Học vấn',
                     'spec.eduVal': 'ĐH KHTN TP.HCM · KHMT (3.66 / 4.0)',
-                    'spec.accKey': 'Độ chính xác',
-                    'spec.accVal': '98.5%+ F1 · 861 bài kiểm thử',
                     'spec.langKey': 'Ngôn ngữ chính',
                     'spec.pubKey': 'Nghiên cứu',
                     'spec.pubVal': 'Tạp chí MIC 2025 · Giải thích VQA',
@@ -434,6 +472,9 @@
                     'sys.archive': 'Xem toàn bộ dự án →',
                     'sys.demo': 'Chạy thử ↗',
                     'sys.source': 'Mã nguồn ↗',
+                    'sys.flagshipLabel': 'Dự án trọng điểm',
+                    'sys.flagshipBadge': 'Trọng điểm',
+                    'sys.otherLabel': 'Các dự án khác',
                     'cap.index': '03 / Phạm vi kỹ thuật',
                     'cap.title': 'Thế mạnh',
                     'cap.subtitle': 'Tự tay làm từ khâu xử lý dữ liệu, thiết kế máy chủ cho tới giao diện cuối cùng mà người dùng chạm vào.',
@@ -459,7 +500,14 @@
                     'cap.c4.i2': 'Ứng dụng trình duyệt bằng Leptos WASM',
                     'cap.c4.i3': 'Đồng bộ DynamoDB & OpenSearch',
                     'cap.c4.i4': 'Đóng gói Docker, AWS EC2 & CI/CD',
-                    'contact.index': '04 / Kết nối',
+                    'cv.index': '04 / Hồ sơ',
+                    'cv.title': 'Xem & Tải CV',
+                    'cv.open': 'Mở toàn màn hình ↗',
+                    'cv.download': 'Tải bản PDF ↓',
+                    'cv.meta': 'Software Engineer · PDF',
+                    'cv.fallbackNote': 'Nếu trình duyệt trên máy bạn không hiện khung PDF, bạn có thể mở hoặc tải trực tiếp bên cạnh.',
+                    'cv.fallbackLink': 'Mở tệp CV (PDF) ↗',
+                    'contact.index': '05 / Kết nối',
                     'contact.h1': 'CÙNG',
                     'contact.h2': 'LÀM VIỆC',
                     'contact.note': 'Mình luôn sẵn sàng trao đổi về các vị trí kỹ sư phần mềm & AI, cơ hội cộng tác kỹ thuật hoặc cùng bàn về những bài toán hệ thống thú vị.',
@@ -509,7 +557,26 @@
                 }
             };
 
-            const grid = document.getElementById('systems-grid');
+            const PROJECT_METRICS = {
+                'innomize-billing-platform': {
+                    en: ['Millions of Invoices', '~30% Faster UI Dev', 'State-Machine Approval'],
+                    vi: ['Hàng triệu hóa đơn', 'Nhanh hơn ~30% thời gian UI', 'Duyệt trạng thái chặt chẽ']
+                },
+                'serverless-resume-parser': {
+                    en: ['98.5%+ F1 Accuracy', '1,300+ Resumes', '861 Pytest Cases'],
+                    vi: ['98.5%+ F1', '1.300+ hồ sơ kiểm chuẩn', '861 bài kiểm thử']
+                },
+                'monopoly-mayhem': {
+                    en: ['4-Crate Rust Workspace', 'Native + WASM Engine', 'Real-Time WebSockets'],
+                    vi: ['Kiến trúc 4 gói Rust', 'Chạy cả máy chủ & WASM', 'Thời gian thực']
+                },
+                'ai-foundations': {
+                    en: ['3 LLM Providers', 'Auto Failover', 'Live Token & Cost Telemetry'],
+                    vi: ['3 nhà cung cấp LLM', 'Tự chuyển dự phòng', 'Đo token & chi phí trực tiếp']
+                }
+            };
+
+            const container = document.getElementById('systems-container');
             const filterBtns = document.querySelectorAll('.filter-btn');
             const langBtns = document.querySelectorAll('.lang-btn');
             const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
@@ -533,47 +600,102 @@
                 return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || '';
             }
 
+            function getProjectCopy(p) {
+                const viOverride = currentLang === 'vi' ? PROJECTS_VI[p.slug] : null;
+                return {
+                    title: viOverride ? viOverride.title : p.title,
+                    categoryLabel: viOverride ? viOverride.categoryLabel : (p.categoryLabel || p.category),
+                    year: viOverride ? viOverride.year : (p.year || ''),
+                    summary: viOverride ? viOverride.summary : p.summary
+                };
+            }
+
+            function renderLinks(p) {
+                const links = [];
+                if (p.link) {
+                    links.push('<a href="' + escapeHtml(p.link) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.demo')) + '</a>');
+                }
+                if (p.repo) {
+                    links.push('<a href="' + escapeHtml(p.repo) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.source')) + '</a>');
+                }
+                return links.length ? '<div class="system-links">' + links.join('') + '</div>' : '';
+            }
+
             function renderProjects() {
                 const items = currentFilter === 'all'
                     ? projects
                     : projects.filter(function (p) { return p.category === currentFilter; });
 
-                grid.innerHTML = items.map(function (p) {
-                    const viOverride = currentLang === 'vi' ? PROJECTS_VI[p.slug] : null;
-                    const title = viOverride ? viOverride.title : p.title;
-                    const categoryLabel = viOverride ? viOverride.categoryLabel : (p.categoryLabel || p.category);
-                    const year = viOverride ? viOverride.year : (p.year || '');
-                    const summary = viOverride ? viOverride.summary : p.summary;
+                const flagship = items.filter(function (p) { return p.featured; });
+                const others = items.filter(function (p) { return !p.featured; });
 
-                    const stackHtml = (p.stack || []).map(function (s) {
-                        return '<span class="tag">' + escapeHtml(s) + '</span>';
-                    }).join('');
+                let html = '';
 
-                    const links = [];
-                    if (p.link) {
-                        links.push('<a href="' + escapeHtml(p.link) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.demo')) + '</a>');
-                    }
-                    if (p.repo) {
-                        links.push('<a href="' + escapeHtml(p.repo) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.source')) + '</a>');
-                    }
+                if (flagship.length) {
+                    html += '<div class="systems-group-label">' + escapeHtml(t('sys.flagshipLabel')) + ' (' + flagship.length + ')</div>';
+                    html += '<div class="systems-grid">';
+                    html += flagship.map(function (p, idx) {
+                        const copy = getProjectCopy(p);
+                        const num = String(idx + 1).padStart(2, '0');
+                        const metrics = (PROJECT_METRICS[p.slug] && PROJECT_METRICS[p.slug][currentLang]) || [];
+                        const metricsHtml = metrics.length
+                            ? '<div class="system-metrics">' + metrics.map(escapeHtml).join(' · ') + '</div>'
+                            : '';
+                        const stackHtml = (p.stack || []).map(function (s) {
+                            return '<span class="tag">' + escapeHtml(s) + '</span>';
+                        }).join('');
 
-                    return (
-                        '<article class="system-card">' +
-                            '<div>' +
-                                '<div class="system-card-top">' +
-                                    '<span class="system-card-cat">' + escapeHtml(categoryLabel) + '</span>' +
-                                    '<span>' + escapeHtml(year) + '</span>' +
+                        return (
+                            '<article class="system-card is-flagship">' +
+                                '<div>' +
+                                    '<div class="system-card-top">' +
+                                        '<span>' + escapeHtml(copy.categoryLabel) + '</span>' +
+                                        '<span>' + escapeHtml(copy.year) + '</span>' +
+                                    '</div>' +
+                                    '<div class="system-card-head">' +
+                                        '<span class="flagship-num">' + num + '</span>' +
+                                        '<h3>' + escapeHtml(copy.title) + '</h3>' +
+                                    '</div>' +
+                                    '<p>' + escapeHtml(copy.summary) + '</p>' +
+                                    metricsHtml +
                                 '</div>' +
-                                '<h3>' + escapeHtml(title) + '</h3>' +
-                                '<p>' + escapeHtml(summary) + '</p>' +
-                            '</div>' +
-                            '<div class="system-card-footer">' +
-                                '<div class="tag-row">' + stackHtml + '</div>' +
-                                (links.length ? '<div class="system-links">' + links.join('') + '</div>' : '') +
-                            '</div>' +
-                        '</article>'
-                    );
-                }).join('');
+                                '<div class="system-card-footer">' +
+                                    '<div class="tag-row">' + stackHtml + '</div>' +
+                                    renderLinks(p) +
+                                '</div>' +
+                            '</article>'
+                        );
+                    }).join('');
+                    html += '</div>';
+                }
+
+                if (others.length) {
+                    html += '<div class="systems-group-label secondary">' + escapeHtml(t('sys.otherLabel')) + ' (' + others.length + ')</div>';
+                    html += '<div class="systems-compact-list">';
+                    html += others.map(function (p) {
+                        const copy = getProjectCopy(p);
+                        const stackHtml = (p.stack || []).map(function (s) {
+                            return '<span class="tag">' + escapeHtml(s) + '</span>';
+                        }).join('');
+
+                        return (
+                            '<article class="compact-row">' +
+                                '<div>' +
+                                    '<h4>' + escapeHtml(copy.title) + '</h4>' +
+                                    '<p>' + escapeHtml(copy.summary) + '</p>' +
+                                    '<div class="tag-row">' + stackHtml + '</div>' +
+                                '</div>' +
+                                '<div class="compact-meta">' +
+                                    '<span>' + escapeHtml(copy.categoryLabel) + ' · ' + escapeHtml(copy.year) + '</span>' +
+                                    renderLinks(p) +
+                                '</div>' +
+                            '</article>'
+                        );
+                    }).join('');
+                    html += '</div>';
+                }
+
+                container.innerHTML = html;
             }
 
             function applyLanguage(lang) {
