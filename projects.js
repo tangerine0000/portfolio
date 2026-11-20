@@ -55,7 +55,7 @@ const PROJECTS = [
         year: '2026',
         stack: ['Rust', 'Axum', 'Tokio WebSockets', 'Leptos (WASM)', 'Docker'],
         summary: 'Full-stack Rust real-time multiplayer Saigon Monopoly ("Cờ Tỷ Phú Sài Gòn") architected as a 4-crate workspace with an I/O-free deterministic game engine compiling to native and WASM, authoritative per-room actor server with turn/auction timers and heuristic bot, bilingual Leptos SPA, and CI benchmarks.',
-        link: 'https://www.monopoly.tnsloth.com',
+        link: 'https://monopoly.gicungco.dev',
         repo: 'https://github.com/tangerine0000/monopoly-mayhem',
         featured: true
     },
