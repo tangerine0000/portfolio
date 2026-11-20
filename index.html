@@ -3,202 +3,633 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tan Nguyen — Creative &amp; AI Engineering Portfolio</title>
-    <meta name="description" content="Tan Nguyen — Full-Stack &amp; AI Engineer. Building reliable system architectures, deterministic document parsing pipelines, and multi-provider LLM orchestration.">
+    <title>Tan Nguyen — Full-Stack &amp; AI Engineer</title>
+    <meta name="description" content="Tan Nguyen — Full-Stack &amp; AI Engineer building reliable system architectures, deterministic document parsing pipelines, multi-provider LLM orchestration, and Rust/WASM applications.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
 
-    <!-- Slide 1: Cover / Hero -->
-    <section class="slide" id="cover">
-        <header class="top-bar">
-            <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer">github.com/tangerine0000</a>
-            <a href="mailto:tan.nguyen.atwork@gmail.com">tan.nguyen.atwork@gmail.com</a>
-            <span>Ho Chi Minh City, Vietnam</span>
-        </header>
-
-        <div class="dots-vertical left" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </div>
-
-        <div class="hero-center">
-            <h1 class="display-giant">PORTFOLIO</h1>
-            <span class="script-overlay" aria-hidden="true">creative</span>
-        </div>
-
-        <footer class="bottom-bar">
-            <span>Tan Nguyen</span>
-            <div class="bottom-line" aria-hidden="true"></div>
-            <span>Portfolio 2026</span>
-        </footer>
-    </section>
-
-    <!-- Slide 2: About -->
-    <section class="slide" id="about">
-        <div class="about-grid">
-            <div class="about-left">
-                <h2 class="display-navy">HELLO, I AM</h2>
-                <div class="dots-horizontal" aria-hidden="true">
-                    <span></span><span></span><span></span>
+    <!-- Sticky Navigation -->
+    <nav class="site-nav" aria-label="Primary navigation">
+        <div class="container nav-inner">
+            <a href="#top" class="nav-brand">
+                <span class="brand-dot" aria-hidden="true"></span>
+                <span data-i18n="brand.name">Tan Nguyen</span>
+                <span class="nav-handle">// tangerine0000</span>
+            </a>
+            <div style="display:flex;align-items:center;gap:1.5rem;">
+                <div class="nav-links">
+                    <a href="#experience"><span>01</span><em style="font-style:normal;" data-i18n="nav.experience">Experience</em></a>
+                    <a href="#systems"><span>02</span><em style="font-style:normal;" data-i18n="nav.systems">Systems</em></a>
+                    <a href="#capabilities"><span>03</span><em style="font-style:normal;" data-i18n="nav.capabilities">Capabilities</em></a>
+                    <a href="#contact"><span>04</span><em style="font-style:normal;" data-i18n="nav.contact">Contact</em></a>
                 </div>
-                <p class="bio-text">
-                    I am <strong>Tan Nguyen</strong>, a Full-Stack &amp; AI Engineer and B.Sc. Computer Science graduate from VNUHCM – University of Science (HCMUS, GPA 3.66/4.0). I specialize in breaking down complex business problems into reliable system architectures, deterministic document parsing pipelines, multi-provider LLM orchestration, and real-time Rust/WASM applications.
-                </p>
-            </div>
-
-            <div class="about-right">
-                <div class="monochrome-frame" role="img" aria-label="Vector embedding and system architecture visualization">
-                    <svg viewBox="0 0 360 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <ellipse cx="220" cy="110" rx="135" ry="85" transform="rotate(-14 220 110)" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.35"/>
-                        <ellipse cx="220" cy="110" rx="88" ry="56" transform="rotate(-14 220 110)" stroke="#FFFFFF" stroke-width="1.2" opacity="0.45"/>
-                        <ellipse cx="220" cy="110" rx="42" ry="26" transform="rotate(-14 220 110)" stroke="#FFFFFF" stroke-width="1.5" opacity="0.75"/>
-                        <path d="M36 218 C 110 186, 165 144, 220 110" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6"/>
-                        <circle cx="220" cy="110" r="5" fill="#FFFFFF"/>
-                        <circle cx="152" cy="152" r="3.5" fill="#FFFFFF" opacity="0.7"/>
-                        <circle cx="88" cy="190" r="3" fill="#FFFFFF" opacity="0.45"/>
-                    </svg>
-                    <div class="frame-caption">
-                        <span>Full-Stack &amp; AI Engineer</span>
-                        <span>Innomize · DK Lab</span>
-                    </div>
-                </div>
-                <div class="signature">Tan Nguyen</div>
-            </div>
-        </div>
-
-        <footer class="bottom-bar">
-            <span>Tan Nguyen</span>
-            <div class="bottom-line" aria-hidden="true"></div>
-            <span>Portfolio 2026</span>
-        </footer>
-    </section>
-
-    <!-- Slide 3: Skills & Services -->
-    <section class="slide" id="skills">
-        <div class="dots-horizontal top-right" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </div>
-
-        <div class="skills-grid">
-            <div class="skills-left">
-                <h2 class="display-black-stacked">SKILLS &amp;<br>SERVICES</h2>
-            </div>
-
-            <div class="skills-right">
-                <h3 class="script-heading">Professional<br>Expertise</h3>
-                <ul class="skills-list">
-                    <li>Full-Stack Web Engineering (React, Next.js, NestJS, TypeScript)</li>
-                    <li>AI &amp; LLM Orchestration (Python, FastAPI, Pydantic, RAG / FAISS)</li>
-                    <li>Deterministic Document Parsing (PyMuPDF, ONNX Runtime, OCR)</li>
-                    <li>High-Throughput Backend &amp; WASM (Rust, Axum, Tokio, Leptos)</li>
-                    <li>Cloud &amp; DevOps (AWS Lambda/EC2, DynamoDB, OpenSearch, Docker)</li>
-                </ul>
-
-                <div class="skills-banner">
-                    <div class="skills-banner-stat">
-                        <strong>98.5%+</strong>
-                        <span>Parser F1 Accuracy</span>
-                    </div>
-                    <div class="skills-banner-stat">
-                        <strong>861</strong>
-                        <span>Automated Tests</span>
-                    </div>
-                    <div class="skills-banner-stat">
-                        <strong>3.66/4.0</strong>
-                        <span>HCMUS CS GPA</span>
-                    </div>
+                <div class="lang-switch" role="group" aria-label="Language switcher">
+                    <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+                    <button type="button" class="lang-btn" data-lang="vi" aria-pressed="false">VI</button>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <footer class="bottom-bar">
-            <span>Tan Nguyen</span>
-            <div class="bottom-line" aria-hidden="true"></div>
-            <span>Portfolio 2026</span>
-        </footer>
-    </section>
-
-    <!-- Slide 4: Selected Project -->
-    <section class="slide" id="projects">
-        <div class="projects-wrap">
-            <h2 class="display-navy">SELECTED PROJECT</h2>
-            <div class="dots-horizontal" aria-hidden="true">
-                <span></span><span></span><span></span>
-            </div>
-
-            <div class="projects-body">
-                <div class="projects-intro">
-                    <h3 class="script-heading">Featured Project</h3>
-                    <p class="bio-text">
-                        From enterprise billing platforms processing millions of invoices at Innomize to deterministic NLP resume parsers, multi-provider LLM orchestration frameworks, and real-time Rust/WASM multiplayer games.
+    <main>
+        <!-- Hero -->
+        <header class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div class="hero-eyebrow" data-i18n="hero.eyebrow">Full-Stack &amp; AI Engineer · Ho Chi Minh City, VN</div>
+                    <h1 class="hero-title">
+                        <span data-i18n="hero.name">TAN NGUYEN</span>
+                        <span class="accent" data-i18n="hero.role">SYSTEMS &amp; AI</span>
+                    </h1>
+                    <p class="hero-lead" data-i18n="hero.lead">
+                        B.Sc. Computer Science graduate from VNUHCM – University of Science (HCMUS). I break down complex business problems into reliable system architectures, deterministic document parsing pipelines, multi-provider LLM orchestration, and real-time Rust/WASM applications.
                     </p>
-                    <a href="/work/" class="btn-outline">Explore all 6 systems →</a>
+                    <div class="hero-actions">
+                        <a href="#systems" class="btn btn-primary" data-i18n="hero.ctaPrimary">Explore Selected Systems →</a>
+                        <a href="#contact" class="btn btn-secondary" data-i18n="hero.ctaSecondary">Direct Contact</a>
+                    </div>
                 </div>
 
-                <div class="project-cards">
-                    <a href="/work/" class="project-card">
-                        <div class="project-card-top">
-                            <span>Professional</span>
-                            <span>2025 – Present</span>
-                        </div>
-                        <div>
-                            <h3>Enterprise Billing &amp; Write-Off</h3>
-                            <p>End-to-end Write-Off module, state-machine approval workflow, and DynamoDB-to-OpenSearch sync.</p>
-                        </div>
-                        <div class="project-card-stack">React · NestJS · DynamoDB · OpenSearch</div>
-                    </a>
-
-                    <a href="https://github.com/tangerine0000/monopoly-mayhem" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <div class="project-card-top">
-                            <span>Open Source</span>
-                            <span>2026</span>
-                        </div>
-                        <div>
-                            <h3>Monopoly Mayhem (Rust/WASM)</h3>
-                            <p>4-crate real-time multiplayer Saigon Monopoly with deterministic engine, Axum WebSockets &amp; Leptos SPA.</p>
-                        </div>
-                        <div class="project-card-stack">Rust · Axum · Tokio · Leptos WASM</div>
-                    </a>
-                </div>
+                <!-- Engineering Spec Card -->
+                <aside class="spec-card" aria-label="Engineering profile specification">
+                    <div class="spec-header">
+                        <span data-i18n="spec.header">SYS.PROFILE // 2026</span>
+                        <span class="spec-live" data-i18n="spec.tz">HCMC · UTC+7</span>
+                    </div>
+                    <div class="spec-visual" aria-hidden="true">
+                        <svg viewBox="0 0 360 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="240" cy="50" rx="108" ry="38" transform="rotate(-7 240 50)" stroke="#0D0D0D" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
+                            <ellipse cx="240" cy="50" rx="68" ry="24" transform="rotate(-7 240 50)" stroke="#0D0D0D" stroke-width="1" opacity="0.45"/>
+                            <ellipse cx="240" cy="50" rx="30" ry="11" transform="rotate(-7 240 50)" stroke="#0B1CF5" stroke-width="1.3" opacity="0.85"/>
+                            <path d="M22 82 C 95 72, 165 60, 240 50" stroke="#0B1CF5" stroke-width="1.4"/>
+                            <circle cx="240" cy="50" r="4" fill="#0B1CF5"/>
+                            <circle cx="155" cy="62" r="2.8" fill="#0D0D0D"/>
+                            <circle cx="72" cy="76" r="2.4" fill="#0D0D0D" opacity="0.55"/>
+                            <text x="14" y="20" fill="#4A4A46" font-family="JetBrains Mono, monospace" font-size="9">EMBEDDING TOPOLOGY · cos(θ) = 0.94</text>
+                        </svg>
+                    </div>
+                    <ul class="spec-rows">
+                        <li>
+                            <span class="spec-key" data-i18n="spec.roleKey">Current Role</span>
+                            <span class="spec-val" data-i18n="spec.roleVal">Full-Stack Engineer @ Innomize</span>
+                        </li>
+                        <li>
+                            <span class="spec-key" data-i18n="spec.eduKey">Education</span>
+                            <span class="spec-val" data-i18n="spec.eduVal">HCMUS · B.Sc. CS (3.66 / 4.0)</span>
+                        </li>
+                        <li>
+                            <span class="spec-key" data-i18n="spec.accKey">Parser Accuracy</span>
+                            <span class="spec-val highlight" data-i18n="spec.accVal">98.5%+ F1 · 861 Tests</span>
+                        </li>
+                        <li>
+                            <span class="spec-key" data-i18n="spec.langKey">Core Languages</span>
+                            <span class="spec-val">TypeScript · Python · Rust</span>
+                        </li>
+                        <li>
+                            <span class="spec-key" data-i18n="spec.pubKey">Publication</span>
+                            <span class="spec-val" data-i18n="spec.pubVal">MIC 2025 · Vietnamese VQA XAI</span>
+                        </li>
+                    </ul>
+                </aside>
             </div>
-        </div>
-
-        <footer class="bottom-bar">
-            <span>Tan Nguyen</span>
-            <div class="bottom-line" aria-hidden="true"></div>
-            <span>Portfolio 2026</span>
-        </footer>
-    </section>
-
-    <!-- Slide 5: Contact Me -->
-    <section class="slide" id="contact">
-        <header class="top-bar">
-            <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer">github.com/tangerine0000</a>
-            <a href="https://linkedin.com/in/tangerine0000/" target="_blank" rel="noopener noreferrer">linkedin.com/in/tangerine0000</a>
-            <span>Tan Nguyen</span>
         </header>
 
-        <div class="dots-vertical left" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </div>
-        <div class="dots-vertical right" aria-hidden="true">
-            <span></span><span></span><span></span>
-        </div>
+        <!-- 01 / Experience & Research -->
+        <section class="section" id="experience">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-index" data-i18n="exp.index">01 / Background</span>
+                        <h2 class="section-title" data-i18n="exp.title">Experience &amp; Research</h2>
+                    </div>
+                    <p class="section-subtitle" data-i18n="exp.subtitle">
+                        Production enterprise platforms, low-latency Rust services, and peer-reviewed explainable AI research.
+                    </p>
+                </div>
 
-        <div class="hero-center">
-            <h2 class="display-giant">CONTACT ME</h2>
-            <span class="script-overlay" aria-hidden="true">Tan Nguyen</span>
-        </div>
+                <div class="ledger">
+                    <article class="ledger-row">
+                        <div class="ledger-meta">
+                            <span class="ledger-period" data-i18n="exp.innomize.period">Oct 2025 – Present</span>
+                            <span class="ledger-tag" data-i18n="exp.innomize.tag">Production · Full-Time</span>
+                        </div>
+                        <div class="ledger-content">
+                            <h3 data-i18n="exp.innomize.title">Full-Stack Engineer — Innomize</h3>
+                            <p data-i18n="exp.innomize.desc">
+                                Enterprise billing-operations platform on React, NestJS, DynamoDB, and OpenSearch. Owned the Write-Off module end-to-end across millions of invoices, engineered a guarded state-machine approval workflow, synced DynamoDB to OpenSearch to eliminate pagination bottlenecks, created a shared RBAC UI library cutting frontend dev time by ~30%, and built a containerized Resume Builder PoC (Next.js, FastAPI, Docker, Gemma LLM) at 5–10s latency.
+                            </p>
+                            <div class="tag-row">
+                                <span class="tag">React</span>
+                                <span class="tag">NestJS</span>
+                                <span class="tag">DynamoDB</span>
+                                <span class="tag">OpenSearch</span>
+                                <span class="tag">Next.js</span>
+                                <span class="tag">FastAPI</span>
+                                <span class="tag">Docker</span>
+                            </div>
+                        </div>
+                    </article>
 
-        <footer class="bottom-bar" style="font-weight: 500;">
-            <span>Full-Stack &amp; AI Engineer</span>
-            <a href="mailto:tan.nguyen.atwork@gmail.com">tan.nguyen.atwork@gmail.com</a>
-            <span>Ho Chi Minh City, Vietnam</span>
-        </footer>
-    </section>
+                    <article class="ledger-row">
+                        <div class="ledger-meta">
+                            <span class="ledger-period" data-i18n="exp.dklab.period">Nov 2024 – Mar 2025</span>
+                            <span class="ledger-tag" data-i18n="exp.dklab.tag">Contract · Systems</span>
+                        </div>
+                        <div class="ledger-content">
+                            <h3 data-i18n="exp.dklab.title">Software Engineer Contractor — DK Lab</h3>
+                            <p data-i18n="exp.dklab.desc">
+                                Implemented high-throughput, low-latency backend API services in Rust for the platform's v2 release and built automated CI/CD pipelines for containerized AWS EC2 deployments.
+                            </p>
+                            <div class="tag-row">
+                                <span class="tag">Rust</span>
+                                <span class="tag">AWS EC2</span>
+                                <span class="tag">Docker</span>
+                                <span class="tag">CI/CD</span>
+                            </div>
+                        </div>
+                    </article>
 
+                    <article class="ledger-row">
+                        <div class="ledger-meta">
+                            <span class="ledger-period">2025</span>
+                            <span class="ledger-tag" data-i18n="exp.pub.tag">Peer-Reviewed Paper</span>
+                        </div>
+                        <div class="ledger-content">
+                            <h3 data-i18n="exp.pub.title">The Explanation Method for Vietnamese Visual Question-Answering Model</h3>
+                            <p data-i18n="exp.pub.desc">
+                                Co-first-authored peer-reviewed paper in the Journal on Information and Communications Technology: Research, Development and Application (MIC), proposing a PyTorch eXplainable AI (XAI) interpretability method for multimodal VQA on Vietnamese datasets.
+                            </p>
+                            <div class="tag-row">
+                                <span class="tag">PyTorch</span>
+                                <span class="tag">Explainable AI (XAI)</span>
+                                <span class="tag">Multimodal VQA</span>
+                                <a href="https://doi.org/10.32913/mic-ict-research-vn.v2025.n1.1338" target="_blank" rel="noopener noreferrer" class="inline-link" data-i18n="exp.pub.link">Read DOI ↗</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 / Selected Systems -->
+        <section class="section" id="systems">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-index" data-i18n="sys.index">02 / Selected Work</span>
+                        <h2 class="section-title" data-i18n="sys.title">Selected Systems</h2>
+                    </div>
+                    <div class="filter-bar" role="tablist" aria-label="Filter projects by category">
+                        <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true" data-i18n="sys.filterAll">All</button>
+                        <button type="button" class="filter-btn" data-filter="professional" aria-pressed="false" data-i18n="sys.filterPro">Professional &amp; AI</button>
+                        <button type="button" class="filter-btn" data-filter="personal" aria-pressed="false" data-i18n="sys.filterOss">Open Source</button>
+                    </div>
+                </div>
+
+                <div class="systems-grid" id="systems-grid">
+                    <!-- Populated dynamically from projects.js -->
+                </div>
+
+                <div class="archive-link-wrap">
+                    <a href="/work/" class="btn btn-secondary" data-i18n="sys.archive">View Full Work Index →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 / Capabilities -->
+        <section class="section" id="capabilities">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <span class="section-index" data-i18n="cap.index">03 / Engineering Scope</span>
+                        <h2 class="section-title" data-i18n="cap.title">Capabilities</h2>
+                    </div>
+                    <p class="section-subtitle" data-i18n="cap.subtitle">
+                        End-to-end ownership from deterministic data pipelines and backend architecture to crisp frontend interfaces.
+                    </p>
+                </div>
+
+                <div class="cap-grid">
+                    <div class="cap-cell">
+                        <span class="cap-num">01 // WEB</span>
+                        <h3 data-i18n="cap.c1.title">Full-Stack Architecture</h3>
+                        <ul>
+                            <li data-i18n="cap.c1.i1">React, Next.js &amp; TypeScript</li>
+                            <li data-i18n="cap.c1.i2">NestJS &amp; Node.js APIs</li>
+                            <li data-i18n="cap.c1.i3">State-machine workflows</li>
+                            <li data-i18n="cap.c1.i4">Shared RBAC UI libraries</li>
+                        </ul>
+                    </div>
+
+                    <div class="cap-cell">
+                        <span class="cap-num">02 // AI</span>
+                        <h3 data-i18n="cap.c2.title">LLM Orchestration &amp; RAG</h3>
+                        <ul>
+                            <li data-i18n="cap.c2.i1">Multi-provider failover layers</li>
+                            <li data-i18n="cap.c2.i2">Strict Pydantic structured outputs</li>
+                            <li data-i18n="cap.c2.i3">FAISS dense vector retrieval</li>
+                            <li data-i18n="cap.c2.i4">Token &amp; latency telemetry</li>
+                        </ul>
+                    </div>
+
+                    <div class="cap-cell">
+                        <span class="cap-num" data-i18n="cap.c3.num">03 // NLP</span>
+                        <h3 data-i18n="cap.c3.title">Document &amp; Parsing Pipelines</h3>
+                        <ul>
+                            <li data-i18n="cap.c3.i1">Deterministic layout analysis</li>
+                            <li data-i18n="cap.c3.i2">PyMuPDF, ONNX &amp; Tesseract OCR</li>
+                            <li data-i18n="cap.c3.i3">Benchmark-driven F1 evaluation</li>
+                            <li data-i18n="cap.c3.i4">Serverless AWS Lambda workers</li>
+                        </ul>
+                    </div>
+
+                    <div class="cap-cell">
+                        <span class="cap-num" data-i18n="cap.c4.num">04 // SYSTEMS</span>
+                        <h3 data-i18n="cap.c4.title">Rust, WASM &amp; Cloud Infra</h3>
+                        <ul>
+                            <li data-i18n="cap.c4.i1">Rust, Axum &amp; Tokio WebSockets</li>
+                            <li data-i18n="cap.c4.i2">Leptos WASM real-time clients</li>
+                            <li data-i18n="cap.c4.i3">DynamoDB &amp; OpenSearch sync</li>
+                            <li data-i18n="cap.c4.i4">Docker, AWS EC2 &amp; CI/CD</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 / Contact -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div>
+                        <span class="section-index" data-i18n="contact.index">04 / Direct Channels</span>
+                        <h2 class="contact-headline">
+                            <span data-i18n="contact.h1">LET'S</span> <span class="accent" data-i18n="contact.h2">BUILD</span>
+                        </h2>
+                        <p class="contact-note" data-i18n="contact.note">
+                            Open to full-stack &amp; AI systems engineering roles, technical collaborations, and interesting architecture problems.
+                        </p>
+                    </div>
+
+                    <div class="contact-ledger">
+                        <div class="contact-row">
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value">
+                                <a href="mailto:tan.nguyen.atwork@gmail.com">tan.nguyen.atwork@gmail.com</a>
+                                <button type="button" class="copy-btn" id="copy-email" data-email="tan.nguyen.atwork@gmail.com" data-i18n="contact.copy">Copy</button>
+                            </span>
+                        </div>
+                        <a href="https://github.com/tangerine0000" target="_blank" rel="noopener noreferrer" class="contact-row">
+                            <span class="contact-label">GitHub</span>
+                            <span class="contact-value">github.com/tangerine0000 ↗</span>
+                        </a>
+                        <a href="https://linkedin.com/in/tangerine0000/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                            <span class="contact-label">LinkedIn</span>
+                            <span class="contact-value">linkedin.com/in/tangerine0000 ↗</span>
+                        </a>
+                    </div>
+                </div>
+
+                <footer class="site-footer">
+                    <span data-i18n="footer.copy">© 2026 Tan Nguyen · Ho Chi Minh City, Vietnam</span>
+                    <a href="#top" data-i18n="footer.top">Back to top ↑</a>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <script src="projects.js"></script>
+    <script>
+        (function () {
+            const I18N = {
+                en: {
+                    'page.title': 'Tan Nguyen — Full-Stack & AI Engineer',
+                    'brand.name': 'Tan Nguyen',
+                    'nav.experience': 'Experience',
+                    'nav.systems': 'Systems',
+                    'nav.capabilities': 'Capabilities',
+                    'nav.contact': 'Contact',
+                    'hero.eyebrow': 'Full-Stack & AI Engineer · Ho Chi Minh City, VN',
+                    'hero.name': 'TAN NGUYEN',
+                    'hero.role': 'SYSTEMS & AI',
+                    'hero.lead': 'B.Sc. Computer Science graduate from VNUHCM – University of Science (HCMUS). I break down complex business problems into reliable system architectures, deterministic document parsing pipelines, multi-provider LLM orchestration, and real-time Rust/WASM applications.',
+                    'hero.ctaPrimary': 'Explore Selected Systems →',
+                    'hero.ctaSecondary': 'Direct Contact',
+                    'spec.header': 'SYS.PROFILE // 2026',
+                    'spec.tz': 'HCMC · UTC+7',
+                    'spec.roleKey': 'Current Role',
+                    'spec.roleVal': 'Full-Stack Engineer @ Innomize',
+                    'spec.eduKey': 'Education',
+                    'spec.eduVal': 'HCMUS · B.Sc. CS (3.66 / 4.0)',
+                    'spec.accKey': 'Parser Accuracy',
+                    'spec.accVal': '98.5%+ F1 · 861 Tests',
+                    'spec.langKey': 'Core Languages',
+                    'spec.pubKey': 'Publication',
+                    'spec.pubVal': 'MIC 2025 · Vietnamese VQA XAI',
+                    'exp.index': '01 / Background',
+                    'exp.title': 'Experience & Research',
+                    'exp.subtitle': 'Production enterprise platforms, low-latency Rust services, and peer-reviewed explainable AI research.',
+                    'exp.innomize.period': 'Oct 2025 – Present',
+                    'exp.innomize.tag': 'Production · Full-Time',
+                    'exp.innomize.title': 'Full-Stack Engineer — Innomize',
+                    'exp.innomize.desc': 'Enterprise billing-operations platform on React, NestJS, DynamoDB, and OpenSearch. Owned the Write-Off module end-to-end across millions of invoices, engineered a guarded state-machine approval workflow, synced DynamoDB to OpenSearch to eliminate pagination bottlenecks, created a shared RBAC UI library cutting frontend dev time by ~30%, and built a containerized Resume Builder PoC (Next.js, FastAPI, Docker, Gemma LLM) at 5–10s latency.',
+                    'exp.dklab.period': 'Nov 2024 – Mar 2025',
+                    'exp.dklab.tag': 'Contract · Systems',
+                    'exp.dklab.title': 'Software Engineer Contractor — DK Lab',
+                    'exp.dklab.desc': "Implemented high-throughput, low-latency backend API services in Rust for the platform's v2 release and built automated CI/CD pipelines for containerized AWS EC2 deployments.",
+                    'exp.pub.tag': 'Peer-Reviewed Paper',
+                    'exp.pub.title': 'The Explanation Method for Vietnamese Visual Question-Answering Model',
+                    'exp.pub.desc': 'Co-first-authored peer-reviewed paper in the Journal on Information and Communications Technology: Research, Development and Application (MIC), proposing a PyTorch eXplainable AI (XAI) interpretability method for multimodal VQA on Vietnamese datasets.',
+                    'exp.pub.link': 'Read DOI ↗',
+                    'sys.index': '02 / Selected Work',
+                    'sys.title': 'Selected Systems',
+                    'sys.filterAll': 'All',
+                    'sys.filterPro': 'Professional & AI',
+                    'sys.filterOss': 'Open Source',
+                    'sys.archive': 'View Full Work Index →',
+                    'sys.demo': 'Live Demo ↗',
+                    'sys.source': 'Source Code ↗',
+                    'cap.index': '03 / Engineering Scope',
+                    'cap.title': 'Capabilities',
+                    'cap.subtitle': 'End-to-end ownership from deterministic data pipelines and backend architecture to crisp frontend interfaces.',
+                    'cap.c1.title': 'Full-Stack Architecture',
+                    'cap.c1.i1': 'React, Next.js & TypeScript',
+                    'cap.c1.i2': 'NestJS & Node.js APIs',
+                    'cap.c1.i3': 'State-machine workflows',
+                    'cap.c1.i4': 'Shared RBAC UI libraries',
+                    'cap.c2.title': 'LLM Orchestration & RAG',
+                    'cap.c2.i1': 'Multi-provider failover layers',
+                    'cap.c2.i2': 'Strict Pydantic structured outputs',
+                    'cap.c2.i3': 'FAISS dense vector retrieval',
+                    'cap.c2.i4': 'Token & latency telemetry',
+                    'cap.c3.num': '03 // NLP',
+                    'cap.c3.title': 'Document & Parsing Pipelines',
+                    'cap.c3.i1': 'Deterministic layout analysis',
+                    'cap.c3.i2': 'PyMuPDF, ONNX & Tesseract OCR',
+                    'cap.c3.i3': 'Benchmark-driven F1 evaluation',
+                    'cap.c3.i4': 'Serverless AWS Lambda workers',
+                    'cap.c4.num': '04 // SYSTEMS',
+                    'cap.c4.title': 'Rust, WASM & Cloud Infra',
+                    'cap.c4.i1': 'Rust, Axum & Tokio WebSockets',
+                    'cap.c4.i2': 'Leptos WASM real-time clients',
+                    'cap.c4.i3': 'DynamoDB & OpenSearch sync',
+                    'cap.c4.i4': 'Docker, AWS EC2 & CI/CD',
+                    'contact.index': '04 / Direct Channels',
+                    'contact.h1': "LET'S",
+                    'contact.h2': 'BUILD',
+                    'contact.note': 'Open to full-stack & AI systems engineering roles, technical collaborations, and interesting architecture problems.',
+                    'contact.copy': 'Copy',
+                    'contact.copied': 'Copied',
+                    'footer.copy': '© 2026 Tan Nguyen · Ho Chi Minh City, Vietnam',
+                    'footer.top': 'Back to top ↑'
+                },
+                vi: {
+                    'page.title': 'Tân Nguyễn — Kỹ sư Phần mềm & AI',
+                    'brand.name': 'Tân Nguyễn',
+                    'nav.experience': 'Kinh nghiệm',
+                    'nav.systems': 'Dự án',
+                    'nav.capabilities': 'Thế mạnh',
+                    'nav.contact': 'Liên hệ',
+                    'hero.eyebrow': 'Kỹ sư Phần mềm & AI · TP. Hồ Chí Minh',
+                    'hero.name': 'TÂN NGUYỄN',
+                    'hero.role': 'HỆ THỐNG & AI',
+                    'hero.lead': 'Tốt nghiệp ngành Khoa học Máy tính tại ĐH Khoa học Tự nhiên TP.HCM (HCMUS). Mình thích gỡ những bài toán nghiệp vụ rối rắm thành hệ thống chạy ổn định, làm công cụ đọc hiểu tài liệu chính xác, điều phối nhiều mô hình AI và viết ứng dụng thời gian thực bằng Rust.',
+                    'hero.ctaPrimary': 'Xem các dự án →',
+                    'hero.ctaSecondary': 'Nhắn cho mình',
+                    'spec.header': 'HỒ SƠ KỸ THUẬT // 2026',
+                    'spec.tz': 'TP.HCM · UTC+7',
+                    'spec.roleKey': 'Hiện tại',
+                    'spec.roleVal': 'Kỹ sư Full-Stack tại Innomize',
+                    'spec.eduKey': 'Học vấn',
+                    'spec.eduVal': 'ĐH KHTN TP.HCM · KHMT (3.66 / 4.0)',
+                    'spec.accKey': 'Độ chính xác',
+                    'spec.accVal': '98.5%+ F1 · 861 bài kiểm thử',
+                    'spec.langKey': 'Ngôn ngữ chính',
+                    'spec.pubKey': 'Nghiên cứu',
+                    'spec.pubVal': 'Tạp chí MIC 2025 · Giải thích VQA',
+                    'exp.index': '01 / Chặng đường',
+                    'exp.title': 'Kinh nghiệm & Nghiên cứu',
+                    'exp.subtitle': 'Từ hệ thống thanh toán doanh nghiệp, máy chủ hiệu năng cao bằng Rust đến nghiên cứu về AI có thể giải thích.',
+                    'exp.innomize.period': '10/2025 – Nay',
+                    'exp.innomize.tag': 'Toàn thời gian',
+                    'exp.innomize.title': 'Kỹ sư Full-Stack — Innomize',
+                    'exp.innomize.desc': 'Xây dựng nền tảng quản lý hóa đơn và công nợ cho doanh nghiệp bằng React, NestJS, DynamoDB và OpenSearch. Mình phụ trách trọn vẹn phân hệ xóa nợ xử lý hàng triệu hóa đơn, thiết kế luồng duyệt chặt chẽ theo từng trạng thái, đồng bộ dữ liệu từ DynamoDB sang OpenSearch để gỡ nút thắt phân trang, xây bộ giao diện dùng chung theo phân quyền giúp rút ngắn khoảng 30% thời gian làm giao diện, đồng thời dựng bản thử nghiệm công cụ tạo hồ sơ chạy bằng Next.js, FastAPI, Docker và mô hình Gemma với thời gian phản hồi 5–10 giây.',
+                    'exp.dklab.period': '11/2024 – 03/2025',
+                    'exp.dklab.tag': 'Hợp đồng · Hệ thống',
+                    'exp.dklab.title': 'Kỹ sư Phần mềm — DK Lab',
+                    'exp.dklab.desc': 'Phát triển các dịch vụ máy chủ chịu tải cao, độ trễ thấp bằng Rust cho phiên bản 2 của nền tảng, đồng thời tự động hóa quy trình kiểm thử và triển khai ứng dụng đóng gói lên máy chủ AWS EC2.',
+                    'exp.pub.tag': 'Bài báo khoa học',
+                    'exp.pub.title': 'Phương pháp giải thích cho mô hình hỏi đáp trực quan tiếng Việt (VQA)',
+                    'exp.pub.desc': 'Đồng tác giả chính bài báo phản biện đăng trên Tạp chí Khoa học và Công nghệ Thông tin – Truyền thông (MIC), đề xuất cách giải thích quyết định của mô hình AI đa phương thức trên bộ dữ liệu tiếng Việt bằng PyTorch.',
+                    'exp.pub.link': 'Xem bài báo (DOI) ↗',
+                    'sys.index': '02 / Sản phẩm đã làm',
+                    'sys.title': 'Dự án tiêu biểu',
+                    'sys.filterAll': 'Tất cả',
+                    'sys.filterPro': 'Công việc & AI',
+                    'sys.filterOss': 'Mã nguồn mở',
+                    'sys.archive': 'Xem toàn bộ dự án →',
+                    'sys.demo': 'Chạy thử ↗',
+                    'sys.source': 'Mã nguồn ↗',
+                    'cap.index': '03 / Phạm vi kỹ thuật',
+                    'cap.title': 'Thế mạnh',
+                    'cap.subtitle': 'Tự tay làm từ khâu xử lý dữ liệu, thiết kế máy chủ cho tới giao diện cuối cùng mà người dùng chạm vào.',
+                    'cap.c1.title': 'Ứng dụng Web toàn diện',
+                    'cap.c1.i1': 'Giao diện React, Next.js & TypeScript',
+                    'cap.c1.i2': 'Máy chủ NestJS & Node.js',
+                    'cap.c1.i3': 'Luồng nghiệp vụ theo trạng thái',
+                    'cap.c1.i4': 'Thư viện giao diện theo phân quyền',
+                    'cap.c2.title': 'Điều phối Mô hình AI & RAG',
+                    'cap.c2.i1': 'Lớp gọi nhiều nhà cung cấp có dự phòng',
+                    'cap.c2.i2': 'Kiểm soát cấu trúc đầu ra bằng Pydantic',
+                    'cap.c2.i3': 'Tìm kiếm ngữ nghĩa với FAISS',
+                    'cap.c2.i4': 'Đo lường độ trễ & chi phí gọi mô hình',
+                    'cap.c3.num': '03 // TÀI LIỆU',
+                    'cap.c3.title': 'Đọc hiểu & Bóc tách Tài liệu',
+                    'cap.c3.i1': 'Phân tích bố cục chính xác, không đoán mò',
+                    'cap.c3.i2': 'PyMuPDF, ONNX & nhận diện chữ OCR',
+                    'cap.c3.i3': 'Đánh giá định lượng theo bộ dữ liệu chuẩn',
+                    'cap.c3.i4': 'Xử lý không máy chủ trên AWS Lambda',
+                    'cap.c4.num': '04 // HỆ THỐNG',
+                    'cap.c4.title': 'Rust, WASM & Hạ tầng Đám mây',
+                    'cap.c4.i1': 'Máy chủ thời gian thực Rust, Axum & Tokio',
+                    'cap.c4.i2': 'Ứng dụng trình duyệt bằng Leptos WASM',
+                    'cap.c4.i3': 'Đồng bộ DynamoDB & OpenSearch',
+                    'cap.c4.i4': 'Đóng gói Docker, AWS EC2 & CI/CD',
+                    'contact.index': '04 / Kết nối',
+                    'contact.h1': 'CÙNG',
+                    'contact.h2': 'LÀM VIỆC',
+                    'contact.note': 'Mình luôn sẵn sàng trao đổi về các vị trí kỹ sư phần mềm & AI, cơ hội cộng tác kỹ thuật hoặc cùng bàn về những bài toán hệ thống thú vị.',
+                    'contact.copy': 'Sao chép',
+                    'contact.copied': 'Đã chép',
+                    'footer.copy': '© 2026 Tân Nguyễn · TP. Hồ Chí Minh',
+                    'footer.top': 'Lên đầu trang ↑'
+                }
+            };
+
+            const PROJECTS_VI = {
+                'innomize-billing-platform': {
+                    title: 'Nền tảng Quản lý Hóa đơn & Xóa nợ Doanh nghiệp',
+                    categoryLabel: 'Dự án công ty',
+                    year: '2025 – Nay',
+                    summary: 'Phụ trách trọn vẹn phân hệ xóa nợ và luồng duyệt trạng thái cho hàng triệu hóa đơn tại Innomize, đồng bộ dữ liệu sang OpenSearch, xuất báo cáo PDF/Excel theo mẫu và xây bộ giao diện phân quyền giúp rút ngắn ~30% thời gian phát triển.'
+                },
+                'serverless-resume-parser': {
+                    title: 'Hệ thống Bóc tách Hồ sơ & Tài liệu Tự động',
+                    categoryLabel: 'Dự án AI',
+                    year: '2025 – 2026',
+                    summary: 'Quy trình đọc hiểu bố cục và xử lý ngôn ngữ có tính tất định, chuyển tệp PDF/DOCX thành dữ liệu JSON chuẩn xác với điểm F1 trên 98.5% qua 7 bộ dữ liệu chuẩn (hơn 1.300 hồ sơ), được bảo vệ bởi 861 bài kiểm thử tự động.'
+                },
+                'semantic-search-rag-engine': {
+                    title: 'Công cụ Tìm kiếm Ngữ nghĩa & Hỏi đáp Tài liệu',
+                    categoryLabel: 'Dự án AI',
+                    year: '2025',
+                    summary: 'Hệ thống tìm kiếm theo ngữ nghĩa dùng chỉ mục vector FAISS, kết hợp thu thập dữ liệu web tự động và mô hình ngôn ngữ chạy cục bộ để trả lời câu hỏi bám sát tài liệu gốc.'
+                },
+                'monopoly-mayhem': {
+                    title: 'Monopoly Mayhem — Cờ Tỷ Phú Sài Gòn Trực tuyến',
+                    categoryLabel: 'Dự án cá nhân',
+                    year: '2026',
+                    summary: 'Trò chơi Cờ Tỷ Phú Sài Gòn nhiều người chơi theo thời gian thực viết hoàn toàn bằng Rust: lõi luật chơi tách biệt chạy được cả máy chủ lẫn trình duyệt (WASM), máy chủ quản lý từng phòng kèm đồng hồ đếm lượt và máy tự chơi, giao diện song ngữ bằng Leptos.'
+                },
+                'ai-foundations': {
+                    title: 'AI-Foundations — Bộ Điều phối Đa Mô hình Ngôn ngữ',
+                    categoryLabel: 'Mã nguồn mở',
+                    year: '2026',
+                    summary: 'Thư viện Python bất đồng bộ giúp gọi thống nhất OpenAI, Anthropic và OpenRouter qua một giao diện chung, tự chuyển dự phòng khi lỗi, ép kiểu dữ liệu đầu ra chặt chẽ bằng Pydantic và đo lường chi phí, lượng token theo thời gian thực.'
+                },
+                'url-shortener': {
+                    title: 'Dịch vụ Rút gọn Liên kết',
+                    categoryLabel: 'Dự án cá nhân',
+                    year: '2025',
+                    summary: 'Dịch vụ rút gọn đường dẫn có thống kê lượt truy cập, phát hiện liên kết trùng lặp và theo dõi tốc độ chuyển hướng.'
+                }
+            };
+
+            const grid = document.getElementById('systems-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const langBtns = document.querySelectorAll('.lang-btn');
+            const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
+
+            let currentFilter = 'all';
+            let currentLang = 'en';
+            try {
+                const saved = localStorage.getItem('portfolio_lang');
+                if (saved === 'vi' || saved === 'en') currentLang = saved;
+            } catch (e) {}
+
+            function escapeHtml(str) {
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function t(key) {
+                return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || '';
+            }
+
+            function renderProjects() {
+                const items = currentFilter === 'all'
+                    ? projects
+                    : projects.filter(function (p) { return p.category === currentFilter; });
+
+                grid.innerHTML = items.map(function (p) {
+                    const viOverride = currentLang === 'vi' ? PROJECTS_VI[p.slug] : null;
+                    const title = viOverride ? viOverride.title : p.title;
+                    const categoryLabel = viOverride ? viOverride.categoryLabel : (p.categoryLabel || p.category);
+                    const year = viOverride ? viOverride.year : (p.year || '');
+                    const summary = viOverride ? viOverride.summary : p.summary;
+
+                    const stackHtml = (p.stack || []).map(function (s) {
+                        return '<span class="tag">' + escapeHtml(s) + '</span>';
+                    }).join('');
+
+                    const links = [];
+                    if (p.link) {
+                        links.push('<a href="' + escapeHtml(p.link) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.demo')) + '</a>');
+                    }
+                    if (p.repo) {
+                        links.push('<a href="' + escapeHtml(p.repo) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(t('sys.source')) + '</a>');
+                    }
+
+                    return (
+                        '<article class="system-card">' +
+                            '<div>' +
+                                '<div class="system-card-top">' +
+                                    '<span class="system-card-cat">' + escapeHtml(categoryLabel) + '</span>' +
+                                    '<span>' + escapeHtml(year) + '</span>' +
+                                '</div>' +
+                                '<h3>' + escapeHtml(title) + '</h3>' +
+                                '<p>' + escapeHtml(summary) + '</p>' +
+                            '</div>' +
+                            '<div class="system-card-footer">' +
+                                '<div class="tag-row">' + stackHtml + '</div>' +
+                                (links.length ? '<div class="system-links">' + links.join('') + '</div>' : '') +
+                            '</div>' +
+                        '</article>'
+                    );
+                }).join('');
+            }
+
+            function applyLanguage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                document.title = t('page.title');
+
+                try { localStorage.setItem('portfolio_lang', lang); } catch (e) {}
+
+                document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                    const key = el.getAttribute('data-i18n');
+                    const val = t(key);
+                    if (val) el.textContent = val;
+                });
+
+                langBtns.forEach(function (btn) {
+                    const active = btn.getAttribute('data-lang') === lang;
+                    btn.classList.toggle('is-active', active);
+                    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+                });
+
+                renderProjects();
+            }
+
+            filterBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    currentFilter = btn.getAttribute('data-filter');
+                    filterBtns.forEach(function (b) {
+                        b.classList.remove('is-active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    btn.classList.add('is-active');
+                    btn.setAttribute('aria-pressed', 'true');
+                    renderProjects();
+                });
+            });
+
+            langBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    applyLanguage(btn.getAttribute('data-lang'));
+                });
+            });
+
+            applyLanguage(currentLang);
+
+            const copyBtn = document.getElementById('copy-email');
+            if (copyBtn && navigator.clipboard) {
+                copyBtn.addEventListener('click', function () {
+                    const email = copyBtn.getAttribute('data-email');
+                    navigator.clipboard.writeText(email).then(function () {
+                        copyBtn.textContent = t('contact.copied');
+                        setTimeout(function () { copyBtn.textContent = t('contact.copy'); }, 1800);
+                    });
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
